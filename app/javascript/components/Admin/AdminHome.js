@@ -34,9 +34,13 @@ function AdminHome() {
       <Sidebar />
       <div className="flex flex-col w-0 flex-1 overflow-auto">
         <Header />
-        <Route path={`${path}supplier`}>
-          <Supplier />
-        </Route>
+        <main className="flex-1 relative overflow-y-auto focus:outline-none">
+          <div className="py-6">
+            <Route path={`${path}supplier`}>
+              <Supplier />
+            </Route>
+          </div>
+        </main>
       </div>
     </div>
   );
