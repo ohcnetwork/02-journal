@@ -24,10 +24,10 @@ function Sidebar() {
               Dashboard
             </Link>
             <Link
-              to={`${url}/route-map`}
+              to={`${url}/supplier`}
               className="mt-1 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150"
             >
-              Route Map
+              Supplier
             </Link>
             <Link
               to={`${url}/establishments`}

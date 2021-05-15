@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Route, useHistory, useRouteMatch } from "react-router-dom";
 import { isLoggedIn } from "Apis/Admin/Auth";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Supplier from "./Supplier";
 
 function AdminHome() {
   const history = useHistory();
+  const { path } = useRouteMatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,9 @@ function AdminHome() {
       <Sidebar />
       <div className="flex flex-col w-0 flex-1 overflow-auto">
         <Header />
-        <p>Admin</p>
+        <Route path={`${path}supplier`}>
+          <Supplier />
+        </Route>
       </div>
     </div>
   );
