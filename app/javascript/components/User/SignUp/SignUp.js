@@ -18,14 +18,6 @@ const schema = yup.object().shape({
     .trim()
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
-  date_of_birth: yup
-    .date()
-    .typeError("Please enter valid date")
-    .required("Please enter date of birth")
-    .max(
-      new Date(2010, 0, 1),
-      "You have to be at least 10 years old to use this application. Please stay safe."
-    ),
 });
 
 function SignUp() {
@@ -99,16 +91,6 @@ function SignUp() {
                     errors={errors}
                     autoComplete="tel"
                   />
-                  <Input
-                    name="date_of_birth"
-                    label="Date of Birth"
-                    required
-                    type="date"
-                    placeholder=""
-                    register={register}
-                    errors={errors}
-                    autoComplete="bday"
-                  />
                   <div className="mt-6">
                     <span className="block w-full rounded-md shadow-sm">
                       <Button
@@ -118,7 +100,7 @@ function SignUp() {
                         block
                         loading={loading}
                       >
-                        Sign Up
+                        Register
                       </Button>
                     </span>
                   </div>
@@ -133,9 +115,9 @@ function SignUp() {
           </Route>
         </div>
       </div>
-      <Link to="/merchant">
+      <Link to="/supplier">
         <p className="mt-2 mb-4 text-gray-600 text-center">
-          Are you looking for the Merchant Page?
+          Are you looking for the Supplier Page?
         </p>
       </Link>
     </div>
