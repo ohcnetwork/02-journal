@@ -1019,6 +1019,11 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
+"@headlessui/react@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.2.0.tgz#e48652bfce82ddf73d7f331faeb9db6526ee6874"
+  integrity sha512-19DkLz8gDgbi+WvkoTzi9vs0NK9TJf94vbYhMzB4LYJo03Kili0gmvXT9CiKZoxXZ7YAvy/b1U1oQKEnjWrqxw==
+
 "@hookform/resolvers@^0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-0.0.6.tgz#f3e1d3a53861e82d5405ae08dd1879fba9ac9706"
