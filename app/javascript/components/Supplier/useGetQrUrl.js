@@ -17,7 +17,7 @@ function useGetQrUrl() {
   useEffect(() => {
     const code = queryParams.get("code");
     if (!code) {
-      history.push("/merchant");
+      history.push("/supplier");
     }
     const searchParams = new URLSearchParams();
     searchParams.set("cht", "qr");

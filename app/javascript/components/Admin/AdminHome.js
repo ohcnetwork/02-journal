@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Route, useRouteMatch } from "react-router-dom";
+import { Route, useHistory, useRouteMatch } from "react-router-dom";
 import { isLoggedIn } from "Apis/Admin/Auth";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import RouteMap from "./RouteMap";
-import VisitorRegister from "./Establishments/VisitorRegister";
-import EstSearch from "./Establishments/EstSearch";
+import Station from "./Station";
 
 function AdminHome() {
   const history = useHistory();
@@ -36,15 +34,13 @@ function AdminHome() {
       <Sidebar />
       <div className="flex flex-col w-0 flex-1 overflow-auto">
         <Header />
-        <Route path={`${path}route-map`}>
-          <RouteMap />
-        </Route>
-        <Route path={`${path}establishments/:id`}>
-          <VisitorRegister />
-        </Route>
-        <Route exact path={`${path}establishments`}>
-          <EstSearch />
-        </Route>
+        <main className="flex-1 relative overflow-y-auto focus:outline-none">
+          <div className="py-6">
+            <Route path={`${path}stations`}>
+              <Station />
+            </Route>
+          </div>
+        </main>
       </div>
     </div>
   );

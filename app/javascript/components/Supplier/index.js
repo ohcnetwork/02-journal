@@ -4,7 +4,7 @@ import { Route, useRouteMatch, Switch } from "react-router-dom";
 import GenerateForm from "./GenerateForm";
 import DisplayQr from "./DisplayQr";
 
-function Merchant() {
+function Supplier() {
   const match = useRouteMatch();
 
   return (
@@ -19,4 +19,4 @@ function Merchant() {
   );
 }
 
-export default Merchant;
+export default Supplier;
