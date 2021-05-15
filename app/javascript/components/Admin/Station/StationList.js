@@ -1,7 +1,7 @@
 import React from "react";
 
-function SupplierList() {
+function StationList() {
   return <p>SupplierList</p>;
 }
 
-export default SupplierList;
+export default StationList;
