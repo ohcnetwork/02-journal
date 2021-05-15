@@ -1,7 +1,7 @@
 # Coronasafe O2 Journal
 A fork of [Coronasafe Journal](https://github.com/coronasafe/journal) project.
 
-Track movement of Oxygen cylinders. 
+Track movement of Oxygen cylinders. ([Workflow](https://github.com/coronasafe/02-journal/discussions/19))
 
 Build with Rails and React ❤️
 
