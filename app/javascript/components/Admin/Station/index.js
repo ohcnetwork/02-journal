@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ContentOutline from "../ContentOutline";
+import AddStation from "./AddStation";
 
 import StationList from "./StationList";
 
@@ -38,6 +39,7 @@ function Station() {
     <ContentOutline
       heading="Stations"
       subtitle="Create & View list of filling stations"
+      rightEl={<AddStation refetch={getData} />}
     >
       <StationList loading={loading} data={data} />
     </ContentOutline>
