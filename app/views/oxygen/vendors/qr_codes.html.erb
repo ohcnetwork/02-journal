@@ -1,0 +1,8 @@
+<h1><%= @vendor.name %></h1>
+<hr />
+
+<% @cylinders.each do |cylinder| %>
+  <div class="qr_code" style="margin-top:2%">
+    <%= raw cylinder.qr_code_as_svg %>
+  </div>
+<% end %>
