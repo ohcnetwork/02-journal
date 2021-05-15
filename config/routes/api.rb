@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 namespace :api, defaults: { format: :json }  do
+  namespace :oxygen do 
+    namespace :admin do 
+      resources :vendors
+      resources :cylinders do 
+        collection do 
+          get :qr_codes
+          post :add_cylinders
+        end
+      end
+    end
+  end
+
   namespace :v1 do
     resources :sessions, only: [:create]
     resources :users do

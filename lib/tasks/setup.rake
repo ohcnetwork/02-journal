@@ -114,7 +114,7 @@ def create_visitors
       phone_number: "2255225522",
       date_of_birth: "05/05/1975",
       role: "visitor",
-      otp: "1947"
+      otp_token: "12345"
     },
 
     {
@@ -122,7 +122,7 @@ def create_visitors
       phone_number: "1237891231",
       date_of_birth: "18/01/1985",
       role: "visitor",
-      otp: "1947"
+      otp_token: "123456"
     },
 
     {
@@ -130,7 +130,7 @@ def create_visitors
       phone_number: "7895674561",
       date_of_birth: "04/04/2005",
       role: "visitor",
-      otp: "1947"
+      otp_token: "1234567"
     }
   ].map { |user_data| User.create!(user_data) }
 end
