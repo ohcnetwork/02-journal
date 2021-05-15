@@ -1,6 +1,7 @@
-# Coronasafe Journal
+# Coronasafe O2 Journal
+A fork of [Coronasafe Journal](https://github.com/coronasafe/journal) project.
 
-A web application to aid users in generating their route maps.
+Track movement of Oxygen cylinders. 
 
 Build with Rails and React ❤️
 

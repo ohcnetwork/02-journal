@@ -1,5 +1,5 @@
 {
-  "name": "coronasafe-journal",
+  "name": "coronasafe-o2-journal",
   "scripts": {
     "precommit": "lint-staged"
   },
