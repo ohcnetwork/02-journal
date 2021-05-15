@@ -1,17 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
+import * as yup from "yup";
 
 import Input from "Common/Form/Input";
 import LocalBodyForm from "Common/LocalBodyForm";
 import Button from "Common/Button";
 
+const schema = yup.object().shape({
+  name: yup.string().required("Please enter name of shop"),
+  phone_number: yup
+    .string()
+    .trim()
+    .required("Please enter mobile number")
+    .length(10, "Please enter 10 digit mobile number"),
+  address: yup.string().trim().required("Please enter address"),
+  local_body: yup.mixed().required("Please enter local body"),
+});
+
 function StationForm({ loading, onSubmit }) {
-  const form = useForm();
+  const form = useForm({
+    resolver: yupResolver(schema),
+  });
   const { handleSubmit, register, errors } = form;
 
   return (
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
+    <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+      <div className="bg-white py-2 px-4 sm:px-10">
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Input
             name="name"

@@ -41,13 +41,15 @@ function AddStation({ refetch }) {
         </button>
       </div>
       <Modal open={isModalOpen} onClose={setIsModalOpen}>
-        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-          <Dialog.Title
-            as="h3"
-            className="text-lg leading-6 font-medium text-gray-900"
-          >
-            Add Station
-          </Dialog.Title>
+        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+          <div className="text-center">
+            <Dialog.Title
+              as="h3"
+              className="text-lg leading-6 font-semibold text-gray-900"
+            >
+              Add Station
+            </Dialog.Title>
+          </div>
           <StationForm loading={loading} onSubmit={handleAdd} />
         </div>
       </Modal>
