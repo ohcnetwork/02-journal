@@ -8,11 +8,7 @@ function FormOutline({ heading, subtitle, children }) {
         <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
           {subtitle}
         </p>
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
-            {children}
-          </div>
-        </div>
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">{children}</div>
       </div>
     </div>
   );

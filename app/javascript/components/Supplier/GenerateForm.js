@@ -45,48 +45,50 @@ function GenerateForm() {
       subtitle="Filling up this form will help select a supplier. Individual cylinders
     can be added on the next page."
     >
-      <form noValidate onSubmit={handleSubmit(handleFormValues)}>
-        <CreatableSelectController
-          name="name"
-          label="Supplier Name"
-          required
-          placeholder="Name of the supplier"
-          control={control}
-          errors={errors}
-        />
-        <Input
-          as="textarea"
-          name="address"
-          rows={6}
-          label="Address"
-          required
-          placeholder="Complete address of the supplier"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          name="phone_number"
-          label="Mobile number"
-          type="tel"
-          required
-          placeholder="10 digit mobile number"
-          register={register}
-          errors={errors}
-        />
-        <div className="mt-6">
-          <span className="block w-full rounded-md shadow-sm">
-            <Button
-              htmlType="submit"
-              colorType="primary"
-              sizeType="lg"
-              loading={loading}
-              block
-            >
-              Select Supplier
-            </Button>
-          </span>
-        </div>
-      </form>
+      <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
+        <form noValidate onSubmit={handleSubmit(handleFormValues)}>
+          <CreatableSelectController
+            name="name"
+            label="Supplier Name"
+            required
+            placeholder="Name of the supplier"
+            control={control}
+            errors={errors}
+          />
+          <Input
+            as="textarea"
+            name="address"
+            rows={6}
+            label="Address"
+            required
+            placeholder="Complete address of the supplier"
+            register={register}
+            errors={errors}
+          />
+          <Input
+            name="phone_number"
+            label="Mobile number"
+            type="tel"
+            required
+            placeholder="10 digit mobile number"
+            register={register}
+            errors={errors}
+          />
+          <div className="mt-6">
+            <span className="block w-full rounded-md shadow-sm">
+              <Button
+                htmlType="submit"
+                colorType="primary"
+                sizeType="lg"
+                loading={loading}
+                block
+              >
+                Select Supplier
+              </Button>
+            </span>
+          </div>
+        </form>
+      </div>
     </FormOutline>
   );
 }

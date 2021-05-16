@@ -14,6 +14,7 @@ export function RadioButton({ children, register, value, ...rest }) {
         name={name}
         ref={register}
         defaultChecked={defaultValue === value}
+        value={value}
         {...rest}
       />
       <span className="ml-2">{children}</span>

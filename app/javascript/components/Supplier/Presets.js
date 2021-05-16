@@ -40,30 +40,32 @@ function Presets() {
       subtitle="Options selected here will be applied by default to all batches of
     cylinders. These can be altered on an individual cylinder field."
     >
-      <form
-        className="space-y-8"
-        noValidate
-        onSubmit={handleSubmit(handleFormValues)}
-      >
-        <Input
-          name="serial_number"
-          label="Serial Number"
-          required
-          placeholder="Common prefix/suffix of serial numbers"
-          register={register}
-          errors={errors}
-        />
-        <CylinderStatus errors={errors} register={register} />
-        <CylinderCapacity errors={errors} register={register} />
-        <CylinderType errors={errors} register={register} />
-        <div className="mt-8">
-          <span className="block w-full rounded-md shadow-sm">
-            <Button htmlType="submit" colorType="primary" sizeType="lg" block>
-              Select Presets
-            </Button>
-          </span>
-        </div>
-      </form>
+      <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
+        <form
+          className="space-y-8"
+          noValidate
+          onSubmit={handleSubmit(handleFormValues)}
+        >
+          <Input
+            name="serial_number"
+            label="Serial Number"
+            required
+            placeholder="Common prefix/suffix of serial numbers"
+            register={register}
+            errors={errors}
+          />
+          <CylinderStatus errors={errors} register={register} />
+          <CylinderCapacity errors={errors} register={register} />
+          <CylinderType errors={errors} register={register} />
+          <div className="mt-8">
+            <span className="block w-full rounded-md shadow-sm">
+              <Button htmlType="submit" colorType="primary" sizeType="lg" block>
+                Select Presets
+              </Button>
+            </span>
+          </div>
+        </form>
+      </div>
     </FormOutline>
   );
 }
