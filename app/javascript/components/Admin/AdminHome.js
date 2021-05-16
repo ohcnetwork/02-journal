@@ -43,6 +43,16 @@ function AdminHome() {
             <Route path={`${path}/suppliers`}>
               <Supplier />
             </Route>
+            <Route exact path={`${path}/`}>
+              <div className="flex items-center justify-center flex-col h-60">
+                <h2 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-700 sm:text-4xl">
+                  Dashboard under Construction
+                </h2>
+                <p className="mt-4 max-w-3xl mx-auto text-center text-lg text-gray-500">
+                  Please select an item from sidebar to continue.
+                </p>
+              </div>
+            </Route>
           </div>
         </main>
       </div>

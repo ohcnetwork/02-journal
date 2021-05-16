@@ -115,7 +115,7 @@ function SignUp() {
           </Route>
         </div>
       </div>
-      <Link to="/supplier">
+      <Link to="/admin/suppliers">
         <p className="mt-2 mb-4 text-gray-600 text-center">
           Are you looking for the Supplier Page?
         </p>
