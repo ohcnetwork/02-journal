@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { random } from "lodash";
 
-import Table from "Common/Table";
+import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
 
 function SupplierList() {
@@ -13,7 +14,11 @@ function SupplierList() {
       setLoading(true);
       try {
         const response = await getSupplier();
-        setData(response || []);
+        const augmented = response?.map((sup) => ({
+          ...sup,
+          cylinder_count: random(0, 300),
+        }));
+        setData(augmented);
       } catch (err) {
         setError(err);
       } finally {
@@ -24,21 +29,35 @@ function SupplierList() {
     getData();
   }, []);
 
-  const columns = [
-    {
-      title: "Supplier Name",
-      dataIndex: "name",
-      className: "text-gray-900",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        id: "NAME",
+        Header: "Supplier Name",
+        accessor: "name",
+        className: "text-gray-900",
+        sortable: true,
+        filter: "fuzzyText",
+        filterable: true,
+      },
+      {
+        Header: "Address",
+        accessor: "address",
+      },
+      {
+        Header: "Phone",
+        accessor: "phone",
+      },
+      // {
+      //   Header: "Cylinders",
+      //   accessor: "cylinder_count",
+      //   headerClassName: "text-center justify-center",
+      //   className: "text-center",
+      //   sortable: true,
+      // },
+    ],
+    []
+  );
 
   if (loading) {
     return <p>Loading...</p>;
@@ -47,7 +66,7 @@ function SupplierList() {
     return <p>Could not retrieve supplier list. Please try again.</p>;
   }
 
-  return <Table dataKey="id" columns={columns} data={data} />;
+  return <Table columns={columns} data={data} />;
 }
 
 export default SupplierList;
