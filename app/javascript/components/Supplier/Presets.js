@@ -5,8 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
-import { CylinderStatus } from "Common/CustomFields";
+import { CylinderStatus, CylinderCapacity } from "Common/CustomFields";
+import CylinderType from "../Common/CustomFields/CylinderType";
 
 const schema = yup.object().shape({
   serial_number: yup.string().trim(),
@@ -55,38 +55,8 @@ function Presets() {
                 errors={errors}
               />
               <CylinderStatus errors={errors} register={register} />
-              <RadioButtonGroup
-                label="Capacity"
-                name="capacity"
-                errors={errors}
-              >
-                <RadioButton value="d" defaultChecked register={register}>
-                  D
-                </RadioButton>
-                <RadioButton value="b" register={register}>
-                  B
-                </RadioButton>
-                <RadioButton value="c" register={register}>
-                  C
-                </RadioButton>
-                <RadioButton value="h" register={register}>
-                  H
-                </RadioButton>
-              </RadioButtonGroup>
-              <RadioButtonGroup label="Type" name="type" errors={errors}>
-                <RadioButton value="medo2" defaultChecked register={register}>
-                  Med O₂
-                </RadioButton>
-                <RadioButton value="indo2" register={register}>
-                  Ind O₂
-                </RadioButton>
-                <RadioButton value="nitrogen" register={register}>
-                  Nitrogen
-                </RadioButton>
-                <RadioButton value="argon" register={register}>
-                  Argon
-                </RadioButton>
-              </RadioButtonGroup>
+              <CylinderCapacity errors={errors} register={register} />
+              <CylinderType errors={errors} register={register} />
               <div className="mt-8">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button

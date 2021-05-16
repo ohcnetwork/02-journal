@@ -1,4 +1,4 @@
-import LocalBodyForm from "./LocalBodyForm";
-import CylinderStatus from "./CylinderStatus";
-
-export { CylinderStatus, LocalBodyForm };
+export { default as LocalBodyForm } from "./LocalBodyForm";
+export { default as CylinderStatus } from "./CylinderStatus";
+export { default as CylinderCapacity } from "./CylinderCapacity";
+export { default as CylinderType } from "./CylinderType";
