@@ -3,10 +3,11 @@
 namespace :api, defaults: { format: :json }  do
   namespace :oxygen do
     namespace :admin do
+      get "cylinder_search", to: "cylinder_search#search"
+
       resources :vendors do
         resources :cylinders do
           collection do
-            get :qr_codes
             post :add
           end
         end
