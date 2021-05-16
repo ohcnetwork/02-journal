@@ -11,6 +11,9 @@ function Supplier() {
       <Route path={`${path}/:id/presets`}>
         <Presets />
       </Route>
+      <Route path={`${path}/:id/cylinders`}>
+        <p>Cylinders</p>
+      </Route>
       <Route path={`${path}`}>
         <GenerateForm />
       </Route>

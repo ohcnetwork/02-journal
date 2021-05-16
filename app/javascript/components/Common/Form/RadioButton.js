@@ -12,7 +12,7 @@ export function RadioButton({ children, register, ...rest }) {
         type="radio"
         className="form-radio"
         name={name}
-        register={register}
+        ref={register}
         {...rest}
       />
       <span className="ml-2">{children}</span>

@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
@@ -15,7 +14,7 @@ const schema = yup.object().shape({
 
 function Presets() {
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
 
   const form = useForm({
     resolver: yupResolver(schema),
@@ -23,13 +22,11 @@ function Presets() {
   const { register, handleSubmit, errors } = form;
 
   const handleFormValues = async (formData) => {
-    setLoading(true);
-    const response = await (async () => {
-      console.log(formData);
-      return { data: { temp_id: 1 } };
-    })();
-    setLoading(false);
-    history.push(`/supplier/${response.data.temp_id}`);
+    const params = Object.entries(formData).reduce((param, [key, value]) => {
+      param.set(key, value);
+      return param;
+    }, new URLSearchParams());
+    history.push(`/supplier/${id}/cylinders?${params.toString()}`);
   };
 
   return (
@@ -96,7 +93,6 @@ function Presets() {
                     htmlType="submit"
                     colorType="primary"
                     sizeType="lg"
-                    loading={loading}
                     block
                   >
                     Select Presets
