@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import Table from "Common/Table";
+import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
 
 function SupplierList() {
@@ -24,21 +24,24 @@ function SupplierList() {
     getData();
   }, []);
 
-  const columns = [
-    {
-      title: "Supplier Name",
-      dataIndex: "name",
-      className: "text-gray-900",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-    },
-  ];
+  const columns = useMemo(
+    [
+      {
+        Header: "Supplier Name",
+        accessor: "name",
+        className: "text-gray-900",
+      },
+      {
+        Header: "Address",
+        accessor: "address",
+      },
+      {
+        Header: "Phone",
+        accessor: "phone",
+      },
+    ],
+    []
+  );
 
   if (loading) {
     return <p>Loading...</p>;
