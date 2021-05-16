@@ -1,4 +1,5 @@
 import { Route, useRouteMatch, Switch } from "react-router-dom";
+import AddCylinder from "./AddCylinder";
 
 import GenerateForm from "./GenerateForm";
 import Presets from "./Presets";
@@ -12,7 +13,7 @@ function Supplier() {
         <Presets />
       </Route>
       <Route path={`${path}/:id/cylinders`}>
-        <p>Cylinders</p>
+        <AddCylinder />
       </Route>
       <Route path={`${path}`}>
         <GenerateForm />

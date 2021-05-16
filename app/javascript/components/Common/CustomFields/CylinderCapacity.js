@@ -5,9 +5,15 @@ function CylinderCapacity({
   register,
   name = "capacity",
   label = "Capacity",
+  defaultValue = "d",
 }) {
   return (
-    <RadioButtonGroup label={label} name={name} errors={errors}>
+    <RadioButtonGroup
+      label={label}
+      name={name}
+      errors={errors}
+      defaultValue={defaultValue}
+    >
       <RadioButton value="d" defaultChecked register={register}>
         D
       </RadioButton>

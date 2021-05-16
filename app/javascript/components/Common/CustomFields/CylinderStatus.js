@@ -5,10 +5,16 @@ function CylinderStatus({
   register,
   name = "status",
   label = "Status",
+  defaultValue = "filled",
 }) {
   return (
-    <RadioButtonGroup label={label} name={name} errors={errors}>
-      <RadioButton value="filled" defaultChecked register={register}>
+    <RadioButtonGroup
+      label={label}
+      name={name}
+      errors={errors}
+      defaultValue={defaultValue}
+    >
+      <RadioButton value="filled" register={register}>
         Filled
       </RadioButton>
       <RadioButton value="partial" register={register}>
