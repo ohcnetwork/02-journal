@@ -1,7 +1,10 @@
 import Axios from "../axios";
+import qs from "qs";
+
+const URL = `/admin/vendors`;
 
 export const getSupplier = async () => {
-  const response = await Axios.get("/admin/vendors", {
+  const response = await Axios.get(URL, {
     /**
      * @TODO fix interceptor
      */
@@ -9,5 +12,39 @@ export const getSupplier = async () => {
       "X-Auth-Token": localStorage.getItem("admin-auth-token"),
     },
   });
+  return response.data;
+};
+
+export const createSupplier = async (data) => {
+  const response = await Axios.post(
+    URL,
+    qs.stringify(data, { encodeValuesOnly: true }),
+    {
+      /**
+       * @TODO fix interceptor
+       */
+      headers: {
+        "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    }
+  );
+  return response.data;
+};
+
+export const updateSupplier = async (id, data) => {
+  const response = await Axios.put(
+    `${URL}/${id}`,
+    qs.stringify(data, { encodeValuesOnly: true }),
+    {
+      /**
+       * @TODO fix interceptor
+       */
+      headers: {
+        "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    }
+  );
   return response.data;
 };

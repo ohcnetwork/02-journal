@@ -11,8 +11,12 @@ function SelectSupplier({ name = "name", label = "Supplier Name", ...rest }) {
     const getSupplierInformation = async () => {
       setLoading(true);
       try {
-        const { data } = await getSupplier();
-        setData(data);
+        const data = await getSupplier();
+        const options = data.map(({ id, name }) => ({
+          label: name,
+          value: id,
+        }));
+        setData(options);
       } catch (err) {
         console.error(err);
       } finally {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -6,18 +6,19 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import { createSupplier, updateSupplier } from "Apis/Admin/supplier";
 import { SelectSupplier } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please enter name of supplier"),
-  phone_number: yup
+  name: yup.mixed().required("Please enter name of supplier"),
+  phone: yup
     .string()
     .trim()
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
-  address: yup.string().trim().required("Please enter address"),
+  address: yup.string().trim(),
 });
 
 function GenerateForm() {
@@ -29,28 +30,29 @@ function GenerateForm() {
   });
   const { register, handleSubmit, errors, control } = form;
 
-  useEffect(() => {
-    const getSupplierInformation = async () => {
-      await (async () =>
-        [
-          {
-            label: "Supplier 1",
-            value: "sup",
-          },
-        ]());
-    };
-
-    getSupplierInformation();
-  }, []);
-
   const handleFormValues = async (formData) => {
     setLoading(true);
-    const response = await (async () => {
-      console.log(formData);
-      return { data: { temp_id: 1 } };
-    })();
-    setLoading(false);
-    history.push(`/supplier/${response.data.temp_id}/presets`);
+    try {
+      const response = await (() => {
+        const data = {
+          ...formData,
+          name: formData.name.label,
+        };
+        if (formData.name.__isNew__) {
+          return createSupplier({
+            vendor: data,
+          });
+        }
+        return updateSupplier(formData.name.value, {
+          vendor: data,
+        });
+      })();
+      history.push(`/supplier/${response.id}/presets`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,7 +75,7 @@ function GenerateForm() {
             errors={errors}
           />
           <Input
-            name="phone_number"
+            name="phone"
             label="Mobile number"
             type="tel"
             required
