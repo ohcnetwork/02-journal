@@ -1,9 +1,10 @@
 <h1><%= @vendor.name %></h1>
 <hr />
-
-<% @cylinders.each do |cylinder| %>
-  <div class="qr_code" style="margin-top:2%; display: flex; justify-content: center; gap: 60px;">
-    <%= raw cylinder.qr_code_as_svg %>
-    <div class="serial_number"><%= cylinder.serial_number %></div>
-  </div>
-<% end %>
+<div class="text-align: center; display: flex; justify-content: center; flex-wrap: wrap;">
+  <% @cylinders.each do |cylinder| %>
+    <div class="qr_code" style="margin: 60px; text-align: center; display: inline-block;">
+      <%= raw cylinder.qr_code_as_svg %>
+      <div class="serial_number"><%= cylinder.serial_number %></div>
+    </div>
+  <% end %>
+</div>

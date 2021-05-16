@@ -31,7 +31,7 @@ function AddCylinder() {
 
   const { handleSubmit, control, register, errors } = useForm({
     defaultValues: {
-      cylinder: [getDefaultValues(urlParams)],
+      cylinders: [getDefaultValues(urlParams)],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -91,7 +91,7 @@ function AddCylinder() {
                   </button>
                 </div>
                 <Input
-                  name={`cylinder[${index}].serial_number`}
+                  name={`cylinders[${index}].serial_number`}
                   label="Serial Number"
                   required
                   placeholder="Serial number of cylinder"
@@ -100,19 +100,19 @@ function AddCylinder() {
                   defaultValue={field.serial_number}
                 />
                 <CylinderStatus
-                  name={`cylinder[${index}].status`}
+                  name={`cylinders[${index}].status`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.status}
                 />
                 <CylinderCapacity
-                  name={`cylinder[${index}].capacity`}
+                  name={`cylinders[${index}].capacity`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.capacity}
                 />
                 <CylinderType
-                  name={`cylinder[${index}].category`}
+                  name={`cylinders[${index}].category`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.category}
