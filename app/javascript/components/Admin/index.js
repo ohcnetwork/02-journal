@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, useRouteMatch, Switch } from "react-router-dom";
 
 import SignIn from "./SignIn";
@@ -12,7 +11,7 @@ function Admin() {
       <Route exact path={`${match.url}/login`}>
         <SignIn />
       </Route>
-      <Route path={`${match.url}/`}>
+      <Route path={`${match.url}`}>
         <AdminHome />
       </Route>
     </Switch>

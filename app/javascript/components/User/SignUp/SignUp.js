@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import { isLoggedIn } from "Apis/authentication";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import SelectStation from "Common/CustomFields/SelectStation";
 import { login } from "Apis/authentication";
 import SignUpOtp from "./SignUpOtp";
 import SignUpThumb from "./SignUpThumb";
@@ -18,14 +19,7 @@ const schema = yup.object().shape({
     .trim()
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
-  date_of_birth: yup
-    .date()
-    .typeError("Please enter valid date")
-    .required("Please enter date of birth")
-    .max(
-      new Date(2010, 0, 1),
-      "You have to be at least 10 years old to use this application. Please stay safe."
-    ),
+  station: yup.mixed().required("Please select station"),
 });
 
 function SignUp() {
@@ -34,7 +28,7 @@ function SignUp() {
   const match = useRouteMatch();
   const history = useHistory();
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -53,7 +47,10 @@ function SignUp() {
   const onSubmit = async (payload) => {
     setLoading(true);
     try {
-      const response = await login(payload);
+      const response = await login({
+        ...payload,
+        station: payload.station.label,
+      });
       const userId = response.data?.user_id;
       const mobileNumber = payload.phone_number;
       if (userId) {
@@ -92,23 +89,14 @@ function SignUp() {
                   />
                   <Input
                     name="phone_number"
-                    label="Mobile number"
+                    label="Mobile Number"
                     required
                     placeholder="10 digit mobile number"
                     register={register}
                     errors={errors}
                     autoComplete="tel"
                   />
-                  <Input
-                    name="date_of_birth"
-                    label="Date of Birth"
-                    required
-                    type="date"
-                    placeholder=""
-                    register={register}
-                    errors={errors}
-                    autoComplete="bday"
-                  />
+                  <SelectStation control={control} errors={errors} />
                   <div className="mt-6">
                     <span className="block w-full rounded-md shadow-sm">
                       <Button
@@ -118,7 +106,7 @@ function SignUp() {
                         block
                         loading={loading}
                       >
-                        Sign Up
+                        Register
                       </Button>
                     </span>
                   </div>
@@ -133,9 +121,9 @@ function SignUp() {
           </Route>
         </div>
       </div>
-      <Link to="/merchant">
+      <Link to="/admin/suppliers">
         <p className="mt-2 mb-4 text-gray-600 text-center">
-          Are you looking for the Merchant Page?
+          Are you looking for the Supplier Page?
         </p>
       </Link>
     </div>

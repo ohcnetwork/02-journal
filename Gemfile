@@ -55,7 +55,7 @@ gem "mail_interceptor", group: [:development, :staging]
 gem "email_prefixer"
 
 # Application server
-gem "puma", "~> 4.3"
+gem "puma", "~> 4.3.6"
 
 # Rails request timeout, needed if running on Heroku-
 # https://devcenter.heroku.com/articles/request-timeout
@@ -79,6 +79,8 @@ gem "whenever", require: false
 
 # Import/Export CSV to/from database
 gem "postgres-copy"
+
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development do
   # speeds up development by keeping your application running in the background

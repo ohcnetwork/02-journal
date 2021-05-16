@@ -13,7 +13,7 @@ export const getRouteMapOfUser = async ({
     const dateTo = moment(to).format("YYYY-MM-DD");
     const response = (
       await Axios.get(
-        `/admin/users/${user.id}/route_map?from=${dateFrom}&to=${dateTo}`
+        `/v1/admin/users/${user.id}/route_map?from=${dateFrom}&to=${dateTo}`
       )
     ).data;
     return response;
@@ -25,7 +25,7 @@ const getUser = async ({ phone_number, date_of_birth }) => {
   try {
     const age = moment().diff(date_of_birth, "years");
     const response = (
-      await Axios.get(`/admin/users?phone=${phone_number}&age=${age}`)
+      await Axios.get(`/v1/admin/users?phone=${phone_number}&age=${age}`)
     ).data;
     const user = response.users[0];
     return user;
@@ -36,7 +36,7 @@ const getUser = async ({ phone_number, date_of_birth }) => {
 };
 
 export const getMerchants = async ({ lbCode }) => {
-  const response = await Axios.get("/admin/merchants", {
+  const response = await Axios.get("/v1/admin/merchants", {
     params: {
       lb_code: lbCode,
     },
@@ -50,7 +50,7 @@ export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {
   try {
     const response = (
       await Axios.get(
-        `/admin/visits?visitable_id=${visitable_id}&visitable_type=Merchant&from=${dateFrom}&to=${dateTo}`
+        `/v1/admin/visits?visitable_id=${visitable_id}&visitable_type=Merchant&from=${dateFrom}&to=${dateTo}`
       )
     ).data;
     return response;

@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+import Button from "Common/Button";
+import { logVisit } from "Apis/visits";
+
 import states from "./states.js";
 import ComponentByState from "./ComponentByState";
-import { logVisit } from "Apis/visits";
-import Button from "Common/Button";
-import { useHistory } from "react-router-dom";
 
 function Scan() {
   const history = useHistory();
   const [state, setState] = useState(states.SCANNING);
-  const [merchantDetails, setMerchantDetails] = useState({
-    name: "",
-    address: "",
-  });
 
   const resetState = () => {
     setState(states.SCANNING);
@@ -22,11 +20,7 @@ function Scan() {
       const { id, type } = JSON.parse(qrData);
       setState(states.LOADING);
       const response = await logVisit(id, type);
-      if (response.data.visitable_id) {
-        setMerchantDetails({
-          name: response.data.name,
-          address: response.data.address,
-        });
+      if (response.data.id) {
         setState(states.SUCCESS);
       } else {
         throw new Error("Wrong data");
@@ -62,7 +56,6 @@ function Scan() {
                 onScanned={onScanned}
                 onError={onErrorScanning}
                 resetState={resetState}
-                merchantDetails={merchantDetails}
               />
             </div>
           </div>

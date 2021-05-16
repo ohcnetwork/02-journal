@@ -1,5 +1,3 @@
-import React from "react";
-
 function TableHead({ columns }) {
   return (
     <thead>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { userOngoingVisits } from "Apis/visits";
@@ -44,11 +44,10 @@ function Content() {
       <section className="mt-6 py-2 px-4">
         <header>
           <h2 className="mt-6 text-xl leading-6 font-medium text-gray-800">
-            Ongoing Visits
+            Cylinders currently check in to your station
           </h2>
           <p className="mt-2 text-sm leading-5 text-gray-600 max-w">
-            These are visits that you have currently started. Press exit button
-            to end these visits.
+            These cylinders are currently in the possession of this station.
           </p>
         </header>
         <ul className="mt-4 mb-2 divide-y divide-gray-200">
@@ -64,7 +63,7 @@ function Content() {
           {loading && <p></p>}
           {!loading && onGoingVisits.length === 0 && (
             <p className="text-center mt-8 my-2 text-gray-500">
-              You don&apos;t have any visits in progress.
+              You don&apos;t have any cylinders in hand.
             </p>
           )}
         </ul>
