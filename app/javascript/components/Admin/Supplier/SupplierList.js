@@ -1,9 +1,9 @@
 import Table from "Common/Table";
 
-function StationList({ loading, data, error }) {
+function SupplierList({ loading = false, data = [], error }) {
   const columns = [
     {
-      title: "Station Name",
+      title: "Supplier Name",
       dataIndex: "name",
       className: "text-gray-900",
     },
@@ -21,10 +21,10 @@ function StationList({ loading, data, error }) {
     return <p>Loading...</p>;
   }
   if (error) {
-    return <p>Could not retrieve station list. Please try again.</p>;
+    return <p>Could not retrieve merchant list. Please try again.</p>;
   }
 
   return <Table dataKey="id" columns={columns} data={data} />;
 }
 
-export default StationList;
+export default SupplierList;
