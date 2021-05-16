@@ -46,12 +46,15 @@ function AddCylinder() {
     }
   }, [fields]);
 
-  const handleFormValues = (data) => {
+  const handleFormValues = async (data) => {
     setLoading(true);
     try {
-      addCylinders(id, data);
+      const response = await addCylinders(id, data);
+      const ids = response.map(({ id }) => id);
       window.open(
-        `${window.location.origin}/oxygen/vendors/${id}/qr_codes`,
+        `${window.location.origin}/oxygen/vendors/${id}/qr_codes?ids=${ids.join(
+          ","
+        )}`,
         "_blank"
       );
       history.push("/admin/suppliers");
