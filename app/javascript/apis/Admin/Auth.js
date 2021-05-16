@@ -2,7 +2,7 @@ import Axios from "../axios";
 
 let authHeaderInterceptor;
 
-export const signIn = (payload) => Axios.post(`/admin/sessions`, payload);
+export const signIn = (payload) => Axios.post(`/v1/admin/sessions`, payload);
 
 const addInterceptor = (token) => {
   authHeaderInterceptor = Axios.interceptors.request.use(async function (
