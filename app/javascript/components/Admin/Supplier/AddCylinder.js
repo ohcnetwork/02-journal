@@ -69,12 +69,12 @@ function AddCylinder() {
           {fields.map((field, index) => {
             return (
               <div
-                className="py-6 px-10 border-2 border-gray-200 space-y-8"
+                className="py-6 px-8 border-2 border-gray-200 space-y-8"
                 key={field.id}
               >
                 <div className="flex justify-between items-center">
                   <h4 className="text-sm font-semibold text-indigo-500 truncate">
-                    Cylinder {index + 1}
+                    Cylinder #{index + 1}
                   </h4>
                   <button title="Remove" onClick={() => remove(index)}>
                     <Icon icon={"small-cross"} />

@@ -31,7 +31,7 @@ function Presets() {
       param.set(key, value);
       return param;
     }, new URLSearchParams());
-    history.push(`/supplier/${id}/cylinders?${params.toString()}`);
+    history.push(`/admin/suppliers/${id}/cylinders?${params.toString()}`);
   };
 
   return (

@@ -59,7 +59,7 @@ function GenerateForm() {
           vendor: data,
         });
       })();
-      history.push(`/supplier/${response.id}/presets`);
+      history.push(`/admin/suppliers/${response.id}/presets`);
     } catch (err) {
       console.error(err);
     } finally {
