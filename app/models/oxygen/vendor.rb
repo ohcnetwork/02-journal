@@ -6,10 +6,10 @@ module Oxygen
     validates :phone, presence: true
     has_many :cylinders, dependent: :destroy
 
-    def add_cylinders!(n = 0, cylinder_params)
+    def add_cylinders!(params_cylinders)
       new_cylinders = []
 
-      n.to_i.times do
+      params_cylinders.values.each do |cylinder_params|
         new_cylinders << cylinders.create(cylinder_params)
       end
 

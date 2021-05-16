@@ -6,7 +6,7 @@ class Api::Oxygen::Admin::CylindersController < Api::V1::BaseController
   before_action :find_vendor
 
   def add
-    cylinders = @vendor.add_cylinders!(params[:count] || 0, cylinder_bulk_add_params)
+    cylinders = @vendor.add_cylinders!(params[:cylinders])
     render json: cylinders
   end
 
@@ -24,6 +24,16 @@ class Api::Oxygen::Admin::CylindersController < Api::V1::BaseController
     cylinder = Oxygen::Cylinder.find(params[:id])
 
     if cylinder.update cylinder_params
+      render json: cylinder
+    else
+      render json: { errors: cylinder.errors }
+    end
+  end
+
+  def destroy
+    cylinder = Oxygen::Cylinder.find(params[:id])
+
+    if cylinder.destroy
       render json: cylinder
     else
       render json: { errors: cylinder.errors }
