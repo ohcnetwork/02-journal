@@ -1,10 +1,21 @@
-import { useTable, useSortBy } from "react-table";
+import { useMemo } from "react";
+import { useTable, useSortBy, useFilters } from "react-table";
 import classnames from "classnames";
+
+import ColumnFilter from "./ColumnFilter";
 
 /* react-table provides key */
 /* eslint-disable react/jsx-key */
 
 function Table({ columns, data, ...rest }) {
+  const defaultColumn = useMemo(
+    () => ({
+      Filter: ColumnFilter,
+    }),
+    []
+  );
+  const filterTypes = useMemo(() => ({}), []);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -15,8 +26,11 @@ function Table({ columns, data, ...rest }) {
     {
       columns,
       data,
+      defaultColumn,
+      filterTypes,
       ...rest,
     },
+    useFilters,
     useSortBy
   );
 
@@ -29,10 +43,20 @@ function Table({ columns, data, ...rest }) {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th
-                    className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps([
+                      {
+                        className: classnames(
+                          column.headerClassName,
+                          "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                        ),
+                      },
+                      column.getSortByToggleProps(),
+                    ])}
                   >
-                    {column.render("Header")}
+                    <span>{column.render("Header")}</span>
+                    <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div>
                     <span>
                       {column.isSorted
                         ? column.isSortedDesc
