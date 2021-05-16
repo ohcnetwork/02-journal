@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { useId } from "@reach/auto-id";
 import classnames from "classnames";

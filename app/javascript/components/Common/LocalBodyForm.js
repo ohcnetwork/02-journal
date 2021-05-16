@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import SelectController from "Common/Form/SelectController";
 import { getLocalBodies } from "Apis/utilities";

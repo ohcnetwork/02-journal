@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Icon } from "@blueprintjs/core";
 import { useForm } from "react-hook-form";
 
-import RadioButtonGroup, { RadioButton } from "Common/Forms/RadioButton";
+import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 import Button from "Common/Button";
 
 function Success() {

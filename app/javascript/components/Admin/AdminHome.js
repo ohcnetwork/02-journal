@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, useHistory, useRouteMatch } from "react-router-dom";
 import { isLoggedIn } from "Apis/Admin/Auth";
 

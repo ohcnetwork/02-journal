@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, useRouteMatch, Switch } from "react-router-dom";
 
 import SignIn from "./SignIn";

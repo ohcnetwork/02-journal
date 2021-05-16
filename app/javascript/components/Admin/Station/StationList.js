@@ -1,5 +1,3 @@
-import React from "react";
-
 import Table from "Common/Table";
 
 function StationList({ loading, data, error }) {
