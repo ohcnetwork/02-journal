@@ -4,5 +4,6 @@
 <% @cylinders.each do |cylinder| %>
   <div class="qr_code" style="margin-top:2%">
     <%= raw cylinder.qr_code_as_svg %>
+    <div class="serial_number"><%= cylinder.serial_number %></div>
   </div>
 <% end %>
