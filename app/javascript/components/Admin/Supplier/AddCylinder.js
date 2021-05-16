@@ -70,7 +70,7 @@ function AddCylinder() {
       heading="Add Cylinder"
       subtitle="Add individual cylinders. You can add cylinders by clicking Add Cylinder button."
     >
-      <div className="bg-white shadow sm:rounded-lg">
+      <div className="shadow-sm sm:rounded-lg">
         <form
           className="space-y-4"
           noValidate

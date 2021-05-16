@@ -2,7 +2,7 @@
 <hr />
 
 <% @cylinders.each do |cylinder| %>
-  <div class="qr_code" style="margin-top:2%">
+  <div class="qr_code" style="margin-top:2%; display: flex; justify-content: center; gap: 60px;">
     <%= raw cylinder.qr_code_as_svg %>
     <div class="serial_number"><%= cylinder.serial_number %></div>
   </div>
