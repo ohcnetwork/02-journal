@@ -80,7 +80,7 @@ gem "whenever", require: false
 # Import/Export CSV to/from database
 gem "postgres-copy"
 
-gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+gem 'mimemagic'
 
 group :development do
   # speeds up development by keeping your application running in the background

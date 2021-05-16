@@ -31,7 +31,7 @@ function AddCylinder() {
 
   const { handleSubmit, control, register, errors } = useForm({
     defaultValues: {
-      cylinder: [getDefaultValues(urlParams)],
+      cylinders: [getDefaultValues(urlParams)],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -46,12 +46,15 @@ function AddCylinder() {
     }
   }, [fields]);
 
-  const handleFormValues = (data) => {
+  const handleFormValues = async (data) => {
     setLoading(true);
     try {
-      addCylinders(id, data);
+      const response = await addCylinders(id, data);
+      const ids = response.map(({ id }) => id);
       window.open(
-        `${window.location.origin}/oxygen/vendors/${id}/qr_codes`,
+        `${window.location.origin}/oxygen/vendors/${id}/qr_codes?ids=${ids.join(
+          ","
+        )}`,
         "_blank"
       );
       history.push("/admin/suppliers");
@@ -67,7 +70,7 @@ function AddCylinder() {
       heading="Add Cylinder"
       subtitle="Add individual cylinders. You can add cylinders by clicking Add Cylinder button."
     >
-      <div className="bg-white shadow sm:rounded-lg">
+      <div className="shadow-sm sm:rounded-lg">
         <form
           className="space-y-4"
           noValidate
@@ -88,7 +91,7 @@ function AddCylinder() {
                   </button>
                 </div>
                 <Input
-                  name={`cylinder[${index}].serial_number`}
+                  name={`cylinders[${index}].serial_number`}
                   label="Serial Number"
                   required
                   placeholder="Serial number of cylinder"
@@ -97,19 +100,19 @@ function AddCylinder() {
                   defaultValue={field.serial_number}
                 />
                 <CylinderStatus
-                  name={`cylinder[${index}].status`}
+                  name={`cylinders[${index}].status`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.status}
                 />
                 <CylinderCapacity
-                  name={`cylinder[${index}].capacity`}
+                  name={`cylinders[${index}].capacity`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.capacity}
                 />
                 <CylinderType
-                  name={`cylinder[${index}].category`}
+                  name={`cylinders[${index}].category`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.category}
