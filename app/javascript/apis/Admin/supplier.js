@@ -1,7 +1,7 @@
 import Axios from "../axios";
 import qs from "qs";
 
-const URL = `/admin/vendors`;
+const URL = `/oxygen/admin/vendors`;
 
 export const getSupplier = async () => {
   const response = await Axios.get(URL, {

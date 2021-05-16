@@ -5,7 +5,7 @@ import { show as userShow } from "./users";
 let authHeaderInterceptor = null;
 
 export const login = (payload) =>
-  Axios.post("/sessions", {
+  Axios.post("/v1/sessions", {
     user: payload,
   });
 
@@ -41,7 +41,7 @@ export const isLoggedIn = async () => {
 };
 
 export const verifyOtp = async (userId, otp) => {
-  const response = await Axios.post(`/users/${userId}/verify_otp`, {
+  const response = await Axios.post(`/v1/users/${userId}/verify_otp`, {
     otp,
   });
   if (response.data) {

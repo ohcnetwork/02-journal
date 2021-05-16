@@ -50,7 +50,7 @@ export const getEstablishmentRegister = async ({ visitable_id, from, to }) => {
   try {
     const response = (
       await Axios.get(
-        `/admin/visits?visitable_id=${visitable_id}&visitable_type=Merchant&from=${dateFrom}&to=${dateTo}`
+        `/v1//admin/visits?visitable_id=${visitable_id}&visitable_type=Merchant&from=${dateFrom}&to=${dateTo}`
       )
     ).data;
     return response;
