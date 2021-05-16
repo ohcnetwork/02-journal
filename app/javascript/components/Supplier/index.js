@@ -1,17 +1,13 @@
 import { Route, useRouteMatch, Switch } from "react-router-dom";
 
 import GenerateForm from "./GenerateForm";
-import DisplayQr from "./DisplayQr";
 
 function Supplier() {
-  const match = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <Switch>
-      <Route path={`${match.path}/qr`}>
-        <DisplayQr />
-      </Route>
-      <Route path={`${match.path}`}>
+      <Route path={`${path}`}>
         <GenerateForm />
       </Route>
     </Switch>
