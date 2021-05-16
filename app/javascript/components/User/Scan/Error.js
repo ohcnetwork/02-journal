@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "Common/Button";
 import states from "./states.js";
 

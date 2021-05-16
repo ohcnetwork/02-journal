@@ -1,8 +1,3 @@
-import React from "react";
-
-/**
- * Create a content outline with heading for admin panel
- */
 function ContentOutline({ heading, subtitle, children, rightEl }) {
   return (
     <>

@@ -22,7 +22,8 @@ module.exports = function(api) {
         {
           targets: {
             node: 'current'
-          }
+          },
+          corejs: 3,
         }
       ],
       (isProductionEnv || isDevelopmentEnv) && [
@@ -31,14 +32,16 @@ module.exports = function(api) {
           forceAllTransforms: true,
           useBuiltIns: 'entry',
           modules: false,
-          exclude: ['transform-typeof-symbol']
+          exclude: ['transform-typeof-symbol'],
+          corejs: 3,
         }
       ],
       [
         require('@babel/preset-react').default,
         {
           development: isDevelopmentEnv || isTestEnv,
-          useBuiltIns: true
+          useBuiltIns: true,
+          runtime: 'automatic',
         }
       ]
     ].filter(Boolean),
