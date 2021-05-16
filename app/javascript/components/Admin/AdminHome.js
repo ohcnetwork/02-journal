@@ -6,6 +6,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Station from "./Station";
 import Supplier from "./Supplier";
+import Cylinder from "./Cylinder";
 
 function AdminHome() {
   const history = useHistory();
@@ -42,6 +43,9 @@ function AdminHome() {
             </Route>
             <Route path={`${path}/suppliers`}>
               <Supplier />
+            </Route>
+            <Route path={`${path}/cylinders`}>
+              <Cylinder />
             </Route>
             <Route exact path={`${path}/`}>
               <div className="flex items-center justify-center flex-col h-60">
