@@ -4,17 +4,6 @@ import { random } from "lodash";
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
 
-const textFilter = (rows, id, filterValue) => {
-  return rows.filter((row) => {
-    const rowValue = row.values[id];
-    return rowValue !== undefined
-      ? String(rowValue)
-          .toLowerCase()
-          .startsWith(String(filterValue).toLowerCase())
-      : true;
-  });
-};
-
 function SupplierList() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -47,7 +36,7 @@ function SupplierList() {
         accessor: "name",
         className: "text-gray-900",
         sortable: true,
-        filter: textFilter,
+        filter: "fuzzyText",
         filterable: true,
       },
       {
@@ -61,7 +50,7 @@ function SupplierList() {
       {
         Header: "Cylinders",
         accessor: "cylinder_count",
-        headerClassName: "text-center",
+        headerClassName: "text-center justify-center",
         className: "text-center",
         sortable: true,
       },

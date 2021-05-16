@@ -1,11 +1,17 @@
 import { useMemo } from "react";
 import { useTable, useSortBy, useFilters } from "react-table";
 import classnames from "classnames";
+import { matchSorter } from "match-sorter";
 
 import ColumnFilter from "./ColumnFilter";
 
 /* react-table provides key */
 /* eslint-disable react/jsx-key */
+
+function fuzzyTextFilterFn(rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+}
+fuzzyTextFilterFn.autoRemove = (val) => !val;
 
 function Table({ columns, data, ...rest }) {
   const defaultColumn = useMemo(
@@ -14,7 +20,22 @@ function Table({ columns, data, ...rest }) {
     }),
     []
   );
-  const filterTypes = useMemo(() => ({}), []);
+  const filterTypes = useMemo(
+    () => ({
+      fuzzyText: fuzzyTextFilterFn,
+      text: (rows, id, filterValue) => {
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
+    []
+  );
 
   const {
     getTableProps,
@@ -46,24 +67,30 @@ function Table({ columns, data, ...rest }) {
                     {...column.getHeaderProps([
                       {
                         className: classnames(
-                          column.headerClassName,
                           "px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                         ),
                       },
                       column.getSortByToggleProps(),
                     ])}
                   >
-                    <span>{column.render("Header")}</span>
-                    <div>
-                      {column.canFilter ? column.render("Filter") : null}
+                    <div
+                      className={classnames(
+                        "flex items-center space-x-2",
+                        column.headerClassName
+                      )}
+                    >
+                      <span>{column.render("Header")}</span>
+                      <div className="relative">
+                        {column.canFilter ? column.render("Filter") : null}
+                      </div>
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
                     </div>
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
                   </th>
                 ))}
               </tr>
