@@ -10,7 +10,7 @@ module Oxygen
     before_save :generate_serial_number, if: :serial_number_empty?
 
     def qr_code_as_svg
-      qrcode = RQRCode::QRCode.new(update_url)
+      qrcode = RQRCode::QRCode.new(self.id)
       svg = qrcode.as_svg(
         color: "000",
         shape_rendering: "crispEdges",
@@ -18,10 +18,6 @@ module Oxygen
         standalone: true,
         use_path: true
       )
-    end
-
-    def update_url
-      "#{ENV['BASE_URL']}/oxygen/vendors/#{vendor_id}/cylinders/#{id}"
     end
 
     def serial_number_empty?
