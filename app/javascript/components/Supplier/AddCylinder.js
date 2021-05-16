@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Icon } from "@blueprintjs/core";
 
@@ -12,6 +12,7 @@ import {
 } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
+import { useHistory } from "react-router";
 
 const getDefaultValues = (urlParams) => {
   return {
@@ -24,6 +25,7 @@ const getDefaultValues = (urlParams) => {
 
 function AddCylinder() {
   const urlParams = useQuery();
+  const history = useHistory();
   const { handleSubmit, control, register, errors } = useForm({
     defaultValues: {
       cylinders: [getDefaultValues(urlParams)],
@@ -33,6 +35,7 @@ function AddCylinder() {
     name: "cylinders",
     control,
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (fields.length === 0) {
@@ -40,7 +43,17 @@ function AddCylinder() {
     }
   }, [fields]);
 
-  const handleFormValues = console.log;
+  const handleFormValues = (data) => {
+    setLoading(true);
+    try {
+      console.log(data);
+      history.push(`/supplier`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <FormOutline
@@ -110,7 +123,13 @@ function AddCylinder() {
               </Button>
             </span>
             <span className="block w-full rounded-md shadow-sm">
-              <Button htmlType="submit" colorType="primary" sizeType="lg" block>
+              <Button
+                htmlType="submit"
+                colorType="primary"
+                sizeType="lg"
+                block
+                loading={loading}
+              >
                 Generate QR Codes
               </Button>
             </span>
