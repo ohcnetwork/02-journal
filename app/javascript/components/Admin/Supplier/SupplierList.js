@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { random } from "lodash";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
@@ -13,7 +14,11 @@ function SupplierList() {
       setLoading(true);
       try {
         const response = await getSupplier();
-        setData(response || []);
+        const augmented = response?.map((sup) => ({
+          ...sup,
+          cylinder_count: random(0, 300),
+        }));
+        setData(augmented);
       } catch (err) {
         setError(err);
       } finally {
@@ -30,6 +35,7 @@ function SupplierList() {
         Header: "Supplier Name",
         accessor: "name",
         className: "text-gray-900",
+        sortable: true,
       },
       {
         Header: "Address",
@@ -38,6 +44,11 @@ function SupplierList() {
       {
         Header: "Phone",
         accessor: "phone",
+      },
+      {
+        Header: "Cylinders",
+        accessor: "cylinder_count",
+        sortable: true,
       },
     ],
     []

@@ -1,4 +1,4 @@
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 import classnames from "classnames";
 
 /* react-table provides key */
@@ -11,11 +11,14 @@ function Table({ columns, data, ...rest }) {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-    ...rest,
-  });
+  } = useTable(
+    {
+      columns,
+      data,
+      ...rest,
+    },
+    useSortBy
+  );
 
   return (
     <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -27,9 +30,16 @@ function Table({ columns, data, ...rest }) {
                 {headerGroup.headers.map((column) => (
                   <th
                     className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                    {...column.getHeaderProps()}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
                     {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " 🔽"
+                          : " 🔼"
+                        : ""}
+                    </span>
                   </th>
                 ))}
               </tr>
