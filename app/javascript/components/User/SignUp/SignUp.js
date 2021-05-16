@@ -7,6 +7,7 @@ import { isLoggedIn } from "Apis/authentication";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import SelectStation from "Common/CustomFields/SelectStation";
 import { login } from "Apis/authentication";
 import SignUpOtp from "./SignUpOtp";
 import SignUpThumb from "./SignUpThumb";
@@ -18,6 +19,7 @@ const schema = yup.object().shape({
     .trim()
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
+  station: yup.mixed().required("Please select station"),
 });
 
 function SignUp() {
@@ -26,7 +28,7 @@ function SignUp() {
   const match = useRouteMatch();
   const history = useHistory();
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -45,7 +47,10 @@ function SignUp() {
   const onSubmit = async (payload) => {
     setLoading(true);
     try {
-      const response = await login(payload);
+      const response = await login({
+        ...payload,
+        station: payload.station.label,
+      });
       const userId = response.data?.user_id;
       const mobileNumber = payload.phone_number;
       if (userId) {
@@ -84,13 +89,14 @@ function SignUp() {
                   />
                   <Input
                     name="phone_number"
-                    label="Mobile number"
+                    label="Mobile Number"
                     required
                     placeholder="10 digit mobile number"
                     register={register}
                     errors={errors}
                     autoComplete="tel"
                   />
+                  <SelectStation control={control} errors={errors} />
                   <div className="mt-6">
                     <span className="block w-full rounded-md shadow-sm">
                       <Button
