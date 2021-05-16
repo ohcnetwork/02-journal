@@ -38,7 +38,7 @@ function Presets() {
     <FormOutline
       heading="Select Presets"
       subtitle="Options selected here will be applied by default to all batches of
-    cylinders. These can be altered on an individual cylinder field. This form does not a cylinder."
+    cylinders. These can be altered on an individual cylinder field. This form does not add a cylinder."
     >
       <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
         <form

@@ -51,7 +51,7 @@ export const updateSupplier = async (id, data) => {
 
 export const addCylinders = async (id, data) => {
   const response = await Axios.post(
-    `${URL}/${id}/cylinders`,
+    `${URL}/${id}/cylinders/add`,
     qs.stringify(data, { encodeValuesOnly: true }),
     {
       /**
