@@ -6,26 +6,20 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import CreatableSelectController from "Common/Form/CreatableSelectController";
+import { CylinderStatus } from "Common/CustomFields";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of supplier"),
-  phone_number: yup
-    .string()
-    .trim()
-    .required("Please enter mobile number")
-    .length(10, "Please enter 10 digit mobile number"),
-  address: yup.string().trim().required("Please enter address"),
 });
 
-function GenerateForm() {
+function Presets() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
     resolver: yupResolver(schema),
   });
-  const { register, handleSubmit, errors, control } = form;
+  const { register, handleSubmit, errors } = form;
 
   const handleFormValues = async (formData) => {
     setLoading(true);
@@ -34,50 +28,32 @@ function GenerateForm() {
       return { data: { temp_id: 1 } };
     })();
     setLoading(false);
-    history.push(`/supplier/${response.data.temp_id}/presets`);
+    history.push(`/supplier/${response.data.temp_id}`);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Generate QR Code
+          Select Presets
         </h2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
-          Filling up this form will help select a supplier. Individual cylinders
-          can be added on the next page.
+          Options selected here will be applied by default to all batches of
+          cylinders. These can be altered on an individual cylinder field.
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
             <form noValidate onSubmit={handleSubmit(handleFormValues)}>
-              <CreatableSelectController
-                name="name"
-                label="Supplier Name"
-                required
-                placeholder="Name of the supplier"
-                control={control}
-                errors={errors}
-              />
               <Input
-                as="textarea"
-                name="address"
-                rows={6}
-                label="Address"
+                name="serial_number"
+                label="Serial Number"
                 required
-                placeholder="Complete address of the supplier"
+                placeholder="Common prefix/suffix of serial numbers"
                 register={register}
                 errors={errors}
               />
-              <Input
-                name="phone_number"
-                label="Mobile number"
-                type="tel"
-                required
-                placeholder="10 digit mobile number"
-                register={register}
-                errors={errors}
-              />
-              <div className="mt-6">
+              <CylinderStatus errors={errors} register={register} />
+              <div className="mt-8">
                 <span className="block w-full rounded-md shadow-sm">
                   <Button
                     htmlType="submit"
@@ -86,7 +62,7 @@ function GenerateForm() {
                     loading={loading}
                     block
                   >
-                    Select Supplier
+                    Select Prefix
                   </Button>
                 </span>
               </div>
@@ -98,4 +74,4 @@ function GenerateForm() {
   );
 }
 
-export default GenerateForm;
+export default Presets;

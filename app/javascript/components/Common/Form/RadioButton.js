@@ -27,7 +27,7 @@ function RadioButtonGroup({ name, children, label, errors }) {
     <RBCtx.Provider value={name}>
       <div className="mt-4">
         <span className="text-gray-700">{label}</span>
-        <div className="mt-2">{children}</div>
+        <div className="mt-2 flex space-x-6">{children}</div>
       </div>
       {errorMessage && (
         <div className="mt-1 text-red-600" role="alert">

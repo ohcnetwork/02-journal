@@ -3,6 +3,7 @@ import { Icon } from "@blueprintjs/core";
 import { useForm } from "react-hook-form";
 
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
+import { CylinderStatus } from "Common/CustomFields";
 import Button from "Common/Button";
 
 function Success() {
@@ -28,7 +29,7 @@ function Success() {
       <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
         Please update the status of this cylinder
       </p>
-
+      <CylinderStatus register={register} errors={errors} />
       <RadioButtonGroup labelText="Entry" name="entry" errors={errors}>
         <RadioButton
           value="filled"
@@ -39,25 +40,6 @@ function Success() {
         </RadioButton>
         <RadioButton value="partial" register={register({ required: true })}>
           Exit
-        </RadioButton>
-      </RadioButtonGroup>
-
-      <RadioButtonGroup labelText="Status" name="status" errors={errors}>
-        <RadioButton
-          value="filled"
-          defaultChecked
-          register={register({ required: true })}
-        >
-          Filled
-        </RadioButton>
-        <RadioButton value="partial" register={register({ required: true })}>
-          Partial
-        </RadioButton>
-        <RadioButton value="empty" register={register({ required: true })}>
-          Empty
-        </RadioButton>
-        <RadioButton value="faulty" register={register({ required: true })}>
-          Faulty
         </RadioButton>
       </RadioButtonGroup>
 
