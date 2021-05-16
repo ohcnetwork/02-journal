@@ -28,7 +28,19 @@ function GenerateForm() {
   const form = useForm({
     resolver: yupResolver(schema),
   });
-  const { register, handleSubmit, errors, control } = form;
+  const { register, handleSubmit, errors, control, setValue } = form;
+
+  const handleSupplierChange = (newValue) => {
+    if (newValue.__isNew__) {
+      setValue("address", "");
+      setValue("phone", "");
+      return newValue;
+    }
+    const { address, phone } = newValue;
+    setValue("address", address);
+    setValue("phone", phone);
+    return newValue;
+  };
 
   const handleFormValues = async (formData) => {
     setLoading(true);
@@ -63,7 +75,11 @@ function GenerateForm() {
     >
       <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
         <form noValidate onSubmit={handleSubmit(handleFormValues)}>
-          <SelectSupplier control={control} errors={errors} />
+          <SelectSupplier
+            control={control}
+            errors={errors}
+            onChange={handleSupplierChange}
+          />
           <Input
             as="textarea"
             name="address"

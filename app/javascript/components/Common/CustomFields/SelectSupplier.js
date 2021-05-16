@@ -12,9 +12,10 @@ function SelectSupplier({ name = "name", label = "Supplier Name", ...rest }) {
       setLoading(true);
       try {
         const data = await getSupplier();
-        const options = data.map(({ id, name }) => ({
-          label: name,
-          value: id,
+        const options = data.map((option) => ({
+          ...option,
+          label: option.name,
+          value: option.id,
         }));
         setData(options);
       } catch (err) {
