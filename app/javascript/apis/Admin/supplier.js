@@ -48,3 +48,20 @@ export const updateSupplier = async (id, data) => {
   );
   return response.data;
 };
+
+export const addCylinders = async (id, data) => {
+  const response = await Axios.post(
+    `${URL}/${id}/cylinders`,
+    qs.stringify(data, { encodeValuesOnly: true }),
+    {
+      /**
+       * @TODO fix interceptor
+       */
+      headers: {
+        "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    }
+  );
+  return response.data;
+};

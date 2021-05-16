@@ -3,9 +3,9 @@ import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 function CylinderType({
   errors,
   register,
-  name = "type",
+  name = "category",
   label = "Type",
-  defaultValue = "medo2",
+  defaultValue = "med",
 }) {
   return (
     <RadioButtonGroup
@@ -14,16 +14,16 @@ function CylinderType({
       errors={errors}
       defaultValue={defaultValue}
     >
-      <RadioButton value="medo2" register={register}>
+      <RadioButton value="med" register={register}>
         Med O₂
       </RadioButton>
-      <RadioButton value="indo2" register={register}>
+      <RadioButton value="ind" register={register}>
         Ind O₂
       </RadioButton>
       <RadioButton value="nitrogen" register={register}>
         Nitrogen
       </RadioButton>
-      <RadioButton value="argon" register={register}>
+      <RadioButton value="arg" register={register}>
         Argon
       </RadioButton>
     </RadioButtonGroup>
