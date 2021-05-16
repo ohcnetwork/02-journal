@@ -3,6 +3,7 @@
 module Oxygen
   class Vendor < ApplicationRecord
     validates :name, presence: true, uniqueness: true
+    validates :phone, presence: true
     has_many :cylinders, dependent: :destroy
 
     def add_cylinders!(n = 0, cylinder_params)

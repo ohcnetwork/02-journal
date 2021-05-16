@@ -30,6 +30,6 @@ class Api::Oxygen::Admin::VendorsController < Api::V1::BaseController
 
   private
     def vendor_params
-      params.require(:vendor).permit(:name)
+      params.require(:vendor).permit(:name, :address, :phone)
     end
 end
