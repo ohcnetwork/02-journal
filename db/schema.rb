@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_083700) do
+ActiveRecord::Schema.define(version: 2021_05_16_082841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 2020_07_28_083700) do
     t.string "authentication_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cylinders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "vendor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 1
+    t.integer "category", default: 1
+    t.integer "capacity", default: 1
+    t.string "serial_number", default: ""
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -103,6 +113,14 @@ ActiveRecord::Schema.define(version: 2020_07_28_083700) do
     t.index ["phone_number", "date_of_birth"], name: "index_users_on_phone_number_and_date_of_birth", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vendors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "address"
+    t.string "phone"
   end
 
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

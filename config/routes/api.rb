@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
 namespace :api, defaults: { format: :json }  do
+  namespace :oxygen do
+    namespace :admin do
+      get "cylinder_search", to: "cylinder_search#search"
+
+      resources :vendors do
+        resources :cylinders do
+          collection do
+            post :add
+          end
+        end
+      end
+    end
+  end
+
   namespace :v1 do
     resources :sessions, only: [:create]
     resources :users do
@@ -8,7 +22,7 @@ namespace :api, defaults: { format: :json }  do
         post :verify_otp
       end
     end
-    resources :merchants, only: [:create] do 
+    resources :merchants, only: [:create] do
       member do
         post :verify_otp
       end
