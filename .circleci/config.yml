@@ -106,15 +106,15 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_DEFAULT_REGION
-          repo: "${ECR_REPO_NAME}"
+          repo: "journal-2"
           tag: "${CIRCLE_SHA1},latest"
           filters:
             branches:
               only: production
       - aws-eks/update-container-image:
-          cluster-name: "${EKS_CLUSTER_NAME}"
-          aws-region: "${AWS_DEFAULT_REGION}"
-          container-image-updates: '${EKS_CONTAINER_NAME}=${AWS_ECR_ACCOUNT_URL}/${ECR_REPO_NAME}:${CIRCLE_SHA1}'
-          resource-name: "${EKS_RESOURCE_NAME}"
+          cluster-name: "railsapps"
+          aws-region: "ap-south-1"
+          container-image-updates: "journal-2=${AWS_ECR_ACCOUNT_URL}/journal-2:${CIRCLE_SHA1}"
+          resource-name: "deployment/journal-2-deployment"
           requires:
             - aws-ecr/build-and-push-image
