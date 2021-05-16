@@ -32,6 +32,7 @@ function SupplierList() {
   const columns = useMemo(
     () => [
       {
+        id: "NAME",
         Header: "Supplier Name",
         accessor: "name",
         className: "text-gray-900",
@@ -47,13 +48,13 @@ function SupplierList() {
         Header: "Phone",
         accessor: "phone",
       },
-      {
-        Header: "Cylinders",
-        accessor: "cylinder_count",
-        headerClassName: "text-center justify-center",
-        className: "text-center",
-        sortable: true,
-      },
+      // {
+      //   Header: "Cylinders",
+      //   accessor: "cylinder_count",
+      //   headerClassName: "text-center justify-center",
+      //   className: "text-center",
+      //   sortable: true,
+      // },
     ],
     []
   );

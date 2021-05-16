@@ -1,27 +1,33 @@
-import Table from "Common/Table";
+import Table from "Common/Table/ReactTable";
 
 function CylinderList({ loading, data, error }) {
   const columns = [
     {
-      title: "Serial Number",
-      dataIndex: "serial_number",
+      Header: "Serial Number",
+      accessor: "serial_number",
       className: "text-gray-900",
+      sortable: true,
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Supplier Name",
-      dataIndex: "supplier_name",
+      Header: "Supplier Name",
+      accessor: "supplier_name",
+      sortable: true,
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Capacity",
-      dataIndex: "capacity",
+      Header: "Capacity",
+      accessor: "capacity",
     },
     {
-      title: "Status",
-      dataIndex: "status",
+      Header: "Status",
+      accessor: "status",
     },
     {
-      title: "Last Location",
-      dataIndex: "station_name",
+      Header: "Last Location",
+      accessor: "station_name",
     },
   ];
 
@@ -32,7 +38,7 @@ function CylinderList({ loading, data, error }) {
     return <p>Could not retrieve station list. Please try again.</p>;
   }
 
-  return <Table dataKey="id" columns={columns} data={data} />;
+  return <Table columns={columns} data={data} />;
 }
 
 export default CylinderList;
