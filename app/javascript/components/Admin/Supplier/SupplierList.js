@@ -13,7 +13,7 @@ function SupplierList() {
       setLoading(true);
       try {
         const response = await getSupplier();
-        setData(response);
+        setData(response || []);
       } catch (err) {
         setError(err);
       } finally {
