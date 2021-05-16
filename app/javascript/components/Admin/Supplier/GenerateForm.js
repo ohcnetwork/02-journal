@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -6,18 +6,19 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import { createSupplier, updateSupplier } from "Apis/Admin/supplier";
 import { SelectSupplier } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please enter name of supplier"),
-  phone_number: yup
+  name: yup.mixed().required("Please enter name of supplier"),
+  phone: yup
     .string()
     .trim()
     .required("Please enter mobile number")
     .length(10, "Please enter 10 digit mobile number"),
-  address: yup.string().trim().required("Please enter address"),
+  address: yup.string().trim(),
 });
 
 function GenerateForm() {
@@ -27,30 +28,43 @@ function GenerateForm() {
   const form = useForm({
     resolver: yupResolver(schema),
   });
-  const { register, handleSubmit, errors, control } = form;
+  const { register, handleSubmit, errors, control, setValue } = form;
 
-  useEffect(() => {
-    const getSupplierInformation = async () => {
-      await (async () =>
-        [
-          {
-            label: "Supplier 1",
-            value: "sup",
-          },
-        ]());
-    };
-
-    getSupplierInformation();
-  }, []);
+  const handleSupplierChange = (newValue) => {
+    if (newValue.__isNew__) {
+      setValue("address", "");
+      setValue("phone", "");
+      return newValue;
+    }
+    const { address, phone } = newValue;
+    setValue("address", address);
+    setValue("phone", phone);
+    return newValue;
+  };
 
   const handleFormValues = async (formData) => {
     setLoading(true);
-    const response = await (async () => {
-      console.log(formData);
-      return { data: { temp_id: 1 } };
-    })();
-    setLoading(false);
-    history.push(`/supplier/${response.data.temp_id}/presets`);
+    try {
+      const response = await (() => {
+        const data = {
+          ...formData,
+          name: formData.name.label,
+        };
+        if (formData.name.__isNew__) {
+          return createSupplier({
+            vendor: data,
+          });
+        }
+        return updateSupplier(formData.name.value, {
+          vendor: data,
+        });
+      })();
+      history.push(`/admin/suppliers/${response.id}/presets`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,7 +75,11 @@ function GenerateForm() {
     >
       <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
         <form noValidate onSubmit={handleSubmit(handleFormValues)}>
-          <SelectSupplier control={control} errors={errors} />
+          <SelectSupplier
+            control={control}
+            errors={errors}
+            onChange={handleSupplierChange}
+          />
           <Input
             as="textarea"
             name="address"
@@ -73,7 +91,7 @@ function GenerateForm() {
             errors={errors}
           />
           <Input
-            name="phone_number"
+            name="phone"
             label="Mobile number"
             type="tel"
             required

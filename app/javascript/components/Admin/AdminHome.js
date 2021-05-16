@@ -5,6 +5,7 @@ import { isLoggedIn } from "Apis/Admin/Auth";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Station from "./Station";
+import Supplier from "./Supplier";
 
 function AdminHome() {
   const history = useHistory();
@@ -36,8 +37,11 @@ function AdminHome() {
         <Header />
         <main className="flex-1 relative overflow-y-auto focus:outline-none">
           <div className="py-6">
-            <Route path={`${path}stations`}>
+            <Route path={`${path}/stations`}>
               <Station />
+            </Route>
+            <Route path={`${path}/suppliers`}>
+              <Supplier />
             </Route>
           </div>
         </main>

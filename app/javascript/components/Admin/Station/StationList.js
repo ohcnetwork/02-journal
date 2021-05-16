@@ -21,7 +21,7 @@ function StationList({ loading, data, error }) {
     return <p>Loading...</p>;
   }
   if (error) {
-    return <p>Could not retrieve merchant list. Please try again.</p>;
+    return <p>Could not retrieve station list. Please try again.</p>;
   }
 
   return <Table dataKey="id" columns={columns} data={data} />;

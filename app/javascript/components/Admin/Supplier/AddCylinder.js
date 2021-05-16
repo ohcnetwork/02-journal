@@ -5,6 +5,7 @@ import { Icon } from "@blueprintjs/core";
 import useQuery from "Hooks/useQuery";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
+import { addCylinders } from "Apis/Admin/supplier";
 import {
   CylinderStatus,
   CylinderCapacity,
@@ -12,27 +13,29 @@ import {
 } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 const getDefaultValues = (urlParams) => {
   return {
     serial_number: urlParams.get("serial_number") || "",
     capacity: urlParams.get("capacity") || "d",
     status: urlParams.get("status") || "filled",
-    type: urlParams.get("type") || "medo2",
+    category: urlParams.get("category") || "med",
   };
 };
 
 function AddCylinder() {
+  const { id } = useParams();
   const urlParams = useQuery();
   const history = useHistory();
+
   const { handleSubmit, control, register, errors } = useForm({
     defaultValues: {
-      cylinders: [getDefaultValues(urlParams)],
+      cylinder: [getDefaultValues(urlParams)],
     },
   });
   const { fields, append, remove } = useFieldArray({
-    name: "cylinders",
+    name: "cylinder",
     control,
   });
   const [loading, setLoading] = useState(false);
@@ -46,8 +49,12 @@ function AddCylinder() {
   const handleFormValues = (data) => {
     setLoading(true);
     try {
-      console.log(data);
-      history.push(`/supplier`);
+      addCylinders(id, data);
+      window.open(
+        `${window.location.origin}/oxygen/vendors/${id}/qr_codes`,
+        "_blank"
+      );
+      history.push("/admin/suppliers");
     } catch (err) {
       console.error(err);
     } finally {
@@ -69,19 +76,19 @@ function AddCylinder() {
           {fields.map((field, index) => {
             return (
               <div
-                className="py-6 px-10 border-2 border-gray-200 space-y-8"
+                className="py-6 px-8 border-2 border-gray-200 space-y-8"
                 key={field.id}
               >
                 <div className="flex justify-between items-center">
                   <h4 className="text-sm font-semibold text-indigo-500 truncate">
-                    Cylinder {index + 1}
+                    Cylinder #{index + 1}
                   </h4>
                   <button title="Remove" onClick={() => remove(index)}>
                     <Icon icon={"small-cross"} />
                   </button>
                 </div>
                 <Input
-                  name={`cylinders[${index}].serial_number`}
+                  name={`cylinder[${index}].serial_number`}
                   label="Serial Number"
                   required
                   placeholder="Serial number of cylinder"
@@ -90,22 +97,22 @@ function AddCylinder() {
                   defaultValue={field.serial_number}
                 />
                 <CylinderStatus
-                  name={`cylinders[${index}].status`}
+                  name={`cylinder[${index}].status`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.status}
                 />
                 <CylinderCapacity
-                  name={`cylinders[${index}].capacity`}
+                  name={`cylinder[${index}].capacity`}
                   errors={errors}
                   register={register()}
                   defaultValue={field.capacity}
                 />
                 <CylinderType
-                  name={`cylinders[${index}].type`}
+                  name={`cylinder[${index}].category`}
                   errors={errors}
                   register={register()}
-                  defaultValue={field.type}
+                  defaultValue={field.category}
                 />
               </div>
             );

@@ -17,7 +17,7 @@ function CylinderStatus({
       <RadioButton value="filled" register={register}>
         Filled
       </RadioButton>
-      <RadioButton value="partial" register={register}>
+      <RadioButton value="partially" register={register}>
         Partial
       </RadioButton>
       <RadioButton value="empty" register={register}>
