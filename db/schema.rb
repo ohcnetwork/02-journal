@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_110355) do
+ActiveRecord::Schema.define(version: 2021_05_16_060600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(version: 2021_05_15_110355) do
     t.uuid "vendor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 1
+    t.integer "category", default: 1
+    t.integer "capacity", default: 1
+    t.string "serial_number", default: ""
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

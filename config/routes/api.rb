@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 namespace :api, defaults: { format: :json }  do
-  namespace :oxygen do 
-    namespace :admin do 
-      resources :vendors do 
-        resources :cylinders do 
-          collection do 
+  namespace :oxygen do
+    namespace :admin do
+      resources :vendors do
+        resources :cylinders do
+          collection do
             get :qr_codes
             post :add
           end
@@ -21,7 +21,7 @@ namespace :api, defaults: { format: :json }  do
         post :verify_otp
       end
     end
-    resources :merchants, only: [:create] do 
+    resources :merchants, only: [:create] do
       member do
         post :verify_otp
       end
