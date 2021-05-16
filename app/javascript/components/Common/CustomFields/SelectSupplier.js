@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import { getSupplier } from "Apis/Admin/supplier";
 import CreatableSelectController from "Common/Form/CreatableSelectController";
 
 function SelectSupplier({ name = "name", label = "Supplier Name", ...rest }) {
@@ -9,12 +11,7 @@ function SelectSupplier({ name = "name", label = "Supplier Name", ...rest }) {
     const getSupplierInformation = async () => {
       setLoading(true);
       try {
-        const data = [
-          {
-            label: "Supplier 1",
-            value: "sup",
-          },
-        ];
+        const { data } = await getSupplier();
         setData(data);
       } catch (err) {
         console.error(err);

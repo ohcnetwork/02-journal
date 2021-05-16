@@ -1,6 +1,29 @@
-import Table from "Common/Table";
+import { useEffect, useState } from "react";
 
-function SupplierList({ loading = false, data = [], error }) {
+import Table from "Common/Table";
+import { getSupplier } from "Apis/Admin/supplier";
+
+function SupplierList() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await getSupplier();
+        setData(response);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
   const columns = [
     {
       title: "Supplier Name",
@@ -21,7 +44,7 @@ function SupplierList({ loading = false, data = [], error }) {
     return <p>Loading...</p>;
   }
   if (error) {
-    return <p>Could not retrieve merchant list. Please try again.</p>;
+    return <p>Could not retrieve supplier list. Please try again.</p>;
   }
 
   return <Table dataKey="id" columns={columns} data={data} />;

@@ -5,7 +5,9 @@ let authHeaderInterceptor;
 export const signIn = (payload) => Axios.post(`/admin/sessions`, payload);
 
 const addInterceptor = (token) => {
-  authHeaderInterceptor = Axios.interceptors.request.use((config) => {
+  authHeaderInterceptor = Axios.interceptors.request.use(async function (
+    config
+  ) {
     return {
       ...config,
       headers: {
