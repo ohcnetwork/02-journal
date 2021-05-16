@@ -25,7 +25,7 @@ function SupplierList() {
   }, []);
 
   const columns = useMemo(
-    [
+    () => [
       {
         Header: "Supplier Name",
         accessor: "name",

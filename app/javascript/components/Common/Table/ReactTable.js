@@ -1,9 +1,10 @@
 import { useTable } from "react-table";
+import classnames from "classnames";
 
 /* react-table provides key */
 /* eslint-disable react/jsx-key */
 
-function Table({ columns, data }) {
+function Table({ columns, data, ...rest }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -13,6 +14,7 @@ function Table({ columns, data }) {
   } = useTable({
     columns,
     data,
+    ...rest,
   });
 
   return (
@@ -40,7 +42,16 @@ function Table({ columns, data }) {
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td
+                        {...cell.getCellProps({
+                          className: classnames(
+                            cell.column.className,
+                            "px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium"
+                          ),
+                        })}
+                      >
+                        {cell.render("Cell")}
+                      </td>
                     );
                   })}
                 </tr>
