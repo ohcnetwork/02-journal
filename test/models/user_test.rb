@@ -62,7 +62,7 @@ class UserTest < ActiveSupport::TestCase
       role: "visitor"
     })
 
-    assert_equal 45, user.age
+    assert_equal 46, user.age
   end
 
   test "by_age" do
