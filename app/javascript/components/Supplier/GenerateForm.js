@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import CreatableSelectController from "Common/Form/CreatableSelectController";
+import { SelectSupplier } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
 
@@ -29,6 +29,20 @@ function GenerateForm() {
   });
   const { register, handleSubmit, errors, control } = form;
 
+  useEffect(() => {
+    const getSupplierInformation = async () => {
+      await (async () =>
+        [
+          {
+            label: "Supplier 1",
+            value: "sup",
+          },
+        ]());
+    };
+
+    getSupplierInformation();
+  }, []);
+
   const handleFormValues = async (formData) => {
     setLoading(true);
     const response = await (async () => {
@@ -47,14 +61,7 @@ function GenerateForm() {
     >
       <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
         <form noValidate onSubmit={handleSubmit(handleFormValues)}>
-          <CreatableSelectController
-            name="name"
-            label="Supplier Name"
-            required
-            placeholder="Name of the supplier"
-            control={control}
-            errors={errors}
-          />
+          <SelectSupplier control={control} errors={errors} />
           <Input
             as="textarea"
             name="address"
