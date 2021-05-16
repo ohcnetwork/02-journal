@@ -5,6 +5,7 @@ import GenerateForm from "./GenerateForm";
 import Presets from "./Presets";
 import SupplierList from "./SupplierList";
 import ContentOutline from "../ContentOutline";
+import Cylinder from "../Cylinder";
 
 function Supplier() {
   const { path } = useRouteMatch();
@@ -17,6 +18,9 @@ function Supplier() {
       </Route>
       <Route path={`${path}/:id/cylinders`}>
         <AddCylinder />
+      </Route>
+      <Route path={`${path}/:id/cylinderList`}>
+        <Cylinder />
       </Route>
       <Route path={`${path}/new`}>
         <GenerateForm />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouteMatch, Link } from "react-router-dom";
 
 import Table from "Common/Table";
 import { getSupplier } from "Apis/Admin/supplier";
@@ -7,6 +8,12 @@ function SupplierList() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+
+  const match = useRouteMatch();
+
+  const renderLink = (id) => (
+    <Link to={`${match.url}/${id}/cylinderList`}>View Cylinders</Link>
+  );
 
   useEffect(() => {
     const getData = async () => {
@@ -37,6 +44,11 @@ function SupplierList() {
     {
       title: "Phone",
       dataIndex: "phone",
+    },
+    {
+      title: " ",
+      dataIndex: "id",
+      render: renderLink,
     },
   ];
 
