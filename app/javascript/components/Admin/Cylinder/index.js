@@ -13,6 +13,30 @@ const getRemoteData = async () => {
       status: "filled",
       station_name: "Piravom",
     },
+    {
+      id: 2,
+      serial_number: "456",
+      supplier_name: "BPCL",
+      capacity: "B",
+      status: "filled",
+      station_name: "Piravom",
+    },
+    {
+      id: 3,
+      serial_number: "34569",
+      supplier_name: "Another Place",
+      capacity: "C",
+      status: "empty",
+      station_name: "Piravom",
+    },
+    {
+      id: 4,
+      serial_number: "34569",
+      supplier_name: "Frequent",
+      capacity: "H",
+      status: "partial",
+      station_name: "Piravom",
+    },
   ];
   return Promise.resolve(data);
 };
