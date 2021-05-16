@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
 import Input from "Common/Form/Input";
-import LocalBodyForm from "Common/LocalBodyForm";
+import { LocalBodyForm } from "Common/CustomFields";
 import Button from "Common/Button";
 
 const schema = yup.object().shape({
