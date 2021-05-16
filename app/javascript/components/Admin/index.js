@@ -11,7 +11,7 @@ function Admin() {
       <Route exact path={`${match.url}/login`}>
         <SignIn />
       </Route>
-      <Route path={`${match.url}/`}>
+      <Route path={`${match.url}`}>
         <AdminHome />
       </Route>
     </Switch>

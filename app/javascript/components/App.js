@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import User from "./User";
-const Supplier = lazy(() => import("./Supplier"));
 const Admin = lazy(() => import("./Admin"));
 
 dayjs.extend(relativeTime);
@@ -17,9 +16,6 @@ export default class App extends Component {
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
-            <Route path="/supplier">
-              <Supplier />
-            </Route>
             <Route path="/admin">
               <Admin />
             </Route>
