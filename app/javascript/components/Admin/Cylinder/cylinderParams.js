@@ -24,7 +24,7 @@ export const statusOptions = [
   },
   {
     label: "Partially",
-    value: "Partial",
+    value: "partially",
   },
   {
     label: "Empty",
@@ -54,3 +54,13 @@ export const typeOptions = [
     value: "arg",
   },
 ];
+
+/**
+ * Get the display element from value
+ * @param {typeof typeOptions} options
+ * @param {string} value received value prop
+ * @returns display element
+ */
+export const findLabel = (options, value) => {
+  return options.find((option) => option.value === value)?.label ?? null;
+};

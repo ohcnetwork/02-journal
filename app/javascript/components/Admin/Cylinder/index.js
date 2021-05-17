@@ -1,45 +1,8 @@
 import { useEffect, useState } from "react";
 
+import { getCylinders } from "Apis/Admin/cylinder";
 import ContentOutline from "../ContentOutline";
 import CylinderList from "./CylinderList";
-
-const getRemoteData = async () => {
-  const data = [
-    {
-      id: 1,
-      serial_number: "123",
-      supplier_name: "BPCL",
-      capacity: "D",
-      status: "filled",
-      station_name: "Piravom",
-    },
-    {
-      id: 2,
-      serial_number: "456",
-      supplier_name: "BPCL",
-      capacity: "B",
-      status: "filled",
-      station_name: "Piravom",
-    },
-    {
-      id: 3,
-      serial_number: "34569",
-      supplier_name: "Another Place",
-      capacity: "C",
-      status: "empty",
-      station_name: "Piravom",
-    },
-    {
-      id: 4,
-      serial_number: "34569",
-      supplier_name: "Frequent",
-      capacity: "H",
-      status: "partial",
-      station_name: "Piravom",
-    },
-  ];
-  return Promise.resolve(data);
-};
 
 function Cylinder() {
   const [data, setData] = useState([]);
@@ -48,7 +11,8 @@ function Cylinder() {
   const getData = async () => {
     setLoading(true);
     try {
-      setData(await getRemoteData());
+      const response = await getCylinders();
+      setData(response);
     } catch (err) {
       console.error(err);
     } finally {

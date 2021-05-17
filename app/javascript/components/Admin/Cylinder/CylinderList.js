@@ -1,5 +1,7 @@
 import Table from "Common/Table/ReactTable";
 
+import { capacityOptions, statusOptions, findLabel } from "./cylinderParams";
+
 function CylinderList({ loading, data, error }) {
   const columns = [
     {
@@ -20,14 +22,23 @@ function CylinderList({ loading, data, error }) {
     {
       Header: "Capacity",
       accessor: "capacity",
+      Cell: ({ value }) => {
+        return findLabel(capacityOptions, value);
+      },
     },
     {
       Header: "Status",
       accessor: "status",
+      Cell: ({ value }) => {
+        return findLabel(statusOptions, value);
+      },
     },
     {
       Header: "Last Location",
       accessor: "station_name",
+      Cell: () => {
+        return "-";
+      },
     },
   ];
 
