@@ -1,35 +1,20 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy } from "react";
 import { useHistory } from "react-router";
+import useRequest from "@ahooksjs/use-request";
 
 import useQuery from "Hooks/useQuery";
 import { getCylinders } from "Apis/Admin/cylinder";
 
 import ContentOutline from "../ContentOutline";
 import CylinderList from "./CylinderList";
+const ExportList = lazy(() => import("./ExportList"));
 
 function Cylinder() {
-  const [data, setData] = useState([]);
   const queryParams = useQuery();
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const { data, loading } = useRequest(getCylinders);
 
   const supplierId = queryParams.get("supplier_id");
-
-  const getData = async () => {
-    setLoading(true);
-    try {
-      const response = await getCylinders();
-      setData(response);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const renderSupplierHeader = () => {
     const clearSupplier = () => {
@@ -61,6 +46,11 @@ function Cylinder() {
         supplierId
           ? renderSupplierHeader()
           : "View and filter list of cylinders"
+      }
+      rightEl={
+        <Suspense loading={null}>
+          <ExportList data={data} />
+        </Suspense>
       }
     >
       <CylinderList
