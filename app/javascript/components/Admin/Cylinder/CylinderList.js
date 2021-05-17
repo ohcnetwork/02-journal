@@ -1,4 +1,5 @@
 import Table from "Common/Table/ReactTable";
+import { SelectFilter } from "Common/Table/ColumnFilter";
 
 import { capacityOptions, statusOptions, findLabel } from "./cylinderParams";
 
@@ -22,6 +23,9 @@ function CylinderList({ loading, data, error }) {
     {
       Header: "Capacity",
       accessor: "capacity",
+      options: capacityOptions,
+      Filter: SelectFilter,
+      filterable: true,
       Cell: ({ value }) => {
         return findLabel(capacityOptions, value);
       },
