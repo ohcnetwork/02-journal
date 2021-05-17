@@ -23,7 +23,7 @@ export const statusOptions = [
     value: "filled",
   },
   {
-    label: "Partially",
+    label: "Partial",
     value: "partially",
   },
   {

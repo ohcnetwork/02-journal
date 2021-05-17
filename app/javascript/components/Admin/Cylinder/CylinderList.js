@@ -1,9 +1,11 @@
+import { useMemo } from "react";
+
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
 
 import { capacityOptions, statusOptions, findLabel } from "./cylinderParams";
 
-function CylinderList({ loading, data, error }) {
+function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
     {
       Header: "Serial Number",
@@ -11,6 +13,12 @@ function CylinderList({ loading, data, error }) {
       className: "text-gray-900",
       sortable: true,
       filter: "fuzzyText",
+      filterable: true,
+    },
+    {
+      id: "supplier_id",
+      Header: "id",
+      accessor: "vendor_id",
       filterable: true,
     },
     {
@@ -49,6 +57,21 @@ function CylinderList({ loading, data, error }) {
     },
   ];
 
+  const initialState = useMemo(
+    () => ({
+      hiddenColumns: ["supplier_id"],
+      filters: supplierId
+        ? [
+            {
+              id: "supplier_id",
+              value: supplierId,
+            },
+          ]
+        : [],
+    }),
+    []
+  );
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -56,7 +79,7 @@ function CylinderList({ loading, data, error }) {
     return <p>Could not retrieve station list. Please try again.</p>;
   }
 
-  return <Table columns={columns} data={data} />;
+  return <Table initialState={initialState} columns={columns} data={data} />;
 }
 
 export default CylinderList;
