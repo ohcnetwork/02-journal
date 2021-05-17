@@ -3,7 +3,12 @@ import { useMemo } from "react";
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
 
-import { capacityOptions, statusOptions, findLabel } from "./cylinderParams";
+import {
+  capacityOptions,
+  statusOptions,
+  findLabel,
+  typeOptions,
+} from "./cylinderParams";
 
 function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
@@ -53,6 +58,16 @@ function CylinderList({ loading, data, error, supplierId }) {
       accessor: "station_name",
       Cell: () => {
         return "-";
+      },
+    },
+    {
+      Header: "Original Type",
+      accessor: "category",
+      options: typeOptions,
+      Filter: SelectFilter,
+      filterable: true,
+      Cell: ({ value }) => {
+        return findLabel(typeOptions, value);
       },
     },
   ];
