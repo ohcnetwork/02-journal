@@ -29,7 +29,7 @@ export default function OptionsDropdown({ id, refresh }) {
         </Menu.Button>
       }
     >
-      <div className="px-1 py-1 w-36">
+      <div className="px-1 py-1 w-36 bg-white rounded-md shadow-lg">
         <Menu.Item>
           <button
             className={`text-gray-800 group hover:bg-gray-100 flex rounded-md items-center w-full px-2 py-2 text-sm`}

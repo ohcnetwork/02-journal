@@ -32,7 +32,7 @@ function SelectFilter({ column }) {
 
   return (
     <Wrapper column={column}>
-      <div className="w-40">
+      <div className="w-40 mt-2">
         <Select
           ref={ref}
           placeholder="Select option"
