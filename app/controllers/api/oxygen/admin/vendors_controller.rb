@@ -24,6 +24,16 @@ class Api::Oxygen::Admin::VendorsController < Api::V1::BaseController
     end
   end
 
+  def destroy
+    vendor = Oxygen::Vendor.find(params[:id])
+
+    if vendor.destroy
+      render json: vendor
+    else
+      render json: { errors: vendor.errors }
+    end
+  end
+
   def index
     render json: Oxygen::Vendor.all
   end
