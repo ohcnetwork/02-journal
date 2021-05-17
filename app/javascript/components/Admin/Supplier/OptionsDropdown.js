@@ -1,10 +1,21 @@
 import { Menu } from "@headlessui/react";
 import { Icon } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
+import useRequest from "@ahooksjs/use-request";
 
+import { deleteSupplier } from "Apis/Admin/supplier";
 import Dropdown from "Common/Dropdown";
 
-export default function OptionsDropdown() {
+export default function OptionsDropdown({ id, refresh }) {
+  const { run } = useRequest(deleteSupplier, {
+    manual: true,
+    onSuccess: refresh,
+  });
+
+  const handleDelete = () => {
+    run(id);
+  };
+
   return (
     <Dropdown
       menuBtn={
@@ -22,6 +33,7 @@ export default function OptionsDropdown() {
         <Menu.Item>
           <button
             className={`text-gray-800 group hover:bg-gray-100 flex rounded-md items-center w-full px-2 py-2 text-sm`}
+            onClick={handleDelete}
           >
             <Icon
               icon={IconNames.TRASH}

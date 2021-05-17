@@ -5,7 +5,7 @@ export const capacityOptions = [
   },
   {
     label: "B",
-    value: "B",
+    value: "b",
   },
   {
     label: "C",

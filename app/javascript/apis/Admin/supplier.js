@@ -16,7 +16,7 @@ export const getSupplier = async () => {
 };
 
 export const deleteSupplier = async (id) => {
-  const response = await Axios(`${URL}/${id}`, {
+  const response = await Axios.delete(`${URL}/${id}`, {
     /**
      * @TODO fix interceptor
      */
