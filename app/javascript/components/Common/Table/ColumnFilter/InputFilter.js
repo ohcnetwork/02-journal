@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import Wrapper from "./Wrapper";
 
@@ -6,6 +6,12 @@ function InputFilter({ column }) {
   const { filterValue, setFilter, preFilteredRows } = column;
   const ref = useRef();
   const count = preFilteredRows.length;
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
 
   return (
     <Wrapper column={column}>
