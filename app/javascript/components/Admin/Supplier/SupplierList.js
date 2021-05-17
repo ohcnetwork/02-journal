@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { random } from "lodash";
 import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
@@ -15,11 +14,7 @@ function SupplierList() {
       setLoading(true);
       try {
         const response = await getSupplier();
-        const augmented = response?.map((sup) => ({
-          ...sup,
-          cylinder_count: random(0, 300),
-        }));
-        setData(augmented);
+        setData(response);
       } catch (err) {
         setError(err);
       } finally {
