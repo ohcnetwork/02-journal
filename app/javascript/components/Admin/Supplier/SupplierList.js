@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { random } from "lodash";
+import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
@@ -32,7 +33,7 @@ function SupplierList() {
   const columns = useMemo(
     () => [
       {
-        id: "NAME",
+        id: "name",
         Header: "Supplier Name",
         accessor: "name",
         className: "text-gray-900",
@@ -48,13 +49,29 @@ function SupplierList() {
         Header: "Phone",
         accessor: "phone",
       },
-      // {
-      //   Header: "Cylinders",
-      //   accessor: "cylinder_count",
-      //   headerClassName: "text-center justify-center",
-      //   className: "text-center",
-      //   sortable: true,
-      // },
+      {
+        Header: "Cylinders",
+        accessor: "cylinder_count",
+        headerClassName: "text-center justify-center",
+        className: "text-center text-indigo-600",
+        sortable: true,
+        Cell: function CylinderLink({ value, row }) {
+          const {
+            original: { id, name },
+          } = row;
+          const param = new URLSearchParams();
+          param.set("supplier_id", id);
+          param.set("supplier_name", name);
+          return (
+            <Link
+              to={`/admin/cylinders?${param.toString()}`}
+              title="Click to view all Cylinders from this supplier"
+            >
+              {value}
+            </Link>
+          );
+        },
+      },
     ],
     []
   );
