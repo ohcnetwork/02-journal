@@ -13,7 +13,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 }
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
-function Table({ columns, data, ...rest }) {
+function Table({ columns, data, emptyMessage = "No data available", ...rest }) {
   const defaultColumn = useMemo(
     () => ({
       Filter: InputFilter,
@@ -58,7 +58,7 @@ function Table({ columns, data, ...rest }) {
   return (
     <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200 text-gray-500">
-        <table className="min-w-full" {...getTableProps()}>
+        <table className="min-w-full min-h-full" {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -120,6 +120,11 @@ function Table({ columns, data, ...rest }) {
             })}
           </tbody>
         </table>
+        {data.length === 0 && (
+          <div className="py-32">
+            <p className="text-gray-600 text-center">{emptyMessage}</p>
+          </div>
+        )}
       </div>
     </div>
   );
