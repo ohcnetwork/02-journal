@@ -1,30 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
 import OptionsDropdown from "./OptionsDropdown";
+import useRequest from "@ahooksjs/use-request";
 
 function SupplierList() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const response = await getSupplier();
-        setData(response);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getData();
-  }, []);
+  const { loading, data, error, refresh } = useRequest(getSupplier, {
+    cacheKey: "admin_supplier_list",
+  });
 
   const columns = useMemo(
     () => [
@@ -73,7 +58,7 @@ function SupplierList() {
         Header: "",
         width: 0,
         Cell: function Options({ row: { original } }) {
-          return <OptionsDropdown id={original.id} />;
+          return <OptionsDropdown id={original.id} refresh={refresh} />;
         },
       },
     ],
