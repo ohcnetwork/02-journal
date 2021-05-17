@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
+import OptionsDropdown from "./OptionsDropdown";
 
 function SupplierList() {
   const [loading, setLoading] = useState(false);
@@ -65,6 +66,14 @@ function SupplierList() {
               {value}
             </Link>
           );
+        },
+      },
+      {
+        id: "options",
+        Header: "",
+        width: 0,
+        Cell: function Options({ row: { original } }) {
+          return <OptionsDropdown id={original.id} />;
         },
       },
     ],

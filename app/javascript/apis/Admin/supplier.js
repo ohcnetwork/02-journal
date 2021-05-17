@@ -15,6 +15,18 @@ export const getSupplier = async () => {
   return response.data;
 };
 
+export const deleteSupplier = async (id) => {
+  const response = await Axios(`${URL}/${id}`, {
+    /**
+     * @TODO fix interceptor
+     */
+    headers: {
+      "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+    },
+  });
+  return response.data;
+};
+
 export const createSupplier = async (data) => {
   const response = await Axios.post(
     URL,
