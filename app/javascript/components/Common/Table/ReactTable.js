@@ -3,7 +3,7 @@ import { useTable, useSortBy, useFilters } from "react-table";
 import classnames from "classnames";
 import { matchSorter } from "match-sorter";
 
-import ColumnFilter from "./ColumnFilter";
+import { InputFilter } from "./ColumnFilter";
 
 /* react-table provides key */
 /* eslint-disable react/jsx-key */
@@ -16,7 +16,7 @@ fuzzyTextFilterFn.autoRemove = (val) => !val;
 function Table({ columns, data, ...rest }) {
   const defaultColumn = useMemo(
     () => ({
-      Filter: ColumnFilter,
+      Filter: InputFilter,
     }),
     []
   );
