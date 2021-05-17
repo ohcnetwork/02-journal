@@ -33,6 +33,9 @@ function CylinderList({ loading, data, error }) {
     {
       Header: "Status",
       accessor: "status",
+      options: statusOptions,
+      Filter: SelectFilter,
+      filterable: true,
       Cell: ({ value }) => {
         return findLabel(statusOptions, value);
       },

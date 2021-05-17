@@ -38,8 +38,9 @@ function SelectFilter({ column }) {
           placeholder="Select option"
           value={allOptions.find(({ value }) => value === filterValue)}
           options={selectOptions}
+          isClearable={true}
           onChange={(option) => {
-            setFilter(option.value);
+            setFilter(option?.value);
           }}
         />
       </div>
