@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include OtpVerifiable
-
   devise :database_authenticatable, :registerable
 
-  validates :phone_number, uniqueness: true
-  validates :name, :phone_number, :date_of_birth, presence: true
+  validates :phone, uniqueness: true
+  validates :name, :phone, :station_id, presence: true
 
   has_many :visits, dependent: :destroy
 
   before_create :ensure_authentication_token_is_present
 
   scope :by_age,   -> (age)  { where("EXTRACT(YEAR FROM AGE(date_of_birth)) = ?", age) }
-  scope :by_phone, -> (phone) { where(phone_number: phone) }
+  scope :by_phone, -> (phone) { where(phone: phone) }
 
   def age
     Time.zone.today.year - date_of_birth.year
@@ -28,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def as_json(options = {})
-    new_options = options.merge(only: [:id, :name, :phone_number, :date_of_birth, :authentication_token])
+    new_options = options.merge(only: [:id, :name, :phone, :station_id, :authentication_token])
     super new_options
   end
 

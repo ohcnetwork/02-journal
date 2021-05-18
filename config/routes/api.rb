@@ -2,6 +2,7 @@
 
 namespace :api, defaults: { format: :json }  do
   namespace :oxygen do
+    resources :sessions, only: [:create]
     namespace :admin do
       resources :stations
       get "cylinder_search", to: "cylinder_search#search"
@@ -17,7 +18,6 @@ namespace :api, defaults: { format: :json }  do
   end
 
   namespace :v1 do
-    resources :sessions, only: [:create]
     resources :users do
       member do
         post :verify_otp
