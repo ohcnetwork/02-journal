@@ -26,6 +26,12 @@ Style/AndOr:
 Layout/CaseIndentation:
   Enabled: true
 
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
 # Align comments with method definitions.
 Layout/CommentIndentation:
   Enabled: true

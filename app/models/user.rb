@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :name, :phone, :station_id, presence: true
 
   has_many :visits, dependent: :destroy
+  belongs_to :station, class_name: "Oxygen::Station", optional: true
 
   before_create :ensure_authentication_token_is_present
 
