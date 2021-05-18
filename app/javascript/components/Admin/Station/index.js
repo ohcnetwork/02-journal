@@ -7,7 +7,7 @@ import AddStation from "./AddStation";
 import StationList from "./StationList";
 
 function Station() {
-  const { loading, data, refresh } = useRequest(getStations);
+  const { loading, data, refresh, error } = useRequest(getStations);
 
   return (
     <ContentOutline
@@ -15,7 +15,12 @@ function Station() {
       subtitle="Create & View list of filling stations"
       rightEl={<AddStation refresh={refresh} />}
     >
-      <StationList loading={loading} data={data} />
+      <StationList
+        loading={loading}
+        data={data}
+        refresh={refresh}
+        error={error}
+      />
     </ContentOutline>
   );
 }

@@ -48,3 +48,15 @@ export const updateStation = async (id, data) => {
   );
   return response.data;
 };
+
+export const deleteStation = async (id) => {
+  const response = await Axios.delete(`${URL}/${id}`, {
+    /**
+     * @TODO fix interceptor
+     */
+    headers: {
+      "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+    },
+  });
+  return response.data;
+};
