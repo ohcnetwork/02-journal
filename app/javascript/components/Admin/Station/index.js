@@ -1,45 +1,19 @@
-import { useEffect, useState } from "react";
+import useRequest from "@ahooksjs/use-request";
+
+import { getStations } from "Apis/Admin/station";
+
 import ContentOutline from "../ContentOutline";
 import AddStation from "./AddStation";
-
 import StationList from "./StationList";
 
-const getRemoteData = async () => {
-  const data = [
-    {
-      id: 1,
-      name: "Name of the station",
-      address: "some address of station",
-      phone: "12341234",
-    },
-  ];
-  return Promise.resolve(data);
-};
-
 function Station() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getData = async () => {
-    setLoading(true);
-    try {
-      setData(await getRemoteData());
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const { loading, data, refresh } = useRequest(getStations);
 
   return (
     <ContentOutline
       heading="Stations"
       subtitle="Create & View list of filling stations"
-      rightEl={<AddStation refetch={getData} />}
+      rightEl={<AddStation refresh={refresh} />}
     >
       <StationList loading={loading} data={data} />
     </ContentOutline>

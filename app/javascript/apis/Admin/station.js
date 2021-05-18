@@ -1,10 +1,17 @@
 import Axios from "../axios";
 import qs from "qs";
 
-const URL = `/oxygen/admin/station`;
+const URL = `/oxygen/admin/stations`;
 
-export const getStation = async () => {
-  const response = await Axios.get(URL);
+export const getStations = async () => {
+  const response = await Axios.get(URL, {
+    /**
+     * @TODO fix interceptor
+     */
+    headers: {
+      "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+    },
+  });
   return response.data;
 };
 

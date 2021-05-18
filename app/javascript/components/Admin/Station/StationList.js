@@ -1,19 +1,25 @@
-import Table from "Common/Table";
+import Table from "Common/Table/ReactTable";
 
 function StationList({ loading, data, error }) {
   const columns = [
     {
-      title: "Station Name",
-      dataIndex: "name",
+      Header: "Station Name",
+      accessor: "name",
       className: "text-gray-900",
+      sortable: true,
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      Header: "Address",
+      accessor: "address",
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
+      Header: "Phone",
+      accessor: "phone",
+      filterable: true,
     },
   ];
 

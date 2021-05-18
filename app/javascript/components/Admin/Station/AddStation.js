@@ -1,32 +1,24 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
+import useRequest from "@ahooksjs/use-request";
 
+import { createStation } from "Apis/Admin/station";
 import Modal from "Common/Modal";
 import StationForm from "./StationForm";
 
-const createStation = () => {
-  return Promise.resolve();
-};
-
-function AddStation({ refetch }) {
+function AddStation({ refresh }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading, run } = useRequest(createStation, {
+    manual: true,
+    onSuccess: refresh,
+  });
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-    refetch();
   };
 
   const handleAdd = async (data) => {
-    setLoading(true);
-    try {
-      await createStation(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      refetch();
-      setLoading(false);
-    }
+    run(data);
   };
 
   return (
