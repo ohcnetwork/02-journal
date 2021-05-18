@@ -42,6 +42,7 @@ function SelectFilter({ column }) {
           onChange={(option) => {
             setFilter(option?.value);
           }}
+          menuPortalTarget={document.body}
         />
       </div>
     </Wrapper>

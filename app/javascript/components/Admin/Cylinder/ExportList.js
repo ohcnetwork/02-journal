@@ -20,6 +20,7 @@ const headers = [
 const formatData = (data) => {
   return data?.map((cylinder) => ({
     ...cylinder,
+    supplier_name: cylinder.vendor.name,
     capacity: findLabel(capacityOptions, cylinder.capacity),
     type: findLabel(typeOptions, cylinder.category),
     status: findLabel(statusOptions, cylinder.status),

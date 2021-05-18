@@ -28,7 +28,7 @@ function CylinderList({ loading, data, error, supplierId }) {
     },
     {
       Header: "Supplier Name",
-      accessor: "supplier_name",
+      accessor: "vendor.name",
       sortable: true,
       filter: "fuzzyText",
       filterable: true,

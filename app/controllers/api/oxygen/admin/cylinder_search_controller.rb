@@ -5,7 +5,7 @@ class Api::Oxygen::Admin::CylinderSearchController < Api::V1::BaseController
   before_action :authenticate_admin_user_using_x_auth_token!
 
   def search
-    render json: Oxygen::CylinderSearchService.new(search_params).search
+    render json: Oxygen::CylinderSearchService.new(search_params).search, include: [:vendor]
   end
 
   private
