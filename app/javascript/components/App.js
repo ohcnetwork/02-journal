@@ -4,6 +4,7 @@ import "../styles";
 import "remixicon/fonts/remixicon.css";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { UseRequestProvider } from "ahooks";
 
 import User from "./User";
 const Admin = lazy(() => import("./Admin"));
@@ -14,16 +15,22 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Switch>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            <Route path="/">
-              <User />
-            </Route>
-          </Switch>
-        </Suspense>
+        <UseRequestProvider
+          value={{
+            refreshOnWindowFocus: true,
+          }}
+        >
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route path="/admin">
+                <Admin />
+              </Route>
+              <Route path="/">
+                <User />
+              </Route>
+            </Switch>
+          </Suspense>
+        </UseRequestProvider>
       </Router>
     );
   }

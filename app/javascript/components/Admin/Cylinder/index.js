@@ -1,71 +1,64 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy } from "react";
+import { useHistory } from "react-router";
+import useRequest from "@ahooksjs/use-request";
+
+import useQuery from "Hooks/useQuery";
+import { getCylinders } from "Apis/Admin/cylinder";
 
 import ContentOutline from "../ContentOutline";
 import CylinderList from "./CylinderList";
-
-const getRemoteData = async () => {
-  const data = [
-    {
-      id: 1,
-      serial_number: "123",
-      supplier_name: "BPCL",
-      capacity: "D",
-      status: "filled",
-      station_name: "Piravom",
-    },
-    {
-      id: 2,
-      serial_number: "456",
-      supplier_name: "BPCL",
-      capacity: "B",
-      status: "filled",
-      station_name: "Piravom",
-    },
-    {
-      id: 3,
-      serial_number: "34569",
-      supplier_name: "Another Place",
-      capacity: "C",
-      status: "empty",
-      station_name: "Piravom",
-    },
-    {
-      id: 4,
-      serial_number: "34569",
-      supplier_name: "Frequent",
-      capacity: "H",
-      status: "partial",
-      station_name: "Piravom",
-    },
-  ];
-  return Promise.resolve(data);
-};
+const ExportList = lazy(() => import("./ExportList"));
 
 function Cylinder() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const queryParams = useQuery();
+  const history = useHistory();
+  const { data, loading } = useRequest(getCylinders);
 
-  const getData = async () => {
-    setLoading(true);
-    try {
-      setData(await getRemoteData());
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const supplierId = queryParams.get("supplier_id");
+
+  const renderSupplierHeader = () => {
+    const clearSupplier = () => {
+      history.replace();
+    };
+    return (
+      <>
+        <span>
+          <span>Showing cylinders from </span>
+          <span className="font-semibold">
+            {queryParams.get("supplier_name")}
+          </span>
+        </span>
+        <button
+          type="button"
+          className="ml-4 text-indigo-500 hover:text-indigo-600"
+          onClick={clearSupplier}
+        >
+          Show All
+        </button>
+      </>
+    );
   };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <ContentOutline
       heading="Cylinders"
-      subtitle="View and filter list of cylinders"
+      subtitle={
+        supplierId
+          ? renderSupplierHeader()
+          : "View and filter list of cylinders"
+      }
+      rightEl={
+        <Suspense loading={null}>
+          <ExportList data={data} />
+        </Suspense>
+      }
     >
-      <CylinderList loading={loading} data={data} />
+      <CylinderList
+        loading={loading}
+        data={data}
+        supplierId={supplierId}
+        key={supplierId}
+      />
     </ContentOutline>
   );
 }

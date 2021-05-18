@@ -1,5 +1,7 @@
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 
+import { capacityOptions } from "components/Admin/Cylinder/cylinderParams";
+
 function CylinderCapacity({
   errors,
   register,
@@ -14,18 +16,11 @@ function CylinderCapacity({
       errors={errors}
       defaultValue={defaultValue}
     >
-      <RadioButton value="d" defaultChecked register={register}>
-        D
-      </RadioButton>
-      <RadioButton value="b" register={register}>
-        B
-      </RadioButton>
-      <RadioButton value="c" register={register}>
-        C
-      </RadioButton>
-      <RadioButton value="h" register={register}>
-        H
-      </RadioButton>
+      {capacityOptions.map(({ label, value }) => (
+        <RadioButton value={value} register={register} key={value}>
+          {label}
+        </RadioButton>
+      ))}
     </RadioButtonGroup>
   );
 }

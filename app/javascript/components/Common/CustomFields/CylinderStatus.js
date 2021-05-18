@@ -1,5 +1,7 @@
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 
+import { statusOptions } from "components/Admin/Cylinder/cylinderParams";
+
 function CylinderStatus({
   errors,
   register,
@@ -14,18 +16,11 @@ function CylinderStatus({
       errors={errors}
       defaultValue={defaultValue}
     >
-      <RadioButton value="filled" register={register}>
-        Filled
-      </RadioButton>
-      <RadioButton value="partially" register={register}>
-        Partial
-      </RadioButton>
-      <RadioButton value="empty" register={register}>
-        Empty
-      </RadioButton>
-      <RadioButton value="faulty" register={register}>
-        Faulty
-      </RadioButton>
+      {statusOptions.map(({ value, label }) => (
+        <RadioButton value={value} key={value} register={register}>
+          {label}
+        </RadioButton>
+      ))}
     </RadioButtonGroup>
   );
 }

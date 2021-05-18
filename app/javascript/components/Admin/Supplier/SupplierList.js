@@ -1,38 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
-import { random } from "lodash";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
+import OptionsDropdown from "./OptionsDropdown";
+import useRequest from "@ahooksjs/use-request";
 
 function SupplierList() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const response = await getSupplier();
-        const augmented = response?.map((sup) => ({
-          ...sup,
-          cylinder_count: random(0, 300),
-        }));
-        setData(augmented);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getData();
-  }, []);
+  const { loading, data, error, refresh } = useRequest(getSupplier, {
+    cacheKey: "admin_supplier_list",
+  });
 
   const columns = useMemo(
     () => [
       {
-        id: "NAME",
+        id: "name",
         Header: "Supplier Name",
         accessor: "name",
         className: "text-gray-900",
@@ -48,13 +30,37 @@ function SupplierList() {
         Header: "Phone",
         accessor: "phone",
       },
-      // {
-      //   Header: "Cylinders",
-      //   accessor: "cylinder_count",
-      //   headerClassName: "text-center justify-center",
-      //   className: "text-center",
-      //   sortable: true,
-      // },
+      {
+        Header: "Cylinders",
+        accessor: "cylinders.length",
+        headerClassName: "text-center justify-center",
+        className: "text-center text-indigo-600",
+        sortable: true,
+        Cell: function CylinderLink({ row }) {
+          const {
+            original: { id, name, cylinders },
+          } = row;
+          const param = new URLSearchParams();
+          param.set("supplier_id", id);
+          param.set("supplier_name", name);
+          return (
+            <Link
+              to={`/admin/cylinders?${param.toString()}`}
+              title="Click to view all Cylinders from this supplier"
+            >
+              {cylinders?.length ?? 0}
+            </Link>
+          );
+        },
+      },
+      {
+        id: "options",
+        Header: "",
+        width: 0,
+        Cell: function Options({ row: { original } }) {
+          return <OptionsDropdown id={original.id} refresh={refresh} />;
+        },
+      },
     ],
     []
   );
