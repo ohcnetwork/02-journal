@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_183720) do
+ActiveRecord::Schema.define(version: 2021_05_18_190010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 2021_05_18_183720) do
     t.integer "category", default: 1
     t.integer "capacity", default: 1
     t.string "serial_number", default: ""
+    t.integer "entry_exit", default: 1
+    t.uuid "station_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

@@ -3,9 +3,12 @@
 module Oxygen
   class Cylinder < ApplicationRecord
     belongs_to :vendor
+    belongs_to :station, optional: true
+
     enum status: { empty: 1, filled: 2, faulty: 3, partially: 4 }
     enum category: { med: 1, ind: 2, arg: 3, nitrogen: 4 }
     enum capacity: { d: 1, b: 2, c: 3, h: 4 }
+    enum entry_exit: { entry: 1, exit: 2 }
 
     before_save :generate_serial_number, if: :serial_number_empty?
 
@@ -26,6 +29,18 @@ module Oxygen
 
     def generate_serial_number
       self.serial_number = SerialNumberGeneratorService.new(vendor.name).generate
+    end
+
+    def serializable_hash(options = {})
+      if station.present?
+        station_data = station.as_json
+      else
+        station_date = {}
+      end
+
+      new_options = { station: station_data }
+
+      super.merge(new_options)
     end
   end
 end

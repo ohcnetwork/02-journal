@@ -2,6 +2,7 @@
 
 namespace :api, defaults: { format: :json }  do
   namespace :oxygen do
+    resources :cylinders, only: [:update]
     resources :sessions, only: [:create]
     namespace :admin do
       resources :stations
