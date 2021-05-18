@@ -10,6 +10,6 @@ class Api::Oxygen::Admin::CylinderSearchController < Api::V1::BaseController
 
   private
     def search_params
-      params.require(:cylinder).permit(:serial_number, :capacity, :vendor_id, :category, :status)
+      params.fetch(:cylinder, {}).permit(:serial_number, :capacity, :vendor_id, :category, :status)
     end
 end
