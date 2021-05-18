@@ -35,7 +35,7 @@ class Api::Oxygen::Admin::VendorsController < Api::V1::BaseController
   end
 
   def index
-    render json: Oxygen::Vendor.all
+    render json: Oxygen::Vendor.all, include: [:cylinders]
   end
 
   private

@@ -32,13 +32,13 @@ function SupplierList() {
       },
       {
         Header: "Cylinders",
-        accessor: "cylinder_count",
+        accessor: "cylinders.length",
         headerClassName: "text-center justify-center",
         className: "text-center text-indigo-600",
         sortable: true,
-        Cell: function CylinderLink({ value, row }) {
+        Cell: function CylinderLink({ row }) {
           const {
-            original: { id, name },
+            original: { id, name, cylinders },
           } = row;
           const param = new URLSearchParams();
           param.set("supplier_id", id);
@@ -48,7 +48,7 @@ function SupplierList() {
               to={`/admin/cylinders?${param.toString()}`}
               title="Click to view all Cylinders from this supplier"
             >
-              {value}
+              {cylinders?.length ?? 0}
             </Link>
           );
         },
