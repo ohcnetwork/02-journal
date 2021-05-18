@@ -1,6 +1,16 @@
-import Table from "Common/Table/ReactTable";
+import { useMemo } from "react";
 
-function CylinderList({ loading, data, error }) {
+import Table from "Common/Table/ReactTable";
+import { SelectFilter } from "Common/Table/ColumnFilter";
+
+import {
+  capacityOptions,
+  statusOptions,
+  findLabel,
+  typeOptions,
+} from "./cylinderParams";
+
+function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
     {
       Header: "Serial Number",
@@ -11,8 +21,14 @@ function CylinderList({ loading, data, error }) {
       filterable: true,
     },
     {
+      id: "supplier_id",
+      Header: "id",
+      accessor: "vendor_id",
+      filterable: true,
+    },
+    {
       Header: "Supplier Name",
-      accessor: "supplier_name",
+      accessor: "vendor.name",
       sortable: true,
       filter: "fuzzyText",
       filterable: true,
@@ -20,16 +36,56 @@ function CylinderList({ loading, data, error }) {
     {
       Header: "Capacity",
       accessor: "capacity",
+      options: capacityOptions,
+      Filter: SelectFilter,
+      filterable: true,
+      Cell: ({ value }) => {
+        return findLabel(capacityOptions, value);
+      },
     },
     {
       Header: "Status",
       accessor: "status",
+      options: statusOptions,
+      Filter: SelectFilter,
+      filterable: true,
+      Cell: ({ value }) => {
+        return findLabel(statusOptions, value);
+      },
     },
     {
       Header: "Last Location",
       accessor: "station_name",
+      Cell: () => {
+        return "-";
+      },
+    },
+    {
+      Header: "Original Type",
+      accessor: "category",
+      options: typeOptions,
+      Filter: SelectFilter,
+      filterable: true,
+      Cell: ({ value }) => {
+        return findLabel(typeOptions, value);
+      },
     },
   ];
+
+  const initialState = useMemo(
+    () => ({
+      hiddenColumns: ["supplier_id"],
+      filters: supplierId
+        ? [
+            {
+              id: "supplier_id",
+              value: supplierId,
+            },
+          ]
+        : [],
+    }),
+    []
+  );
 
   if (loading) {
     return <p>Loading...</p>;
@@ -38,7 +94,7 @@ function CylinderList({ loading, data, error }) {
     return <p>Could not retrieve station list. Please try again.</p>;
   }
 
-  return <Table columns={columns} data={data} />;
+  return <Table initialState={initialState} columns={columns} data={data} />;
 }
 
 export default CylinderList;

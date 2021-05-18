@@ -1,5 +1,7 @@
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 
+import { typeOptions } from "components/Admin/Cylinder/cylinderParams";
+
 function CylinderType({
   errors,
   register,
@@ -14,18 +16,11 @@ function CylinderType({
       errors={errors}
       defaultValue={defaultValue}
     >
-      <RadioButton value="med" register={register}>
-        Med O₂
-      </RadioButton>
-      <RadioButton value="ind" register={register}>
-        Ind O₂
-      </RadioButton>
-      <RadioButton value="nitrogen" register={register}>
-        Nitrogen
-      </RadioButton>
-      <RadioButton value="arg" register={register}>
-        Argon
-      </RadioButton>
+      {typeOptions.map(({ value, label }) => (
+        <RadioButton value={value} register={register} key={value}>
+          {label}
+        </RadioButton>
+      ))}
     </RadioButtonGroup>
   );
 }
