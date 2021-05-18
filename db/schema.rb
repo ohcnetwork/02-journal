@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_082841) do
+ActiveRecord::Schema.define(version: 2021_05_18_183720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -92,6 +92,15 @@ ActiveRecord::Schema.define(version: 2021_05_16_082841) do
     t.index ["qr_coded_type", "qr_coded_id"], name: "index_qr_codes_on_qr_coded_type_and_qr_coded_id"
   end
 
+  create_table "stations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.string "lb_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -107,11 +116,10 @@ ActiveRecord::Schema.define(version: 2021_05_16_082841) do
     t.string "role", default: "standard"
     t.string "authentication_token"
     t.string "name", null: false
-    t.string "phone_number", null: false
-    t.date "date_of_birth", null: false
+    t.string "phone", null: false
     t.text "otp_token"
-    t.index ["phone_number", "date_of_birth"], name: "index_users_on_phone_number_and_date_of_birth", unique: true
-    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
+    t.uuid "station_id"
+    t.index ["phone"], name: "index_users_on_phone", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
