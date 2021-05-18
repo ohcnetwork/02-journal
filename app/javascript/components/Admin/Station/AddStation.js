@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import useRequest from "@ahooksjs/use-request";
+import { pick, get } from "lodash";
 
 import { createStation } from "Apis/Admin/station";
 import Modal from "Common/Modal";
@@ -10,7 +11,10 @@ function AddStation({ refresh }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, run } = useRequest(createStation, {
     manual: true,
-    onSuccess: refresh,
+    onSuccess: () => {
+      refresh();
+      setIsModalOpen(false);
+    },
   });
 
   const handleOpenModal = () => {
@@ -18,7 +22,13 @@ function AddStation({ refresh }) {
   };
 
   const handleAdd = async (data) => {
-    run(data);
+    const variables = {
+      station: {
+        ...pick(data, ["name", "address", "phone"]),
+        lb_code: get(data, "local_body.value"),
+      },
+    };
+    run(variables);
   };
 
   return (

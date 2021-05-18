@@ -8,7 +8,7 @@ import Button from "Common/Button";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter name of shop"),
-  phone_number: yup
+  phone: yup
     .string()
     .trim()
     .required("Please enter mobile number")
@@ -36,7 +36,7 @@ function StationForm({ loading, onSubmit }) {
             errors={errors}
           />
           <Input
-            name="phone_number"
+            name="phone"
             label="Mobile number"
             required
             placeholder="10 digit mobile number"
