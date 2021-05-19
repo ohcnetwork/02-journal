@@ -9,7 +9,7 @@ import StationForm from "./StationForm";
 
 function AddStation({ refresh }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { loading, run } = useRequest(createStation, {
+  const { loading, run, error } = useRequest(createStation, {
     manual: true,
     onSuccess: () => {
       refresh();
@@ -52,7 +52,11 @@ function AddStation({ refresh }) {
               Add Station
             </Dialog.Title>
           </div>
-          <StationForm loading={loading} onSubmit={handleAdd} />
+          <StationForm
+            loading={loading}
+            apiError={error}
+            onSubmit={handleAdd}
+          />
         </div>
       </Modal>
     </>
