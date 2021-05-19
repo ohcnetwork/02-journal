@@ -17,8 +17,9 @@ const schema = yup.object().shape({
   local_body: yup.mixed().required("Please enter local body"),
 });
 
-function StationForm({ loading, onSubmit }) {
+function StationForm({ initialValues, loading, onSubmit }) {
   const form = useForm({
+    defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
   const { handleSubmit, register, errors } = form;
