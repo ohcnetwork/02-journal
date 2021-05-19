@@ -19,6 +19,8 @@ function CustomSelect({ id, className, name, label, as: As, errors, ...rest }) {
           aria-labelledby={`${labelId} ${errorId}`}
           isSearchable
           name={name}
+          styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+          menuPortalTarget={document.body}
           {...rest}
         />
       </div>

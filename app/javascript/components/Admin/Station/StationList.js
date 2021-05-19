@@ -1,19 +1,38 @@
-import Table from "Common/Table";
+import Table from "Common/Table/ReactTable";
+import OptionsDropdown from "./OptionsDropdown";
 
-function StationList({ loading, data, error }) {
+function StationList({ loading, data, error, refresh }) {
   const columns = [
     {
-      title: "Station Name",
-      dataIndex: "name",
+      Header: "Station Name",
+      accessor: "name",
       className: "text-gray-900",
+      sortable: true,
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      Header: "Address",
+      accessor: "address",
+      filter: "fuzzyText",
+      filterable: true,
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
+      Header: "Phone",
+      accessor: "phone",
+      filterable: true,
+    },
+    {
+      Header: "Operators",
+      accessor: "operators",
+    },
+    {
+      id: "options",
+      Header: "",
+      width: 0,
+      Cell: function Options({ row: { original } }) {
+        return <OptionsDropdown id={original.id} refresh={refresh} />;
+      },
     },
   ];
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getStation } from "Apis/Admin/station";
+import { getStations } from "Apis/Admin/station";
 import SelectController from "../Form/SelectController";
 
 function SelectStation({ name = "station", label = "Station Name", ...rest }) {
@@ -11,7 +11,7 @@ function SelectStation({ name = "station", label = "Station Name", ...rest }) {
     const getStationInformation = async () => {
       setLoading(true);
       try {
-        const data = await getStation();
+        const data = await getStations();
         const options = data.map((option) => ({
           ...option,
           label: option.name,
