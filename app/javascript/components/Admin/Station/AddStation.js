@@ -1,32 +1,34 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
+import useRequest from "@ahooksjs/use-request";
+import { pick, get } from "lodash";
 
+import { createStation } from "Apis/Admin/station";
 import Modal from "Common/Modal";
 import StationForm from "./StationForm";
 
-const createStation = () => {
-  return Promise.resolve();
-};
-
-function AddStation({ refetch }) {
+function AddStation({ refresh }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading, run, error } = useRequest(createStation, {
+    manual: true,
+    onSuccess: () => {
+      refresh();
+      setIsModalOpen(false);
+    },
+  });
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-    refetch();
   };
 
   const handleAdd = async (data) => {
-    setLoading(true);
-    try {
-      await createStation(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      refetch();
-      setLoading(false);
-    }
+    const variables = {
+      station: {
+        ...pick(data, ["name", "address", "phone"]),
+        lb_code: get(data, "local_body.value"),
+      },
+    };
+    run(variables);
   };
 
   return (
@@ -50,7 +52,11 @@ function AddStation({ refetch }) {
               Add Station
             </Dialog.Title>
           </div>
-          <StationForm loading={loading} onSubmit={handleAdd} />
+          <StationForm
+            loading={loading}
+            apiError={error}
+            onSubmit={handleAdd}
+          />
         </div>
       </Modal>
     </>
