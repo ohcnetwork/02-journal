@@ -2,7 +2,12 @@ import Axios from "../axios";
 
 let authHeaderInterceptor;
 
-export const signIn = (payload) => Axios.post(`/v1/admin/sessions`, payload);
+export const signIn = (payload) =>
+  Axios.post(`/v1/admin/sessions`, payload, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
 const addInterceptor = (token) => {
   authHeaderInterceptor = Axios.interceptors.request.use(async function (
