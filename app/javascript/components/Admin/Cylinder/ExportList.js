@@ -38,7 +38,7 @@ function ExportList({ data }) {
 
   return (
     <CSVLink
-      filename={`Kutti-Cylinders-List ${dayjs().format("DD/MM/YYYY")}`}
+      filename={`Trail-Cylinders-List ${dayjs().format("DD/MM/YYYY")}`}
       data={formattedData}
       headers={headers}
       className="p-2 inline-flex rounded-lg border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50"
