@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Button from "Common/Button";
-import { logVisit } from "Apis/visits";
 
 import states from "./states.js";
 import ComponentByState from "./ComponentByState";
@@ -10,20 +9,17 @@ import ComponentByState from "./ComponentByState";
 function Scan() {
   const history = useHistory();
   const [state, setState] = useState(states.SCANNING);
+  const [data, setData] = useState(null);
 
   const resetState = () => {
     setState(states.SCANNING);
   };
 
-  const onScanned = async (qrData) => {
+  const onScanned = async (id) => {
     try {
-      const { id, type } = JSON.parse(qrData);
-      setState(states.LOADING);
-      const response = await logVisit(id, type);
-      if (response.data.id) {
+      if (id) {
+        setData({ id });
         setState(states.SUCCESS);
-      } else {
-        throw new Error("Wrong data");
       }
     } catch (e) {
       setState(states.ERROR_MERCHANT);
@@ -52,6 +48,7 @@ function Scan() {
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white p-6 shadow sm:rounded-lg sm:px-10">
               <ComponentByState
+                data={data}
                 state={state}
                 onScanned={onScanned}
                 onError={onErrorScanning}
@@ -63,7 +60,7 @@ function Scan() {
             htmlType="button"
             className="mt-4"
             block
-            colorType={state === states.SUCCESS ? "primary" : "default"}
+            colorType={"default"}
             onClick={() => {
               history.push("/user");
             }}

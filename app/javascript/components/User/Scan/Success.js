@@ -1,24 +1,27 @@
-import { useState } from "react";
 import { Icon } from "@blueprintjs/core";
 import { useForm } from "react-hook-form";
+import useRequest from "@ahooksjs/use-request";
+import { useHistory } from "react-router";
 
+import { markCylinderStatus } from "Apis/user";
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
 import { CylinderStatus } from "Common/CustomFields";
+import { genericErrorMessage, ErrorMessage } from "Common/Form/ErrorMessage";
 import Button from "Common/Button";
 
-function Success() {
-  const [loading, setLoading] = useState(false);
+function Success({ data }) {
   const { handleSubmit, register, errors } = useForm();
+  const history = useHistory();
+  const { loading, error, run } = useRequest(markCylinderStatus, {
+    manual: true,
+    onCompleted: () => {
+      history.push(`/user`);
+    },
+  });
+  const cylinderId = data.id;
 
-  const updateStatus = async () => {
-    setLoading(true);
-    try {
-      await Promise.resolve();
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
+  const updateStatus = async (formData) => {
+    run(cylinderId, formData);
   };
 
   return (
@@ -30,19 +33,19 @@ function Success() {
         Please update the status of this cylinder
       </p>
       <CylinderStatus register={register} errors={errors} />
-      <RadioButtonGroup labelText="Entry" name="entry" errors={errors}>
+      <RadioButtonGroup label="Entry-Exit" name="entry_exit" errors={errors}>
         <RadioButton
-          value="filled"
+          value="entry"
           defaultChecked
           register={register({ required: true })}
         >
           Entry
         </RadioButton>
-        <RadioButton value="partial" register={register({ required: true })}>
+        <RadioButton value="exit" register={register({ required: true })}>
           Exit
         </RadioButton>
       </RadioButtonGroup>
-
+      {error && <ErrorMessage message={genericErrorMessage} />}
       <div className="mt-6">
         <span className="block w-full rounded-md shadow-sm">
           <Button

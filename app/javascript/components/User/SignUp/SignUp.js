@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
+import useRequest from "@ahooksjs/use-request";
 import * as yup from "yup";
-import { useHistory, useRouteMatch, Route, Link } from "react-router-dom";
+import { pick } from "lodash";
+import { useHistory, useRouteMatch, Link } from "react-router-dom";
 import { isLoggedIn } from "Apis/authentication";
 
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
 import SelectStation from "Common/CustomFields/SelectStation";
 import { login } from "Apis/authentication";
-import SignUpOtp from "./SignUpOtp";
 import SignUpThumb from "./SignUpThumb";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter your name"),
-  phone_number: yup
+  phone: yup
     .string()
     .trim()
     .required("Please enter mobile number")
@@ -23,10 +24,13 @@ const schema = yup.object().shape({
 });
 
 function SignUp() {
-  const [loading, setLoading] = useState(false);
   const [verifyingLogin, setVerifyingLogin] = useState(false);
   const match = useRouteMatch();
   const history = useHistory();
+
+  const { loading, run: loginUser } = useRequest(login, {
+    manual: true,
+  });
 
   const { register, handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
@@ -45,19 +49,13 @@ function SignUp() {
   }, []);
 
   const onSubmit = async (payload) => {
-    setLoading(true);
-    try {
-      const response = await login({
-        ...payload,
-        station: payload.station.label,
-      });
-      const userId = response.data?.user_id;
-      const mobileNumber = payload.phone_number;
-      if (userId) {
-        history.push(`${match.url}verify?id=${userId}&mobile=${mobileNumber}`);
-      }
-    } finally {
-      setLoading(false);
+    const response = await loginUser({
+      ...pick(payload, ["name", "phone"]),
+      station_id: payload.station.id,
+    });
+    const userId = response.data?.id;
+    if (userId) {
+      history.push(`${match.url}user`);
     }
   };
 
@@ -70,55 +68,47 @@ function SignUp() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-sm">
         <img className="w-full px-6" src={SignUpThumb} alt="Sign up Thumb" />
         <div className="px-6 py-4">
-          <Route path={`${match.url}`} exact>
-            <>
-              <h2 className="text-3xl leading-9 font-extrabold text-gray-900">
-                Enter your details
-              </h2>
+          <h2 className="text-3xl leading-9 font-extrabold text-gray-900">
+            Enter your details
+          </h2>
+          <div className="mt-6">
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                name="name"
+                label="Full Name"
+                required
+                placeholder="John Doe"
+                register={register}
+                errors={errors}
+                autoComplete="name"
+                autoFocus
+              />
+              <Input
+                name="phone"
+                type="tel"
+                label="Mobile Number"
+                required
+                placeholder="10 digit mobile number"
+                register={register}
+                errors={errors}
+                autoComplete="tel"
+              />
+              <SelectStation control={control} errors={errors} />
               <div className="mt-6">
-                <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <Input
-                    name="name"
-                    label="Full Name"
-                    required
-                    placeholder="John Doe"
-                    register={register}
-                    errors={errors}
-                    autoComplete="name"
-                    autoFocus
-                  />
-                  <Input
-                    name="phone_number"
-                    label="Mobile Number"
-                    required
-                    placeholder="10 digit mobile number"
-                    register={register}
-                    errors={errors}
-                    autoComplete="tel"
-                  />
-                  <SelectStation control={control} errors={errors} />
-                  <div className="mt-6">
-                    <span className="block w-full rounded-md shadow-sm">
-                      <Button
-                        htmlType="submit"
-                        colorType="primary"
-                        sizeType="lg"
-                        block
-                        loading={loading}
-                      >
-                        Register
-                      </Button>
-                    </span>
-                  </div>
-                </form>
+                <span className="block w-full rounded-md shadow-sm">
+                  <Button
+                    htmlType="submit"
+                    colorType="primary"
+                    sizeType="lg"
+                    block
+                    loading={loading}
+                  >
+                    Register
+                  </Button>
+                </span>
               </div>
-            </>
-          </Route>
-          <Route path={`${match.url}verify`}>
-            <div className="mt-2">
-              <SignUpOtp />
-            </div>
-          </Route>
+            </form>
+          </div>
         </div>
       </div>
       <Link to="/admin/suppliers">
