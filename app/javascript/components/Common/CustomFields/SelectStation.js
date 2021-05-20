@@ -1,10 +1,10 @@
 import useRequest from "@ahooksjs/use-request";
 
-import { getStations } from "Apis/Admin/station";
+import { listStations } from "Apis/user";
 import SelectController from "../Form/SelectController";
 
 function SelectStation({ name = "station", label = "Station Name", ...rest }) {
-  const { data, loading } = useRequest(getStations, {
+  const { data: response, loading } = useRequest(listStations, {
     cacheKey: "station_list",
   });
 
@@ -14,7 +14,7 @@ function SelectStation({ name = "station", label = "Station Name", ...rest }) {
       label={label}
       required
       placeholder="Name of the station"
-      options={data}
+      options={response?.data ?? []}
       loading={loading}
       getOptionLabel={(item) => item.name}
       getOptionValue={(item) => item.id}

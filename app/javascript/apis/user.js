@@ -16,3 +16,10 @@ export const markCylinderStatus = (id, payload) => {
     })
   );
 };
+
+/**
+ * List of stations for dropdown - user
+ */
+export const listStations = () => {
+  return Axios.get(`/oxygen/stations`);
+};
