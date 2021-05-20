@@ -3,7 +3,7 @@ import axios from "axios";
 const Axios = axios.create({
   baseURL: "/api",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
   },
 });
 

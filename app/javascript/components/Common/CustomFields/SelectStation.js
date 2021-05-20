@@ -1,32 +1,12 @@
-import { useEffect, useState } from "react";
+import useRequest from "@ahooksjs/use-request";
 
 import { getStations } from "Apis/Admin/station";
 import SelectController from "../Form/SelectController";
 
 function SelectStation({ name = "station", label = "Station Name", ...rest }) {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const getStationInformation = async () => {
-      setLoading(true);
-      try {
-        const data = await getStations();
-        const options = data.map((option) => ({
-          ...option,
-          label: option.name,
-          value: option.id,
-        }));
-        setData(options);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getStationInformation();
-  }, []);
+  const { data, loading } = useRequest(getStations, {
+    cacheKey: "station_list",
+  });
 
   return (
     <SelectController
@@ -36,6 +16,8 @@ function SelectStation({ name = "station", label = "Station Name", ...rest }) {
       placeholder="Name of the station"
       options={data}
       loading={loading}
+      getOptionLabel={(item) => item.name}
+      getOptionValue={(item) => item.id}
       {...rest}
     />
   );

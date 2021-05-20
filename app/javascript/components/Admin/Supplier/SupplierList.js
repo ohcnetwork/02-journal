@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import useRequest from "@ahooksjs/use-request";
 
 import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
 import OptionsDropdown from "./OptionsDropdown";
-import useRequest from "@ahooksjs/use-request";
 
 function SupplierList() {
   const { loading, data, error, refresh } = useRequest(getSupplier, {
