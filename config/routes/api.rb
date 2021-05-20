@@ -4,6 +4,7 @@ namespace :api, defaults: { format: :json }  do
   namespace :oxygen do
     resources :cylinders, only: [:update]
     resources :sessions, only: [:create]
+    resources :stations, only: [:index]
     namespace :admin do
       resources :stations
       get "cylinder_search", to: "cylinder_search#search"

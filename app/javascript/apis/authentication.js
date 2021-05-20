@@ -1,13 +1,28 @@
-import Axios from "./axios";
+import qs from "qs";
 
-import { show as userShow } from "./users";
+import Axios from "./axios";
 
 let authHeaderInterceptor = null;
 
-export const login = (payload) =>
-  Axios.post("/v1/sessions", {
-    user: payload,
-  });
+export const login = async (payload) => {
+  const response = await Axios.post(
+    "/oxygen/sessions",
+    qs.stringify({
+      user: payload,
+    })
+  );
+
+  if (response?.data) {
+    localStorage.setItem("currentUser", JSON.stringify(response.data));
+    addInterceptor(response.data.authentication_token);
+  }
+
+  return response;
+};
+
+export const checkLogin = async (phone) => {
+  return Axios.post("/oxygen/sessions", qs.stringify({ user: { phone } }));
+};
 
 const addInterceptor = (token) => {
   authHeaderInterceptor = Axios.interceptors.request.use((config) => {
@@ -26,28 +41,21 @@ const getLocalUser = () => {
 };
 
 export const isLoggedIn = async () => {
-  const currentUser = getLocalUser();
-  if (!currentUser) {
-    return false;
-  }
-  const { id, authentication_token } = currentUser;
-  addInterceptor(authentication_token);
   try {
-    await userShow(id);
-    return true;
+    const currentUser = getLocalUser();
+    if (!currentUser) {
+      return false;
+    }
+    const { authentication_token, phone } = currentUser;
+    addInterceptor(authentication_token);
+    const response = await checkLogin(phone);
+    if (response.data?.id) {
+      return true;
+    } else {
+      throw new Error();
+    }
   } catch (err) {
     return false;
-  }
-};
-
-export const verifyOtp = async (userId, otp) => {
-  const response = await Axios.post(`/v1/users/${userId}/verify_otp`, {
-    otp,
-  });
-  if (response.data) {
-    const currentUser = response.data;
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    addInterceptor(currentUser.authentication_token);
   }
 };
 

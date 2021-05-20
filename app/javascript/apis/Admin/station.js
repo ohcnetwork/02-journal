@@ -25,7 +25,6 @@ export const createStation = async (data) => {
        */
       headers: {
         "X-Auth-Token": localStorage.getItem("admin-auth-token"),
-        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
     }
   );
@@ -42,7 +41,6 @@ export const updateStation = async (id, data) => {
        */
       headers: {
         "X-Auth-Token": localStorage.getItem("admin-auth-token"),
-        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
     }
   );
