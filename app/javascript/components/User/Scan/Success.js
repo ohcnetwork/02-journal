@@ -1,6 +1,7 @@
 import { Icon } from "@blueprintjs/core";
 import { useForm } from "react-hook-form";
 import useRequest from "@ahooksjs/use-request";
+import { useHistory } from "react-router";
 
 import { markCylinderStatus } from "Apis/user";
 import RadioButtonGroup, { RadioButton } from "Common/Form/RadioButton";
@@ -10,9 +11,12 @@ import Button from "Common/Button";
 
 function Success({ data }) {
   const { handleSubmit, register, errors } = useForm();
+  const history = useHistory();
   const { loading, error, run } = useRequest(markCylinderStatus, {
     manual: true,
-    onCompleted: () => {},
+    onCompleted: () => {
+      history.push(`/user`);
+    },
   });
   const cylinderId = data.id;
 
@@ -29,15 +33,15 @@ function Success({ data }) {
         Please update the status of this cylinder
       </p>
       <CylinderStatus register={register} errors={errors} />
-      <RadioButtonGroup labelText="Entry" name="entry_exit" errors={errors}>
+      <RadioButtonGroup label="Entry-Exit" name="entry_exit" errors={errors}>
         <RadioButton
-          value="filled"
+          value="entry"
           defaultChecked
           register={register({ required: true })}
         >
           Entry
         </RadioButton>
-        <RadioButton value="partial" register={register({ required: true })}>
+        <RadioButton value="exit" register={register({ required: true })}>
           Exit
         </RadioButton>
       </RadioButtonGroup>

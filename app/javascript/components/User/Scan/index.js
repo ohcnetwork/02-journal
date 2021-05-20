@@ -15,9 +15,8 @@ function Scan() {
     setState(states.SCANNING);
   };
 
-  const onScanned = async (qrData) => {
+  const onScanned = async (id) => {
     try {
-      const { id } = JSON.parse(qrData);
       if (id) {
         setData({ id });
         setState(states.SUCCESS);
@@ -61,7 +60,7 @@ function Scan() {
             htmlType="button"
             className="mt-4"
             block
-            colorType={state === states.SUCCESS ? "primary" : "default"}
+            colorType={"default"}
             onClick={() => {
               history.push("/user");
             }}
