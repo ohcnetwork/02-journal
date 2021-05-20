@@ -8,7 +8,9 @@ import {
   statusOptions,
   findLabel,
   typeOptions,
+  entryOptions,
 } from "./cylinderParams";
+import dayjs from "dayjs";
 
 function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
@@ -55,9 +57,26 @@ function CylinderList({ loading, data, error, supplierId }) {
     },
     {
       Header: "Last Location",
-      accessor: "station_name",
-      Cell: () => {
-        return "-";
+      accessor: "station.name",
+      Cell: function LastLocation({ value, row }) {
+        if (!value) {
+          return "-";
+        }
+        const {
+          original: { entry_exit, updated_at },
+        } = row;
+        return (
+          <div>
+            <p className="text-gray-900 font-semibold">{value}</p>
+            <div className="mt-1">
+              <span>{findLabel(entryOptions, entry_exit)}</span>
+              <span> - </span>
+              <time dateTime={updated_at} title={updated_at}>
+                {dayjs(updated_at).fromNow()}
+              </time>
+            </div>
+          </div>
+        );
       },
     },
     {

@@ -55,6 +55,17 @@ export const typeOptions = [
   },
 ];
 
+export const entryOptions = [
+  {
+    label: "Entry",
+    value: "entry",
+  },
+  {
+    label: "Exit",
+    value: "exit",
+  },
+];
+
 /**
  * Get the display element from value
  * @param {typeof typeOptions} options
