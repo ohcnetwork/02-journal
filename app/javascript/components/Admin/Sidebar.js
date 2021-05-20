@@ -11,7 +11,7 @@ function Sidebar() {
           className="h-16 bg-gray-900 flex justify-center items-center"
         >
           <h1 className="text-2xl text-indigo-600 font-bold tracking-wide">
-            O₂ Trail
+            Trail
           </h1>
         </a>
         <div className="h-0 flex-1 flex flex-col overflow-y-auto">

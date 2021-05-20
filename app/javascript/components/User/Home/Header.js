@@ -15,7 +15,7 @@ function Header() {
     <nav className="flex justify-between items-center px-4 py-3 border-b-2 border-gray-100 md:space-x-10">
       <div>
         <a href="/user">
-          <h1 className="text-xl text-indigo-600 font-bold">O₂ Trail</h1>
+          <h1 className="text-xl text-indigo-600 font-bold">Trail</h1>
         </a>
       </div>
       <div>
