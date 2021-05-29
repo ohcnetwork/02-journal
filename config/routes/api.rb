@@ -15,9 +15,6 @@ namespace :api, defaults: { format: :json }  do
 
       resources :vendors do
         resources :cylinders do
-          member do 
-            get :history
-          end
           collection do
             post :add
           end

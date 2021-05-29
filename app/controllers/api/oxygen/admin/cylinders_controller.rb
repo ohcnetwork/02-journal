@@ -44,16 +44,19 @@ class Api::Oxygen::Admin::CylindersController < Api::V1::BaseController
     render json: @vendor.cylinders.order("updated_at desc")
   end
 
-  def history
+  def show
     @cylinder = Oxygen::Cylinder.find(params[:id])
-    render json: (@cylinder.locations.order("created_at desc").map do |location|
-      {
-        station: location.station,
-        status: location.status,
-        entry_exit: location.entry_exit,
-        capacity: location.capacity
-      }
-    end)
+    render json: {
+      cylinder: @cylinder,
+      history: @cylinder.locations.order("created_at desc").map do |location|
+        {
+          station: location.station,
+          status: location.status,
+          entry_exit: location.entry_exit,
+          capacity: location.capacity
+        }
+      end
+    }
   end
 
   private
