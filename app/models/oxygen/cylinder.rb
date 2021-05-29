@@ -14,7 +14,9 @@ module Oxygen
     before_save :generate_serial_number, if: :serial_number_empty?
 
     def record_location!
-      locations.create! station: station, status: status, capacity: capacity, entry_exit: entry_exit
+      if station.present?
+        locations.create! station: station, status: status, capacity: capacity, entry_exit: entry_exit
+      end
     end
 
     def qr_code_as_svg
