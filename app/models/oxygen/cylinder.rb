@@ -4,6 +4,7 @@ module Oxygen
   class Cylinder < ApplicationRecord
     belongs_to :vendor
     belongs_to :station, optional: true
+    has_many :locations, class_name: "Oxygen::CylinderLocation"
 
     enum status: { empty: 1, filled: 2, faulty: 3, partially: 4 }
     enum category: { med: 1, ind: 2, arg: 3, nitrogen: 4 }
@@ -11,6 +12,10 @@ module Oxygen
     enum entry_exit: { entry: 1, exit: 2 }
 
     before_save :generate_serial_number, if: :serial_number_empty?
+
+    def record_location!
+      locations.create! station: station, status: status, capacity: capacity, entry_exit: entry_exit
+    end
 
     def qr_code_as_svg
       qrcode = RQRCode::QRCode.new(self.id)
