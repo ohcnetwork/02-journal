@@ -35,7 +35,7 @@ module Oxygen
       if station.present?
         station_data = station.as_json
       else
-        station_date = {}
+        station_data = {}
       end
 
       new_options = { station: station_data }

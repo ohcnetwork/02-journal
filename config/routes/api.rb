@@ -6,7 +6,11 @@ namespace :api, defaults: { format: :json }  do
     resources :sessions, only: [:create]
     resources :stations, only: [:index]
     namespace :admin do
-      resources :stations
+      resources :stations do 
+        member do 
+          get :cylinders
+        end
+      end
       get "cylinder_search", to: "cylinder_search#search"
 
       resources :vendors do
