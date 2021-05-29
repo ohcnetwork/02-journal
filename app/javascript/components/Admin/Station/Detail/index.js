@@ -1,10 +1,12 @@
 import { Redirect, useParams } from "react-router";
 import useRequest from "@ahooksjs/use-request";
+import { Link } from "react-router-dom";
 
 import { getStationDetail } from "Apis/Admin/station";
+import Button from "Common/Button";
+import CylinderList from "components/Admin/Cylinder/CylinderList";
 import ContentOutline from "../../ContentOutline";
 import IconList from "./IconList";
-import CylinderList from "../../Cylinder/CylinderList";
 
 function StationDetail() {
   const { id } = useParams();
@@ -27,7 +29,14 @@ function StationDetail() {
   const { station, entry_cylinders } = data;
 
   return (
-    <ContentOutline heading={station.name} rightEl={null}>
+    <ContentOutline
+      heading={station.name}
+      rightEl={
+        <Link to="/admin/stations">
+          <Button>Go Back</Button>
+        </Link>
+      }
+    >
       <IconList station={station} />
       <div className="mt-14">
         <CylinderList data={entry_cylinders} />
