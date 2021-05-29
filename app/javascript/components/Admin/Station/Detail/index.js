@@ -4,6 +4,7 @@ import useRequest from "@ahooksjs/use-request";
 import { getStationDetail } from "Apis/Admin/station";
 import ContentOutline from "../../ContentOutline";
 import IconList from "./IconList";
+import CylinderList from "../../Cylinder/CylinderList";
 
 function StationDetail() {
   const { id } = useParams();
@@ -23,11 +24,14 @@ function StationDetail() {
     return <p>Something went wrong. Please try again.</p>;
   }
 
-  const { station } = data;
+  const { station, entry_cylinders } = data;
 
   return (
     <ContentOutline heading={station.name} rightEl={null}>
       <IconList station={station} />
+      <div className="mt-14">
+        <CylinderList data={entry_cylinders} />
+      </div>
     </ContentOutline>
   );
 }

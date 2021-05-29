@@ -16,7 +16,7 @@ export const getStations = async () => {
 };
 
 export const getStationDetail = async (id) => {
-  const response = await Axios.get(`${URL}/${id}`, {
+  const response = await Axios.get(`${URL}/${id}/cylinders`, {
     /**
      * @TODO fix interceptor
      */
