@@ -2,6 +2,8 @@ import { Redirect, useParams } from "react-router";
 import useRequest from "@ahooksjs/use-request";
 
 import { getStationDetail } from "Apis/Admin/station";
+import ContentOutline from "../../ContentOutline";
+import IconList from "./IconList";
 
 function StationDetail() {
   const { id } = useParams();
@@ -21,7 +23,13 @@ function StationDetail() {
     return <p>Something went wrong. Please try again.</p>;
   }
 
-  return <p>Data, {JSON.stringify(data)}</p>;
+  const { station } = data;
+
+  return (
+    <ContentOutline heading={station.name} rightEl={null}>
+      <IconList station={station} />
+    </ContentOutline>
+  );
 }
 
 export default StationDetail;
