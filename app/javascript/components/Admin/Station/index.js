@@ -1,27 +1,20 @@
-import useRequest from "@ahooksjs/use-request";
+import { Route, Switch, useRouteMatch } from "react-router";
 
-import { getStations } from "Apis/Admin/station";
-
-import ContentOutline from "../ContentOutline";
-import AddStation from "./AddStation";
-import StationList from "./StationList";
+import AllStations from "./AllStations";
+import StationDetail from "./Detail";
 
 function Station() {
-  const { loading, data, refresh, error } = useRequest(getStations);
+  const { path } = useRouteMatch();
 
   return (
-    <ContentOutline
-      heading="Stations"
-      subtitle="Create & View list of filling stations"
-      rightEl={<AddStation refresh={refresh} />}
-    >
-      <StationList
-        loading={loading}
-        data={data}
-        refresh={refresh}
-        error={error}
-      />
-    </ContentOutline>
+    <Switch>
+      <Route path={`${path}/:id`}>
+        <StationDetail />
+      </Route>
+      <Route path={path}>
+        <AllStations />
+      </Route>
+    </Switch>
   );
 }
 
