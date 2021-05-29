@@ -45,7 +45,7 @@ module Oxygen
         station_data = {}
       end
 
-      new_options = { station: station_data }
+      new_options = { station: station_data, vendor: vendor.as_json }
 
       super.merge(new_options)
     end
