@@ -6,7 +6,7 @@ import { getStationDetail } from "Apis/Admin/station";
 import Button from "Common/Button";
 import CylinderList from "components/Admin/Cylinder/CylinderList";
 import ContentOutline from "../../ContentOutline";
-import IconList from "./IconList";
+import DetailList from "./DetailList";
 
 function StationDetail() {
   const { id } = useParams();
@@ -37,7 +37,7 @@ function StationDetail() {
         </Link>
       }
     >
-      <IconList station={station} />
+      <DetailList station={station} />
       <div className="mt-14">
         <CylinderList data={entry_cylinders} />
       </div>
