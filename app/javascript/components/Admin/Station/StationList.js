@@ -1,4 +1,5 @@
 import Table from "Common/Table/ReactTable";
+import { Link } from "react-router-dom";
 import OptionsDropdown from "./OptionsDropdown";
 
 function StationList({ loading, data, error, refresh }) {
@@ -10,6 +11,9 @@ function StationList({ loading, data, error, refresh }) {
       sortable: true,
       filter: "fuzzyText",
       filterable: true,
+      Cell: function StationName({ value, row: { original } }) {
+        return <Link to={`/admin/stations/${original.id}`}>{value}</Link>;
+      },
     },
     {
       Header: "Address",
