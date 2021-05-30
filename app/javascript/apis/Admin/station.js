@@ -15,6 +15,18 @@ export const getStations = async () => {
   return response.data;
 };
 
+export const getStationDetail = async (id) => {
+  const response = await Axios.get(`${URL}/${id}/cylinders`, {
+    /**
+     * @TODO fix interceptor
+     */
+    headers: {
+      "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+    },
+  });
+  return response.data;
+};
+
 export const createStation = async (data) => {
   const response = await Axios.post(
     URL,

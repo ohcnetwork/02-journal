@@ -38,6 +38,15 @@ class Api::Oxygen::Admin::StationsController < Api::V1::BaseController
     render json: Oxygen::Station.all
   end
 
+  def cylinders
+    @station = Oxygen::Station.find(params[:id])
+    @entry_cylinders = Oxygen::Cylinder.where(station_id: @station.id, entry_exit: "entry")
+    render json: {
+      station: @station,
+      entry_cylinders: @entry_cylinders
+    }
+  end
+
   private
     def station_params
       params.require(:station).permit(:name, :phone, :address, :lb_code)

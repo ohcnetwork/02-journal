@@ -1,3 +1,7 @@
+import { NonIdealState, Spinner, SpinnerSize } from "@blueprintjs/core";
+import { Link } from "react-router-dom";
+import { IconNames } from "@blueprintjs/icons";
+
 import Table from "Common/Table/ReactTable";
 import OptionsDropdown from "./OptionsDropdown";
 
@@ -10,6 +14,9 @@ function StationList({ loading, data, error, refresh }) {
       sortable: true,
       filter: "fuzzyText",
       filterable: true,
+      Cell: function StationName({ value, row: { original } }) {
+        return <Link to={`/admin/stations/${original.id}`}>{value}</Link>;
+      },
     },
     {
       Header: "Address",
@@ -37,10 +44,18 @@ function StationList({ loading, data, error, refresh }) {
   ];
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner size={SpinnerSize.SMALL} />;
   }
   if (error) {
-    return <p>Could not retrieve station list. Please try again.</p>;
+    return (
+      <div className="py-24">
+        <NonIdealState
+          icon={IconNames.WARNING_SIGN}
+          title="Something went Wrong!"
+          description="Please retry."
+        />
+      </div>
+    );
   }
 
   return <Table dataKey="id" columns={columns} data={data} />;
