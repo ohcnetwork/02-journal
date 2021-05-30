@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+import dayjs from "dayjs";
+import { Spinner, SpinnerSize } from "@blueprintjs/core";
 
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
@@ -10,7 +12,6 @@ import {
   typeOptions,
   entryOptions,
 } from "./cylinderParams";
-import dayjs from "dayjs";
 
 function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
@@ -107,13 +108,23 @@ function CylinderList({ loading, data, error, supplierId }) {
   );
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner size={SpinnerSize.SMALL} />;
   }
   if (error) {
     return <p>Could not retrieve station list. Please try again.</p>;
   }
 
-  return <Table initialState={initialState} columns={columns} data={data} />;
+  return (
+    <Table
+      initialState={initialState}
+      columns={columns}
+      data={data}
+      emptyProps={{
+        title: "No cylinders added",
+        description: "Add cylinders from Suppliers page",
+      }}
+    />
+  );
 }
 
 export default CylinderList;
