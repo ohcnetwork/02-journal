@@ -4,6 +4,8 @@ import { IconNames } from "@blueprintjs/icons";
 
 import { getCylinderDetail } from "Apis/Admin/supplier";
 
+import BasicDetails from "./BasicDetails";
+
 function DetailModal({ cylinderId, supplierId }) {
   const { loading, error, data } = useRequest(getCylinderDetail, {
     defaultParams: [supplierId, cylinderId],
@@ -24,8 +26,12 @@ function DetailModal({ cylinderId, supplierId }) {
       </div>
     );
   }
-
-  return <p>DetailModal {JSON.stringify(data)}</p>;
+  console.log(data);
+  return (
+    <div className="py-6 px-4">
+      <BasicDetails cylinder={data.cylinder} />
+    </div>
+  );
 }
 
 export default DetailModal;

@@ -14,7 +14,7 @@ function CylinderDetail({ supplierId, cylinderId, onClose }) {
     <Dialog
       isOpen={true}
       onClose={() => onClose(["supplierId", "cylinderId"])}
-      title="Cylinder Detail"
+      title="Cylinder Information"
       className="w-5/12"
     >
       <DetailModal supplierId={supplierId} cylinderId={cylinderId} />
