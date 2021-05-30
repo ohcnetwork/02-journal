@@ -14,6 +14,7 @@ import {
   typeOptions,
   entryOptions,
 } from "./cylinderParams";
+import OptionsDropdown from "./OptionsDropdown";
 
 function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
@@ -106,6 +107,16 @@ function CylinderList({ loading, data, error, supplierId }) {
       filterable: true,
       Cell: ({ value }) => {
         return findLabel(typeOptions, value);
+      },
+    },
+    {
+      id: "options",
+      Header: "",
+      width: 0,
+      Cell: function Options({ row: { original } }) {
+        return (
+          <OptionsDropdown id={original.id} supplierId={original.vendor_id} />
+        );
       },
     },
   ];
