@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import useQuery from "Hooks/useQuery";
+import { useHistory } from "react-router";
 
 const CylinderDetail = lazy(() => import("components/Admin/Cylinder/Detail"));
 
@@ -8,6 +9,7 @@ const config = {
     Component: CylinderDetail,
   },
 };
+const DETAIL = "detail";
 
 const extractParams = (params) => {
   const restParams = {};
@@ -19,22 +21,39 @@ const extractParams = (params) => {
 
 function Modals() {
   const queryParams = useQuery();
+  const history = useHistory();
 
-  if (!queryParams.has("detail")) {
+  if (!queryParams.has(DETAIL)) {
     return null;
   }
 
-  const detail = queryParams.get("detail");
+  const detail = queryParams.get(DETAIL);
   const detailConfig = config[detail];
   if (!detailConfig) {
     console.warning("Component not found for corresponding detail", { detail });
     return null;
   }
 
+  const handleClose = (keys = []) => {
+    const allKeys = [DETAIL, ...keys];
+    allKeys.forEach((key) => {
+      if (queryParams.has(key)) {
+        queryParams.delete(key);
+      }
+      history.replace({
+        search: queryParams.toString(),
+      });
+    });
+  };
+
   const { Component, ...rest } = detailConfig;
   return (
     <Suspense fallback={null}>
-      <Component {...rest} {...extractParams(queryParams)} />
+      <Component
+        {...rest}
+        {...extractParams(queryParams)}
+        onClose={handleClose}
+      />
     </Suspense>
   );
 }

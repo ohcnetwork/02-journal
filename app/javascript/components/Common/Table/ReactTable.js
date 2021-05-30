@@ -3,9 +3,9 @@ import { useTable, useSortBy, useFilters } from "react-table";
 import classnames from "classnames";
 import { matchSorter } from "match-sorter";
 import { IconNames } from "@blueprintjs/icons";
+import { NonIdealState } from "@blueprintjs/core";
 
 import { InputFilter } from "./ColumnFilter";
-import { NonIdealState } from "@blueprintjs/core";
 
 /* react-table provides key */
 /* eslint-disable react/jsx-key */
