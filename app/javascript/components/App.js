@@ -5,6 +5,7 @@ import "remixicon/fonts/remixicon.css";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { UseRequestProvider } from "ahooks";
+import { Toaster } from "react-hot-toast";
 
 import User from "./User";
 const Admin = lazy(() => import("./Admin"));
@@ -30,6 +31,7 @@ export default class App extends Component {
               </Route>
             </Switch>
           </Suspense>
+          <Toaster />
         </UseRequestProvider>
       </Router>
     );

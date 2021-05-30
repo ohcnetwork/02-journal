@@ -1,5 +1,6 @@
 import { Icon } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
+import { PhoneNumber } from "Common/DisplayFormats";
 
 function DetailList({ station }) {
   const addressLink = `${station.name} ${station.address}`;
@@ -12,6 +13,7 @@ function DetailList({ station }) {
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
             addressLink
           )}`}
+          title="Click to open on Google Maps"
         >
           <div className="flex items-center max-w-md">
             <Icon
@@ -24,14 +26,7 @@ function DetailList({ station }) {
         </a>
       </li>
       <li>
-        <div className="flex items-center">
-          <Icon
-            icon={IconNames.PHONE}
-            className="w-5 h-5 mr-1 text-gray-400"
-            aria-hidden="true"
-          />
-          <p>{station.phone}</p>
-        </div>
+        <PhoneNumber showIcon>{station.phone}</PhoneNumber>
       </li>
     </ul>
   );
