@@ -1,6 +1,7 @@
 import { Redirect, useParams } from "react-router";
 import useRequest from "@ahooksjs/use-request";
 import { Link } from "react-router-dom";
+import { Spinner, SpinnerSize } from "@blueprintjs/core";
 
 import { getStationDetail } from "Apis/Admin/station";
 import Button from "Common/Button";
@@ -20,7 +21,7 @@ function StationDetail() {
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner size={SpinnerSize.SMALL} />;
   }
 
   if (error) {
@@ -40,6 +41,12 @@ function StationDetail() {
     >
       <DetailList station={station} />
       <div className="mt-14">
+        <div className="ml-1 mb-4 text-sm">
+          <h2 className="text-base font-semibold text-gray-500">Cylinders</h2>
+          <p className="text-gray-500 mt-1">
+            Cylinders that are currently marked Entry to this station
+          </p>
+        </div>
         <CylinderList data={entry_cylinders} />
       </div>
     </ContentOutline>
