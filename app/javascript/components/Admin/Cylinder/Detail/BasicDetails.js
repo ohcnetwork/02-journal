@@ -46,9 +46,11 @@ function BasicDetails({ cylinder }) {
       </DetailListItem>
       {cylinder.station?.id && (
         <DetailListItem label="Last Known Location">
-          <span className="text-gray-900 font-medium">
-            {cylinder.station.name}
-          </span>
+          <Link to={`/admin/stations/${cylinder.station.id}`}>
+            <span className="text-gray-900 font-medium">
+              {cylinder.station.name}
+            </span>
+          </Link>
           <div className="mt-1">
             <span>{findLabel(entryOptions, cylinder.station.entry_exit)}</span>
             <span> - </span>
