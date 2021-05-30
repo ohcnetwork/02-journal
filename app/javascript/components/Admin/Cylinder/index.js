@@ -12,7 +12,9 @@ const ExportList = lazy(() => import("./ExportList"));
 function Cylinder() {
   const queryParams = useQuery();
   const history = useHistory();
-  const { data, loading } = useRequest(getCylinders);
+  const { data, loading } = useRequest(getCylinders, {
+    cacheKey: "admin_cylinder_list",
+  });
 
   const supplierId = queryParams.get("supplier_id");
 

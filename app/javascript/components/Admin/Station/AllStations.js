@@ -7,7 +7,9 @@ import AddStation from "./AddStation";
 import StationList from "./StationList";
 
 function AllStations() {
-  const { loading, data, refresh, error } = useRequest(getStations);
+  const { loading, data, refresh, error } = useRequest(getStations, {
+    cacheKey: "admin_station_list",
+  });
 
   return (
     <ContentOutline
