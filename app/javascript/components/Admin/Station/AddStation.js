@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
 import useRequest from "@ahooksjs/use-request";
 import { pick, get } from "lodash";
+import { Dialog } from "@blueprintjs/core";
 
 import { createStation } from "Apis/Admin/station";
-import Modal from "Common/Modal";
 import StationForm from "./StationForm";
 
 function AddStation({ refresh }) {
@@ -42,23 +41,9 @@ function AddStation({ refresh }) {
           Create new Station
         </button>
       </div>
-      <Modal open={isModalOpen} onClose={setIsModalOpen}>
-        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-          <div className="text-center">
-            <Dialog.Title
-              as="h3"
-              className="text-lg leading-6 font-semibold text-gray-900"
-            >
-              Add Station
-            </Dialog.Title>
-          </div>
-          <StationForm
-            loading={loading}
-            apiError={error}
-            onSubmit={handleAdd}
-          />
-        </div>
-      </Modal>
+      <Dialog isOpen={isModalOpen} onClose={setIsModalOpen} title="Add Station">
+        <StationForm loading={loading} apiError={error} onSubmit={handleAdd} />
+      </Dialog>
     </>
   );
 }

@@ -77,3 +77,18 @@ export const addCylinders = async (id, data) => {
   );
   return response.data;
 };
+
+export const getCylinderDetail = async (vendorId, cylinderId) => {
+  const response = await Axios.get(
+    `${URL}/${vendorId}/cylinders/${cylinderId}`,
+    {
+      /**
+       * @TODO fix interceptor
+       */
+      headers: {
+        "X-Auth-Token": localStorage.getItem("admin-auth-token"),
+      },
+    }
+  );
+  return response.data;
+};

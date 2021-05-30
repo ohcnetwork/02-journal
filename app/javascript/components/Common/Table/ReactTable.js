@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { useTable, useSortBy, useFilters } from "react-table";
 import classnames from "classnames";
 import { matchSorter } from "match-sorter";
+import { IconNames } from "@blueprintjs/icons";
+import { NonIdealState } from "@blueprintjs/core";
 
 import { InputFilter } from "./ColumnFilter";
 
@@ -13,7 +15,14 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 }
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
-function Table({ columns, data, emptyMessage = "No data available", ...rest }) {
+function Table({
+  columns,
+  data,
+  emptyProps = {
+    title: "No data available",
+  },
+  ...rest
+}) {
   const defaultColumn = useMemo(
     () => ({
       Filter: InputFilter,
@@ -122,7 +131,15 @@ function Table({ columns, data, emptyMessage = "No data available", ...rest }) {
         </table>
         {data.length === 0 && (
           <div className="py-32">
-            <p className="text-gray-600 text-center">{emptyMessage}</p>
+            <NonIdealState
+              icon={IconNames.BUILD}
+              {...emptyProps}
+              title={
+                <span className="text-gray-600 text-center">
+                  {emptyProps.title}
+                </span>
+              }
+            />
           </div>
         )}
       </div>

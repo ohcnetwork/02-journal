@@ -1,7 +1,11 @@
 import { useMemo } from "react";
+import dayjs from "dayjs";
+import { Link } from "react-router-dom";
+import { Spinner, SpinnerSize } from "@blueprintjs/core";
 
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
+import { DETAIL } from "Common/Modals";
 
 import {
   capacityOptions,
@@ -10,7 +14,7 @@ import {
   typeOptions,
   entryOptions,
 } from "./cylinderParams";
-import dayjs from "dayjs";
+import OptionsDropdown from "./OptionsDropdown";
 
 function CylinderList({ loading, data, error, supplierId }) {
   const columns = [
@@ -21,6 +25,22 @@ function CylinderList({ loading, data, error, supplierId }) {
       sortable: true,
       filter: "fuzzyText",
       filterable: true,
+      Cell: function SerialNumber({ value, row: { original } }) {
+        const { vendor_id: supplierId, id: cylinderId } = original;
+        const params = new URLSearchParams();
+        params.append(DETAIL, "cylinder");
+        params.append("supplierId", supplierId);
+        params.append("cylinderId", cylinderId);
+        return (
+          <Link
+            to={{
+              search: params.toString(),
+            }}
+          >
+            {value}
+          </Link>
+        );
+      },
     },
     {
       id: "supplier_id",
@@ -63,11 +83,13 @@ function CylinderList({ loading, data, error, supplierId }) {
           return "-";
         }
         const {
-          original: { entry_exit, updated_at },
+          original: { station, entry_exit, updated_at },
         } = row;
         return (
           <div>
-            <p className="text-gray-900 font-semibold">{value}</p>
+            <Link to={`/admin/stations/${station.id}`}>
+              <p className="text-gray-900 font-semibold">{value}</p>
+            </Link>
             <div className="mt-1">
               <span>{findLabel(entryOptions, entry_exit)}</span>
               <span> - </span>
@@ -89,6 +111,16 @@ function CylinderList({ loading, data, error, supplierId }) {
         return findLabel(typeOptions, value);
       },
     },
+    {
+      id: "options",
+      Header: "",
+      width: 0,
+      Cell: function Options({ row: { original } }) {
+        return (
+          <OptionsDropdown id={original.id} supplierId={original.vendor_id} />
+        );
+      },
+    },
   ];
 
   const initialState = useMemo(
@@ -107,13 +139,23 @@ function CylinderList({ loading, data, error, supplierId }) {
   );
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner size={SpinnerSize.SMALL} />;
   }
   if (error) {
     return <p>Could not retrieve station list. Please try again.</p>;
   }
 
-  return <Table initialState={initialState} columns={columns} data={data} />;
+  return (
+    <Table
+      initialState={initialState}
+      columns={columns}
+      data={data}
+      emptyProps={{
+        title: "No cylinders added",
+        description: "Add cylinders from Suppliers page",
+      }}
+    />
+  );
 }
 
 export default CylinderList;
