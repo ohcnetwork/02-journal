@@ -10,7 +10,7 @@ import {
   entryOptions,
 } from "../cylinderParams";
 
-const DetailListItem = ({ label, children }) => {
+const DetailListItem = ({ label, children = "-" }) => {
   return (
     <div className="sm:col-span-1 my-3">
       <dt className="text-sm font-medium text-gray-500">{label}</dt>
@@ -44,25 +44,29 @@ function BasicDetails({ cylinder }) {
       <DetailListItem label="Original Type">
         {findLabel(typeOptions, cylinder.category)}
       </DetailListItem>
-      {cylinder.station?.id && (
-        <DetailListItem label="Last Known Location">
-          <Link to={`/admin/stations/${cylinder.station.id}`}>
-            <span className="text-gray-900 font-medium">
-              {cylinder.station.name}
-            </span>
-          </Link>
-          <div className="mt-1">
-            <span>{findLabel(entryOptions, cylinder.station.entry_exit)}</span>
-            <span> - </span>
-            <time
-              dateTime={cylinder.station.updated_at}
-              title={cylinder.station.updated_at}
-            >
-              {dayjs(cylinder.station.updated_at).fromNow()}
-            </time>
-          </div>
-        </DetailListItem>
-      )}
+      <DetailListItem label="Last Known Location">
+        {cylinder.station?.id && (
+          <>
+            <Link to={`/admin/stations/${cylinder.station.id}`}>
+              <span className="text-gray-900 font-medium">
+                {cylinder.station.name}
+              </span>
+            </Link>
+            <div className="mt-1">
+              <span>
+                {findLabel(entryOptions, cylinder.station.entry_exit)}
+              </span>
+              <span> - </span>
+              <time
+                dateTime={cylinder.station.updated_at}
+                title={cylinder.station.updated_at}
+              >
+                {dayjs(cylinder.station.updated_at).fromNow()}
+              </time>
+            </div>
+          </>
+        )}
+      </DetailListItem>
       {cylinder.vendor?.id && (
         <DetailListItem label="Supplier">
           <Link
