@@ -39,8 +39,12 @@ class Api::Oxygen::Admin::StationsController < Api::V1::BaseController
   end
 
   def cylinders
-    station = Oxygen::Station.find(params[:id])
-    render json: Oxygen::Cylinder.where(station_id: station.id, entry_exit: "entry")
+    @station = Oxygen::Station.find(params[:id])
+    @entry_cylinders = Oxygen::Cylinder.where(station_id: @station.id, entry_exit: "entry")
+    render json: {
+      station: @station,
+      entry_cylinders: @entry_cylinders
+    }
   end
 
   private
