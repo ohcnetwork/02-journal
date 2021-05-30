@@ -9,7 +9,7 @@ const config = {
     Component: CylinderDetail,
   },
 };
-const DETAIL = "detail";
+export const DETAIL = "detail";
 
 const extractParams = (params) => {
   const restParams = {};

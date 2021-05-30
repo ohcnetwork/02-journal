@@ -6,10 +6,7 @@ import { getCylinderDetail } from "Apis/Admin/supplier";
 
 function DetailModal({ cylinderId, supplierId }) {
   const { loading, error, data } = useRequest(getCylinderDetail, {
-    defaultParams: {
-      vendorId: supplierId,
-      cylinderId: cylinderId,
-    },
+    defaultParams: [supplierId, cylinderId],
   });
 
   if (loading) {

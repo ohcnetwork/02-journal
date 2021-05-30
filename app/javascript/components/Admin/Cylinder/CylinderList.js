@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import dayjs from "dayjs";
 import { Spinner, SpinnerSize } from "@blueprintjs/core";
+import { Link } from "react-router-dom";
 
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
+import { DETAIL } from "Common/Modals";
 
 import {
   capacityOptions,
@@ -22,6 +24,22 @@ function CylinderList({ loading, data, error, supplierId }) {
       sortable: true,
       filter: "fuzzyText",
       filterable: true,
+      Cell: function SerialNumber({ value, row: { original } }) {
+        const { vendor_id: supplierId, id: cylinderId } = original;
+        const params = new URLSearchParams();
+        params.append(DETAIL, "cylinder");
+        params.append("supplierId", supplierId);
+        params.append("cylinderId", cylinderId);
+        return (
+          <Link
+            to={{
+              search: params.toString(),
+            }}
+          >
+            {value}
+          </Link>
+        );
+      },
     },
     {
       id: "supplier_id",
