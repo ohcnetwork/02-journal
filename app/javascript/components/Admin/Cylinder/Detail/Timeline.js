@@ -1,39 +1,12 @@
-import { Link } from "react-router-dom";
-
-import { DateTime, CylinderDetail } from "Common/DisplayFormats";
+import TimelineCard from "./TimelineCard";
 
 function Timeline({ history }) {
-  console.log({ history });
   return (
     <div>
       <h2 className="text-sm font-semibold text-gray-500 ml-1">History</h2>
       <div className="mt-4 grid grid-cols-2 gap-12 relative">
         {history.map((entry, index) => {
-          return (
-            <article
-              key={index}
-              style={{
-                gridColumnStart: entry.entry_exit === "entry" ? 1 : 2,
-                gridRowStart: index + 1,
-              }}
-              className="px-4 py-5 bg-gray-100 shadow rounded-lg overflow-hidden sm:p-6"
-            >
-              <h3 className="font-medium text-gray-800">
-                <Link to={`/admin/stations/${entry.station.id}`}>
-                  {entry.station.name}
-                </Link>
-              </h3>
-              <div className="font-normal text-sm mt-1 text-gray-600 flex">
-                <p className="font-bold">
-                  <CylinderDetail.StatusText>
-                    {entry.status}
-                  </CylinderDetail.StatusText>
-                </p>
-                <span>&nbsp;at&nbsp;</span>
-                <DateTime>{entry.updated_at}</DateTime>
-              </div>
-            </article>
-          );
+          return <TimelineCard entry={entry} key={index} index={index} />;
         })}
         <svg
           viewBox="0 0 40 100"
