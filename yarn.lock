@@ -946,6 +946,19 @@
     classnames "^2.2"
     tslib "~1.13.0"
 
+"@blueprintjs/popover2@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/popover2/-/popover2-0.10.0.tgz#64495293d7ecf5d6659c200ec15d905619666a36"
+  integrity sha512-rkbKq4VQ70Lx5bs9o0PgkA3ssWkmF4Bp7zciJfmYiOGLzucMZsT3ZDikfxgETF+Djjs3LJPcgOqbuCgO8BfuKQ==
+  dependencies:
+    "@blueprintjs/core" "^3.45.0"
+    "@popperjs/core" "^2.5.4"
+    classnames "^2.2"
+    dom4 "^2.1.5"
+    react-popper "^2.2.4"
+    resize-observer-polyfill "^1.5.1"
+    tslib "~1.13.0"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1053,6 +1066,11 @@
   dependencies:
     gud "^1.0.0"
     warning "^4.0.3"
+
+"@popperjs/core@^2.5.4":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
+  integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
 
 "@rails/ujs@^6.0.2-2":
   version "6.0.3"
@@ -7935,7 +7953,7 @@ react-dom@^17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-fast-compare@^3.1.1:
+react-fast-compare@^3.0.1, react-fast-compare@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
@@ -7983,6 +8001,14 @@ react-popper@^1.3.7:
     popper.js "^1.14.4"
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
+    warning "^4.0.2"
+
+react-popper@^2.2.4:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.5.tgz#1214ef3cec86330a171671a4fbcbeeb65ee58e96"
+  integrity sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw==
+  dependencies:
+    react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
 react-qr-reader@^2.2.1:

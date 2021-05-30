@@ -14,7 +14,7 @@ function Success({ data }) {
   const history = useHistory();
   const { loading, error, run } = useRequest(markCylinderStatus, {
     manual: true,
-    onCompleted: () => {
+    onSuccess: () => {
       history.push(`/user`);
     },
   });
