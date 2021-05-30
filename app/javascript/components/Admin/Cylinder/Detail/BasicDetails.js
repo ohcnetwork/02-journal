@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 import {
   capacityOptions,
@@ -18,6 +20,16 @@ const DetailListItem = ({ label, children }) => {
 };
 
 function BasicDetails({ cylinder }) {
+  const supplierParam = useMemo(() => {
+    const params = new URLSearchParams();
+    if (!cylinder.vendor?.id) {
+      return params;
+    }
+    const { vendor } = cylinder;
+    params.set("supplier_id", vendor.id);
+    params.set("supplier_name", vendor.name);
+    return params;
+  }, []);
   return (
     <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
       <DetailListItem label="Serial Number">
@@ -50,7 +62,16 @@ function BasicDetails({ cylinder }) {
         </DetailListItem>
       )}
       {cylinder.vendor?.id && (
-        <DetailListItem label="Supplier">{cylinder.vendor.name}</DetailListItem>
+        <DetailListItem label="Supplier">
+          <Link
+            to={{
+              search: supplierParam.toString(),
+              pathname: "/admin/cylinders",
+            }}
+          >
+            {cylinder.vendor.name}
+          </Link>
+        </DetailListItem>
       )}
     </dl>
   );
