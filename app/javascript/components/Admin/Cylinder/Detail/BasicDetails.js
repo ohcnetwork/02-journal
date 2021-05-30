@@ -38,7 +38,7 @@ function BasicDetails({ cylinder }) {
       <DetailListItem label="Capacity">
         {findLabel(capacityOptions, cylinder.capacity)}
       </DetailListItem>
-      <DetailListItem label="Status">
+      <DetailListItem label="Last Known Status">
         {findLabel(statusOptions, cylinder.status)}
       </DetailListItem>
       <DetailListItem label="Original Type">

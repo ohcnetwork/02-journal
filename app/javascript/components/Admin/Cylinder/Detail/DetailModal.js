@@ -1,10 +1,16 @@
 import useRequest from "@ahooksjs/use-request";
-import { Spinner, SpinnerSize, NonIdealState } from "@blueprintjs/core";
+import {
+  Spinner,
+  SpinnerSize,
+  NonIdealState,
+  Divider,
+} from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 
 import { getCylinderDetail } from "Apis/Admin/supplier";
 
 import BasicDetails from "./BasicDetails";
+import Timeline from "./Timeline";
 
 function DetailModal({ cylinderId, supplierId }) {
   const { loading, error, data } = useRequest(getCylinderDetail, {
@@ -26,10 +32,14 @@ function DetailModal({ cylinderId, supplierId }) {
       </div>
     );
   }
-  console.log(data);
+
   return (
-    <div className="py-6 px-4">
+    <div className="p-4">
       <BasicDetails cylinder={data.cylinder} />
+      <Divider />
+      <div className="py-4">
+        <Timeline history={data.history} />
+      </div>
     </div>
   );
 }
