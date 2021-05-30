@@ -9,7 +9,9 @@ import StationForm from "./StationForm";
 function EditStation({ initialValues, onClose }) {
   const { loading, run } = useRequest(updateStation, {
     manual: true,
-    onSuccess: onClose,
+    onSuccess: () => {
+      onClose();
+    },
   });
 
   const handleEdit = async (data) => {

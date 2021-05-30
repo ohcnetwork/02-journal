@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { Icon } from "@blueprintjs/core";
+import { Icon, Intent } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import toast from "react-hot-toast";
+
+import Toaster from "Common/Toaster";
 
 function PhoneNumber({ children, className, showIcon }) {
   if (typeof children !== "string") {
@@ -13,7 +14,12 @@ function PhoneNumber({ children, className, showIcon }) {
   return (
     <CopyToClipboard
       text={children}
-      onCopy={() => toast.success("Number copied to clipboard")}
+      onCopy={() =>
+        Toaster.show({
+          message: "Number copied to clipboard",
+          intent: Intent.SUCCESS,
+        })
+      }
     >
       <button
         className={classNames("flex items-center", className)}
