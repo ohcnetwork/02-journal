@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
-import { CylinderDetail } from "Common/DisplayFormats";
+import { CylinderDetail, DateTime } from "Common/DisplayFormats";
 
 const DetailListItem = ({ label, children = "-" }) => {
   return (
@@ -55,14 +54,7 @@ function BasicDetails({ cylinder }) {
                 </CylinderDetail.EntryExitText>
               </span>
               <span> - </span>
-              <time
-                dateTime={cylinder.station.updated_at}
-                title={cylinder.station.updated_at}
-              >
-                {dayjs(cylinder.station.updated_at).format(
-                  "DD/MM/YYYY HH:mm A"
-                )}
-              </time>
+              <DateTime>{cylinder.station.updated_at}</DateTime>
             </div>
           </>
         )}

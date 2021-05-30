@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { DateTime } from "Common/DisplayFormats";
+import { DateTime, CylinderDetail } from "Common/DisplayFormats";
 
 function Timeline({ history }) {
   console.log({ history });
@@ -18,13 +18,17 @@ function Timeline({ history }) {
               }}
               className="px-4 py-5 bg-gray-100 shadow rounded-lg overflow-hidden sm:p-6"
             >
-              <h3 className="font-semibold text-gray-800">
+              <h3 className="font-medium text-gray-800">
                 <Link to={`/admin/stations/${entry.station.id}`}>
                   {entry.station.name}
                 </Link>
               </h3>
               <div className="font-normal text-sm mt-1 text-gray-600 flex">
-                <p className="font-bold">{entry.status}</p>
+                <p className="font-bold">
+                  <CylinderDetail.StatusText>
+                    {entry.status}
+                  </CylinderDetail.StatusText>
+                </p>
                 <span>&nbsp;at&nbsp;</span>
                 <DateTime>{entry.updated_at}</DateTime>
               </div>
