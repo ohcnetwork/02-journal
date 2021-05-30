@@ -2,13 +2,7 @@ import { useMemo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
-import {
-  capacityOptions,
-  statusOptions,
-  findLabel,
-  typeOptions,
-  entryOptions,
-} from "../cylinderParams";
+import { CylinderDetail } from "Common/DisplayFormats";
 
 const DetailListItem = ({ label, children = "-" }) => {
   return (
@@ -36,13 +30,15 @@ function BasicDetails({ cylinder }) {
         {cylinder.serial_number}
       </DetailListItem>
       <DetailListItem label="Capacity">
-        {findLabel(capacityOptions, cylinder.capacity)}
+        <CylinderDetail.CapacityText>
+          {cylinder.capacity}
+        </CylinderDetail.CapacityText>
       </DetailListItem>
       <DetailListItem label="Last Known Status">
-        {findLabel(statusOptions, cylinder.status)}
+        <CylinderDetail.StatusText>{cylinder.status}</CylinderDetail.StatusText>
       </DetailListItem>
       <DetailListItem label="Original Type">
-        {findLabel(typeOptions, cylinder.category)}
+        <CylinderDetail.TypeText>{cylinder.category}</CylinderDetail.TypeText>
       </DetailListItem>
       <DetailListItem label="Last Known Location">
         {cylinder.station?.id && (
@@ -53,7 +49,11 @@ function BasicDetails({ cylinder }) {
               </span>
             </Link>
             <div className="mt-1">
-              <span>{findLabel(entryOptions, cylinder.entry_exit)}</span>
+              <span>
+                <CylinderDetail.EntryExitText>
+                  {cylinder.entry_exit}
+                </CylinderDetail.EntryExitText>
+              </span>
               <span> - </span>
               <time
                 dateTime={cylinder.station.updated_at}

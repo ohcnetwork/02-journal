@@ -15,6 +15,7 @@ import Timeline from "./Timeline";
 function DetailModal({ cylinderId, supplierId }) {
   const { loading, error, data } = useRequest(getCylinderDetail, {
     defaultParams: [supplierId, cylinderId],
+    cacheKey: "admin_cylinder_detail",
   });
 
   if (loading) {
