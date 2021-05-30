@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import dayjs from "dayjs";
-import { Spinner, SpinnerSize } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
+import { Spinner, SpinnerSize } from "@blueprintjs/core";
 
 import Table from "Common/Table/ReactTable";
 import { SelectFilter } from "Common/Table/ColumnFilter";
@@ -83,11 +83,13 @@ function CylinderList({ loading, data, error, supplierId }) {
           return "-";
         }
         const {
-          original: { entry_exit, updated_at },
+          original: { station, entry_exit, updated_at },
         } = row;
         return (
           <div>
-            <p className="text-gray-900 font-semibold">{value}</p>
+            <Link to={`/admin/stations/${station.id}`}>
+              <p className="text-gray-900 font-semibold">{value}</p>
+            </Link>
             <div className="mt-1">
               <span>{findLabel(entryOptions, entry_exit)}</span>
               <span> - </span>

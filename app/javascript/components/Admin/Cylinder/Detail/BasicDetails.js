@@ -53,15 +53,15 @@ function BasicDetails({ cylinder }) {
               </span>
             </Link>
             <div className="mt-1">
-              <span>
-                {findLabel(entryOptions, cylinder.station.entry_exit)}
-              </span>
+              <span>{findLabel(entryOptions, cylinder.entry_exit)}</span>
               <span> - </span>
               <time
                 dateTime={cylinder.station.updated_at}
                 title={cylinder.station.updated_at}
               >
-                {dayjs(cylinder.station.updated_at).fromNow()}
+                {dayjs(cylinder.station.updated_at).format(
+                  "DD/MM/YYYY HH:mm A"
+                )}
               </time>
             </div>
           </>
