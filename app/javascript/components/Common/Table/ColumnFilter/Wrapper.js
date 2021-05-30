@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Icon } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { useClickAway } from "ahooks";
+import classNames from "classnames";
 
 function Wrapper({ children, column }) {
   const { filterValue, setFilter, filterable } = column;
@@ -27,7 +28,13 @@ function Wrapper({ children, column }) {
   return (
     <>
       <button title="Filter" onClick={handleToggle}>
-        <Icon icon={filterValue ? IconNames.FILTER_KEEP : IconNames.FILTER} />
+        <Icon
+          className={classNames({
+            "text-gray-400": !filterValue,
+            "text-gray-600": filterValue,
+          })}
+          icon={filterValue ? IconNames.FILTER_KEEP : IconNames.FILTER}
+        />
       </button>
       <div
         className="absolute"

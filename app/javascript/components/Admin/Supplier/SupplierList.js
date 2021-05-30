@@ -25,10 +25,13 @@ function SupplierList() {
       {
         Header: "Address",
         accessor: "address",
+        filter: "fuzzyText",
+        filterable: true,
       },
       {
         Header: "Phone",
         accessor: "phone",
+        filterable: true,
       },
       {
         Header: "Cylinders",
