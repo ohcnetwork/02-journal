@@ -41,7 +41,11 @@ function AddStation({ refresh }) {
           Create new Station
         </button>
       </div>
-      <Dialog isOpen={isModalOpen} onClose={setIsModalOpen} title="Add Station">
+      <Dialog
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Add Station"
+      >
         <StationForm loading={loading} apiError={error} onSubmit={handleAdd} />
       </Dialog>
     </>
