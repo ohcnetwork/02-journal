@@ -1,9 +1,9 @@
+import { NonIdealState } from "@blueprintjs/core";
 import TimelineCard from "./TimelineCard";
 
 function Timeline({ history }) {
-  return (
-    <div>
-      <h2 className="text-sm font-semibold text-gray-500 ml-1">History</h2>
+  const renderTimeline = () => {
+    return (
       <div className="mt-4 grid grid-cols-2 gap-12 relative">
         {history.map((entry, index) => {
           return <TimelineCard entry={entry} key={index} index={index} />;
@@ -42,6 +42,26 @@ function Timeline({ history }) {
           })}
         </svg>
       </div>
+    );
+  };
+  return (
+    <div>
+      <h2 className="text-sm font-semibold text-gray-700 ml-1">History</h2>
+      {history.length ? (
+        renderTimeline()
+      ) : (
+        <div className="py-10">
+          <NonIdealState
+            title={<span className="text-gray-500">No history available</span>}
+            description={
+              <span className="text-gray-500">
+                Entire timeline of a cylinder will appear here when checked into
+                a station.
+              </span>
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }
