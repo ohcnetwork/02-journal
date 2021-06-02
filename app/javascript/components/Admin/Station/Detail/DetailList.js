@@ -2,10 +2,10 @@ import { Icon } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 import { PhoneNumber } from "Common/DisplayFormats";
 
-function DetailList({ station }) {
+function DetailList({ station, numCylinders }) {
   const addressLink = `${station.name} ${station.address}`;
   return (
-    <ul className="flex space-x-8 text-gray-600">
+    <ul className="flex space-x-8 text-gray-600 items-center">
       <li>
         <a
           target="_blank"
@@ -27,6 +27,14 @@ function DetailList({ station }) {
       </li>
       <li>
         <PhoneNumber showIcon>{station.phone}</PhoneNumber>
+      </li>
+      <li>
+        <div className="sm:col-span-1">
+          <p className="text-sm font-medium text-gray-500">
+            Number of Cylinders (entry)
+          </p>
+          <p className="mt-1 text-sm text-gray-900">{numCylinders}</p>
+        </div>
       </li>
     </ul>
   );

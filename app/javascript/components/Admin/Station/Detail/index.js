@@ -39,7 +39,7 @@ function StationDetail() {
         </Link>
       }
     >
-      <DetailList station={station} />
+      <DetailList station={station} numCylinders={entry_cylinders.length} />
       <div className="mt-14">
         <div className="ml-1 mb-4 text-sm">
           <h2 className="text-base font-semibold text-gray-500">Cylinders</h2>
