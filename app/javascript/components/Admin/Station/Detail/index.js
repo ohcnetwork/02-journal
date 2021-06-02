@@ -13,7 +13,7 @@ function StationDetail() {
   const { id } = useParams();
   const { loading, data, error } = useRequest(getStationDetail, {
     defaultParams: [id],
-    cacheKey: "admin_station_detail",
+    cacheKey: `admin_station_detail_${id}`,
   });
 
   if (!id) {
