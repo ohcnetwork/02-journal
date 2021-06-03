@@ -1,8 +1,26 @@
 import { Icon, Menu, MenuItem, Classes } from "@blueprintjs/core";
 import { Popover2 } from "@blueprintjs/popover2";
 import { IconNames } from "@blueprintjs/icons";
+import useRequest from "@ahooksjs/use-request";
 
-export default function OptionsDropdown({ id, supplierId }) {
+import { deleteCylinder } from "Apis/Admin/cylinder";
+
+const DeleteButton = ({ id, supplierId, refresh }) => {
+  const { run } = useRequest(deleteCylinder, {
+    manual: true,
+    onSuccess: refresh,
+  });
+
+  const handleDelete = () => {
+    run({ id, supplierId });
+  };
+
+  return (
+    <MenuItem icon={IconNames.TRASH} text="Delete" onClick={handleDelete} />
+  );
+};
+
+export default function OptionsDropdown({ id, supplierId, refresh }) {
   const generateQRCodePage = () => {
     return `${window.location.origin}/oxygen/vendors/${supplierId}/qr_codes?ids=${id}`;
   };
@@ -18,6 +36,7 @@ export default function OptionsDropdown({ id, supplierId }) {
             href={generateQRCodePage()}
             target="_blank"
           />
+          <DeleteButton id={id} supplierId={supplierId} refresh={refresh} />
         </Menu>
       }
     >

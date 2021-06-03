@@ -2,8 +2,9 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import useRequest from "@ahooksjs/use-request";
 
-import Table from "Common/Table/ReactTable";
 import { getSupplier } from "Apis/Admin/supplier";
+import Table from "Common/Table/ReactTable";
+import { TableAddress } from "Common/DisplayFormats";
 import OptionsDropdown from "./OptionsDropdown";
 
 function SupplierList() {
@@ -27,6 +28,9 @@ function SupplierList() {
         accessor: "address",
         filter: "fuzzyText",
         filterable: true,
+        Cell: function Address({ value }) {
+          return <TableAddress>{value}</TableAddress>;
+        },
       },
       {
         Header: "Phone",

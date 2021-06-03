@@ -16,7 +16,7 @@ import {
 } from "./cylinderParams";
 import OptionsDropdown from "./OptionsDropdown";
 
-function CylinderList({ loading, data, error, supplierId }) {
+function CylinderList({ loading, data, error, refresh, supplierId }) {
   const columns = [
     {
       Header: "Serial Number",
@@ -117,7 +117,11 @@ function CylinderList({ loading, data, error, supplierId }) {
       width: 0,
       Cell: function Options({ row: { original } }) {
         return (
-          <OptionsDropdown id={original.id} supplierId={original.vendor_id} />
+          <OptionsDropdown
+            id={original.id}
+            supplierId={original.vendor_id}
+            refresh={refresh}
+          />
         );
       },
     },
