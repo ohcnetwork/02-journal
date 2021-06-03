@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IconNames } from "@blueprintjs/icons";
 
 import Table from "Common/Table/ReactTable";
+import { TableAddress } from "Common/DisplayFormats";
 import OptionsDropdown from "./OptionsDropdown";
 
 function StationList({ loading, data, error, refresh }) {
@@ -23,6 +24,9 @@ function StationList({ loading, data, error, refresh }) {
       accessor: "address",
       filter: "fuzzyText",
       filterable: true,
+      Cell: function Address({ value }) {
+        return <TableAddress>{value}</TableAddress>;
+      },
     },
     {
       Header: "Phone",
