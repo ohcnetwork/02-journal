@@ -26,7 +26,7 @@ export default function OptionsDropdown({ id, refresh }) {
       placement="bottom-end"
       content={
         <Menu className={Classes.ELEVATION_1}>
-          <DeleteButton id={id} refresh={refresh} />
+          <DeleteButton stationId={id} refresh={refresh} />
         </Menu>
       }
     >
