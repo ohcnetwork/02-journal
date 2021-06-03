@@ -34,7 +34,6 @@
     "@blueprintjs/core": "^3.24.0",
     "@blueprintjs/datetime": "^3.16.1",
     "@blueprintjs/popover2": "^0.10.0",
-    "@headlessui/react": "^1.2.0",
     "@hookform/resolvers": "^0.0.6",
     "@rails/ujs": "^6.0.2-2",
     "@rails/webpacker": "^4.0.2",
