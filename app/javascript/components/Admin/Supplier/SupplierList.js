@@ -65,7 +65,15 @@ function SupplierList() {
         Header: "",
         width: 0,
         Cell: function Options({ row: { original } }) {
-          return <OptionsDropdown id={original.id} refresh={refresh} />;
+          const { cylinders } = original;
+          const cylinderIds = cylinders.map(({ id }) => id);
+          return (
+            <OptionsDropdown
+              id={original.id}
+              cylinderIds={cylinderIds}
+              refresh={refresh}
+            />
+          );
         },
       },
     ],

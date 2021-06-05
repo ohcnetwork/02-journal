@@ -4,6 +4,7 @@ import { IconNames } from "@blueprintjs/icons";
 import useRequest from "@ahooksjs/use-request";
 
 import { deleteSupplier } from "Apis/Admin/supplier";
+import generateQrCodeUrl from "../generateQrCodeUrl";
 
 const DeleteButton = ({ id, refresh }) => {
   const { run } = useRequest(deleteSupplier, {
@@ -20,12 +21,18 @@ const DeleteButton = ({ id, refresh }) => {
   );
 };
 
-export default function OptionsDropdown({ id, refresh }) {
+export default function OptionsDropdown({ id, cylinderIds, refresh }) {
   return (
     <Popover2
       placement="bottom-end"
       content={
         <Menu className={Classes.ELEVATION_1}>
+          <MenuItem
+            icon={IconNames.DOCUMENT_SHARE}
+            text="Generate QR Codes"
+            href={generateQrCodeUrl(id, cylinderIds)}
+            target="_blank"
+          />
           <DeleteButton id={id} refresh={refresh} />
         </Menu>
       }
