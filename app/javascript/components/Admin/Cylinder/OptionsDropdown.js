@@ -4,6 +4,7 @@ import { IconNames } from "@blueprintjs/icons";
 import useRequest from "@ahooksjs/use-request";
 
 import { deleteCylinder } from "Apis/Admin/cylinder";
+import generateQrCodeUrl from "../generateQrCodeUrl";
 
 const DeleteButton = ({ id, supplierId, refresh }) => {
   const { run } = useRequest(deleteCylinder, {
@@ -21,10 +22,6 @@ const DeleteButton = ({ id, supplierId, refresh }) => {
 };
 
 export default function OptionsDropdown({ id, supplierId, refresh }) {
-  const generateQRCodePage = () => {
-    return `${window.location.origin}/oxygen/vendors/${supplierId}/qr_codes?ids=${id}`;
-  };
-
   return (
     <Popover2
       placement="bottom-end"
@@ -33,7 +30,7 @@ export default function OptionsDropdown({ id, supplierId, refresh }) {
           <MenuItem
             icon={IconNames.DOCUMENT_SHARE}
             text="Generate QR Code"
-            href={generateQRCodePage()}
+            href={generateQrCodeUrl(supplierId, [id])}
             target="_blank"
           />
           <DeleteButton id={id} supplierId={supplierId} refresh={refresh} />
