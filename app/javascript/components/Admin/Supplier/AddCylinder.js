@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Icon } from "@blueprintjs/core";
+import { useHistory, useParams } from "react-router";
 
+import { addCylinders } from "Apis/Admin/supplier";
 import useQuery from "Hooks/useQuery";
 import Input from "Common/Form/Input";
 import Button from "Common/Button";
-import { addCylinders } from "Apis/Admin/supplier";
 import {
   CylinderStatus,
   CylinderCapacity,
@@ -13,7 +14,7 @@ import {
 } from "Common/CustomFields";
 
 import FormOutline from "./FormOutline";
-import { useHistory, useParams } from "react-router";
+import generateQrCodeUrl from "../generateQrCodeUrl";
 
 const getDefaultValues = (urlParams) => {
   return {
@@ -51,12 +52,7 @@ function AddCylinder() {
     try {
       const response = await addCylinders(id, data);
       const ids = response.map(({ id }) => id);
-      window.open(
-        `${window.location.origin}/oxygen/vendors/${id}/qr_codes?ids=${ids.join(
-          ","
-        )}`,
-        "_blank"
-      );
+      window.open(generateQrCodeUrl(id, ids), "_blank");
       history.push("/admin/suppliers");
     } catch (err) {
       console.error(err);
