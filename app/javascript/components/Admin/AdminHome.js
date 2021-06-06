@@ -14,13 +14,13 @@ function AdminHome() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const login = () => {
+    const login = async () => {
       setLoading(true);
       const token = localStorage.getItem("admin-auth-token");
       if (!token) {
         history.push("/admin/login");
       } else {
-        isLoggedIn();
+        await isLoggedIn();
       }
       setLoading(false);
     };
