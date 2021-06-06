@@ -1,6 +1,7 @@
 import useRequest from "@ahooksjs/use-request";
 
 import { getStations } from "Apis/Admin/station";
+import { Helmet } from "react-helmet";
 
 import ContentOutline from "../ContentOutline";
 import AddStation from "./AddStation";
@@ -17,6 +18,7 @@ function AllStations() {
       subtitle="Create & View list of filling stations"
       rightEl={<AddStation refresh={refresh} />}
     >
+      <Helmet title="Stations" />
       <StationList
         loading={loading}
         data={data}
