@@ -10,9 +10,7 @@ export const signIn = (payload) =>
   });
 
 const addInterceptor = (token) => {
-  authHeaderInterceptor = Axios.interceptors.request.use(async function (
-    config
-  ) {
+  authHeaderInterceptor = Axios.interceptors.request.use(function (config) {
     return {
       ...config,
       headers: {
@@ -23,7 +21,7 @@ const addInterceptor = (token) => {
   });
 };
 
-export const isLoggedIn = () => {
+export const isLoggedIn = async () => {
   const token = localStorage.getItem("admin-auth-token");
   addInterceptor(token);
   return token;

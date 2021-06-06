@@ -11,16 +11,16 @@ import Cylinder from "./Cylinder";
 function AdminHome() {
   const history = useHistory();
   const { path } = useRouteMatch();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const login = () => {
+    const login = async () => {
       setLoading(true);
       const token = localStorage.getItem("admin-auth-token");
       if (!token) {
         history.push("/admin/login");
       } else {
-        isLoggedIn();
+        await isLoggedIn();
       }
       setLoading(false);
     };
