@@ -7,6 +7,7 @@ import { getCylinders } from "Apis/Admin/cylinder";
 
 import ContentOutline from "../ContentOutline";
 import CylinderList from "./CylinderList";
+import { Helmet } from "react-helmet";
 const ExportList = lazy(() => import("./ExportList"));
 
 function AllCylinders() {
@@ -55,6 +56,7 @@ function AllCylinders() {
         </Suspense>
       }
     >
+      <Helmet title="Cylinders" />
       <CylinderList
         loading={loading}
         data={data}
