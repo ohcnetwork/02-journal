@@ -11,7 +11,7 @@ import Cylinder from "./Cylinder";
 function AdminHome() {
   const history = useHistory();
   const { path } = useRouteMatch();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const login = async () => {

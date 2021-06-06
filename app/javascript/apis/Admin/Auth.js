@@ -22,11 +22,9 @@ const addInterceptor = (token) => {
 };
 
 export const isLoggedIn = async () => {
-  return new Promise((resolve) => {
-    const token = localStorage.getItem("admin-auth-token");
-    addInterceptor(token);
-    resolve(token);
-  });
+  const token = localStorage.getItem("admin-auth-token");
+  addInterceptor(token);
+  return token;
 };
 
 export const logout = () => {
